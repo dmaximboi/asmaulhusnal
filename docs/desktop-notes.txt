@@ -1,0 +1,42 @@
+ASMA ISLAND - Windows app (for you only)
+
+INSTALL
+1. Run Asma-Island-Setup-1.0.0-x64.exe. It installs for your user only, no admin password needed.
+2. Windows may show "Windows protected your PC" because the app is not code-signed.
+   Click "More info" then "Run anyway". This is normal for unsigned apps.
+3. On first start it asks if Asma Island should start with Windows. You can change this later from the tray icon.
+Works on 64-bit Windows 8, 8.1, 10 and 11 (built on Electron 22, the last version that supports Windows 8).
+Windows 7 is not a target.
+
+USING THE ISLAND
+- Resting: a small pill at the top centre showing only the Arabic time.
+- Put the cursor on it: it expands (time, Hijri and Gregorian date, name of the minute, next prayer countdown).
+- Scroll down with the mouse wheel, or swipe up with two fingers on a touchpad, to go to the next page:
+    1 Time   2 Hijri and Gregorian calendar (arrows change month)   3 Prayer times   4 Fasting (suhoor, iftar)
+  Scroll the other way to go back. You can also click the dots on the side or drag up and down.
+- Move the cursor away and it shrinks back.
+- At a routine alert time (prayers, suhoor, iftar and so on) it opens by itself, plays the sound and shows the dua.
+- Double-click the pill, or the tray icon, to open the full Asma Clock window (settings, routine, duas, 99 names).
+- Tray icon menu: open full app, hide or show island, start with Windows, quit.
+- Shortcut: Ctrl + Alt + I hides or shows the island (useful when a full screen video or presentation is running).
+
+SETTINGS
+Everything is set in the full Asma Clock window: language, calculation method (Muslim World League by default),
+city, prayer time fine tuning, Hijri day adjustment, which routine alerts are on, and your own adhan file.
+The island picks the changes up within a few seconds.
+
+LOCATION
+The desktop app finds your city from your internet connection (approximate, city level).
+It checks once a day and when it moves more than 25 km. You can also pick a city by hand in Settings.
+
+THINGS TO KNOW
+- The pill sits over whatever is at the top centre of the screen (for example browser tabs). Use Ctrl + Alt + I to hide it.
+- Alerts need the app running. It stays in the system tray when you close the windows.
+- No adhan recording is included. Choose your own mp3 in Settings > Adhan sound.
+- It uses the primary monitor.
+- Not tested on a real Windows machine by me. It was tested in a browser, in Electron on Linux, and the installer was
+  run under Wine. Please tell me what looks off on your PC.
+
+REBUILDING (only if you change the code)
+Install Node.js, open a terminal in this folder, then:  npm install  and then  npm run dist
+The installer appears in the dist folder. Web files live in the app folder.

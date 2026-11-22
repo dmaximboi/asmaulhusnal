@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self'; manifest-src 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Asma Island</title>
+<link rel="stylesheet" href="island.css">
+</head>
+<body>
+<div id="stage">
+  <div id="isl" class="isl c">
+    <div class="collapsed" id="coll">
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg>
+      <span id="ct" class="ct"></span>
+    </div>
+    <div class="pages" id="pages">
+      <section class="pg" data-i="0" id="pg0"></section>
+      <section class="pg" data-i="1" id="pg1"></section>
+      <section class="pg" data-i="2" id="pg2"></section>
+      <section class="pg" data-i="3" id="pg3"></section>
+      <section class="pg alert" data-i="a" id="pga"></section>
+    </div>
+    <div class="dots" id="dots"><i data-d="0"></i><i data-d="1"></i><i data-d="2"></i><i data-d="3"></i></div>
+  </div>
+</div>
+<script src="names.js"></script>
+<script src="content.js"></script>
+<script src="core.js"></script>
+<script src="island.js"></script>
+</body>
+</html>

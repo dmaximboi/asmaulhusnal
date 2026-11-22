@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ساعة الأسماء</string>
+    <string name="title_activity_main">ساعة الأسماء</string>
+    <string name="alarm_test_title">اختبار التنبيه الدقيق</string>
+    <string name="alarm_test_body">هذا يتحقق مما إذا كان أندرويد يستطيع إظهار إشعار في الوقت المحدد، وهذا لازم للأذان. اضغط الزر ثم اترك التطبيق أو اقفل الشاشة. يفترض أن يظهر الإشعار بعد دقيقة.</string>
+    <string name="alarm_test_schedule">نبّه بعد دقيقة</string>
+    <string name="alarm_test_open_clock">فتح ساعة الأسماء</string>
+    <string name="alarm_test_status_idle">لا يوجد اختبار مجدول بعد.</string>
+    <string name="alarm_test_status_set">تم ضبط الإشعار عند %1$s. يمكنك مغادرة التطبيق.</string>
+    <string name="alarm_test_need_notif">اسمح بالإشعارات ثم اضغط مرة أخرى.</string>
+    <string name="alarm_test_need_exact">اسمح بالتنبيهات الدقيقة لهذا التطبيق ثم اضغط مرة أخرى.</string>
+    <string name="alarm_channel_name">اختبار التنبيه</string>
+    <string name="alarm_channel_desc">اختبار واحد للإشعارات في الوقت المحدد</string>
+    <string name="alarm_notif_title">ساعة الأسماء</string>
+    <string name="alarm_notif_body">اختبار التنبيه الدقيق. تم جدولة هذا الإشعار قبل دقيقة.</string>
+</resources>

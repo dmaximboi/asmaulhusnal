@@ -1,0 +1,46 @@
+ASMA CLOCK - deploy notes (for you only)
+
+DEPLOY ON NETLIFY
+1. Go to app.netlify.com/drop
+2. Drag the whole "asma" folder (the one containing index.html) onto the page.
+3. Open the site link on your phone in Chrome (Android) or Safari (iPhone).
+   Android: menu > Install app / Add to Home screen.
+   iPhone: Share > Add to Home Screen.
+It must be served over https, which Netlify does by default. Location, notifications,
+install and offline mode all need https.
+
+WHAT IT DOES
+- Dial: 99 names around the ring, the hand does one lap every 60 seconds, passed names turn grey,
+  the current one is highlighted. Hour and minute hands sit in the centre.
+- Under the dial: digital time (Arabic numerals), Gregorian and Hijri date.
+- The big name below changes every minute and cycles through all 99 in order
+  (minutes since midnight, modulo 99). Settings > "Name shown below the dial" can switch it to
+  the name under the hand.
+- Prayer times are calculated on the device (no internet needed after first load).
+  Default method is Muslim World League. UOIF, Egyptian, Karachi, ISNA and Umm al-Qura are in Settings.
+- Location is detected automatically. It is rechecked every new day and whenever you reopen the app,
+  and the times are recalculated. You can also pick a city or tap Update my location.
+- Imsak, Suhoor, Iftar countdown, sunnah fast day tags (Mon, Thu, white days, Arafah, Ashura),
+  Ramadan is detected automatically.
+- Hijri calendar and Gregorian calendar with Islamic dates, prayer times for any selected day.
+- Routine tab: pre-built items (wake for suhoor, Fajr, adhkar, Quran, Duha, five prayers, Iftar,
+  Witr, sleep). Switch on what you want, edit times, add your own.
+- Duas tab: 27 daily duas with Arabic, English, French, sources, plus all 99 names with search.
+- Languages: English, French, Arabic (right to left).
+
+LIMITS TO KNOW
+- It installs as an app icon, not a true home screen widget.
+- Alerts and adhan sound work while the app is open or recently in the background.
+  Browsers do not let a web app wake itself when closed or with the screen locked.
+  Notifications are shown if the app is still alive in the background.
+- Sound only plays after you have tapped on the page once.
+- No adhan recording is included (rights). In Settings > Adhan sound > Choose audio file you can
+  pick your own mp3, it is stored on the phone.
+- Hijri dates can differ by one day from your local moon sighting announcement.
+  Use Settings > Hijri date adjustment (-2 to +2).
+- The Hijri day changes at Maghrib by default (Settings can turn that off).
+- Prayer times use the phone's own timezone setting.
+
+UPDATING
+After you upload a new version, open the app twice so the new files replace the cached ones.
+If you change files, edit CACHE = 'asma-v1' in sw.js to 'asma-v2' to force the refresh.

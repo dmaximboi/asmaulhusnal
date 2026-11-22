@@ -1,0 +1,52 @@
+{
+  "name": "asma-island",
+  "version": "1.0.0",
+  "description": "Asma Island: Arabic clock, Hijri calendar and prayer times in a floating island",
+  "main": "main.js",
+  "author": "Digital26",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-web.js",
+    "start": "npm run sync && electron .",
+    "dist": "npm run sync && electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "electron": "22.3.27",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "online.digital26.asmaisland",
+    "productName": "Asma Island",
+    "artifactName": "Asma-Island-Setup-${version}-${arch}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "app/**/*",
+      "build/tray.png"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": false,
+      "signDlls": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Asma Island",
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico"
+    },
+    "publish": null
+  }
+}

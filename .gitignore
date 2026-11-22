@@ -1,0 +1,8 @@
+node_modules/
+dist/
+desktop/app/
+*.keystore
+*.jks
+.env
+.env.*
+local.properties

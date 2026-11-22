@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Asma Clock</string>
+    <string name="title_activity_main">Asma Clock</string>
+    <string name="package_name">online.digital26.asmaclock</string>
+    <string name="custom_url_scheme">online.digital26.asmaclock</string>
+    <string name="alarm_test_title">Exact alarm test</string>
+    <string name="alarm_test_body">This checks whether Android can fire a notification at an exact time, which we need for the adhan. Tap the button, then leave the app or lock the phone. A notification should appear after one minute.</string>
+    <string name="alarm_test_schedule">Notify in 1 minute</string>
+    <string name="alarm_test_open_clock">Open Asma Clock</string>
+    <string name="alarm_test_status_idle">No test scheduled yet.</string>
+    <string name="alarm_test_status_set">Notification set for %1$s. You can leave the app.</string>
+    <string name="alarm_test_need_notif">Allow notifications, then tap again.</string>
+    <string name="alarm_test_need_exact">Allow exact alarms for this app, then tap again.</string>
+    <string name="alarm_channel_name">Alarm test</string>
+    <string name="alarm_channel_desc">One-shot test of exact-time notifications</string>
+    <string name="alarm_notif_title">Asma Clock</string>
+    <string name="alarm_notif_body">Exact alarm test. This notification was scheduled one minute ago.</string>
+</resources>
+

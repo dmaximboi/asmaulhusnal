@@ -1,0 +1,30 @@
+ASMA CLOCK - Android exact-alarm test (task 3)
+
+WHAT THIS BUILD IS
+The first Android wrapper. The clock UI is still the web app. On launch you get a
+native test screen, not the clock. That screen schedules one exact notification
+one minute from now. This is the highest-risk piece (adhan on time).
+
+HOW TO GET THE APK
+This PC does not use Android Studio. Build in GitHub Actions:
+1. Push this repo (or run the workflow "Android debug APK" by hand).
+2. Open the workflow run. Download the artifact asma-clock-debug.
+3. Install the APK on a phone (allow unknown sources). Debug APKs are unsigned.
+
+HOW TO TEST
+1. Open Asma Clock. You should see "Exact alarm test" (French or Arabic if the
+   phone language is fr or ar).
+2. Tap "Notify in 1 minute". Allow notifications if Android asks. On some phones
+   you must also allow exact alarms, then tap the button again.
+3. Leave the app or lock the phone. After about one minute a notification should
+   appear: "Exact alarm test. This notification was scheduled one minute ago."
+4. Tap "Open Asma Clock" to load the usual web app in the WebView.
+
+If the notification is late or missing, note the phone brand and Android version.
+Tecno, Infinix and Xiaomi often kill background work; we will add battery-optimisation
+guidance later.
+
+REBUILDING
+From the repo root: npm ci && npx cap sync android
+Then in android/: ./gradlew assembleDebug
+Do not edit android/app/src/main/assets/public by hand. It is copied from web/.

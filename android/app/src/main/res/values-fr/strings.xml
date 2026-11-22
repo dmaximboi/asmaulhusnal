@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Asma Clock</string>
+    <string name="title_activity_main">Asma Clock</string>
+    <string name="alarm_test_title">Test d\'alarme exacte</string>
+    <string name="alarm_test_body">Ceci verifie si Android peut afficher une notification a l\'heure exacte, ce dont nous avons besoin pour l\'adhan. Appuyez sur le bouton, puis quittez l\'application ou verrouillez le telephone. Une notification doit apparaitre apres une minute.</string>
+    <string name="alarm_test_schedule">Notifier dans 1 minute</string>
+    <string name="alarm_test_open_clock">Ouvrir Asma Clock</string>
+    <string name="alarm_test_status_idle">Aucun test programme.</string>
+    <string name="alarm_test_status_set">Notification prevue pour %1$s. Vous pouvez quitter l\'application.</string>
+    <string name="alarm_test_need_notif">Autorisez les notifications, puis appuyez de nouveau.</string>
+    <string name="alarm_test_need_exact">Autorisez les alarmes exactes pour cette application, puis appuyez de nouveau.</string>
+    <string name="alarm_channel_name">Test d\'alarme</string>
+    <string name="alarm_channel_desc">Test unique des notifications a l\'heure exacte</string>
+    <string name="alarm_notif_title">Asma Clock</string>
+    <string name="alarm_notif_body">Test d\'alarme exacte. Cette notification a ete programmee il y a une minute.</string>
+</resources>

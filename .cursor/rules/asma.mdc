@@ -1,0 +1,12 @@
+---
+description: Asma Clock project rules
+alwaysApply: true
+---
+Read docs/PROJECT.md first and follow it. Key rules:
+- web/ is plain HTML, CSS and vanilla JS only. No frameworks, no npm packages, no inline or external scripts (CSP).
+- desktop/app is generated from web/. Never edit it by hand.
+- Small steps, one feature per change. Tell the owner which files changed and how to test.
+- Never put secrets in the repo. Never invent Quran, hadith, dua or Arabic root content. Cite sources.
+- Do not rename existing globals, files or the localStorage key asma.v1.
+- No em dashes, no emojis, no music, no images of people or animals in the app.
+- Ask when unclear.

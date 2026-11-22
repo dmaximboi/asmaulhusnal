@@ -1,0 +1,8 @@
+{
+  "appId": "online.digital26.asmaclock",
+  "appName": "Asma Clock",
+  "webDir": "web",
+  "android": {
+    "path": "android"
+  }
+}

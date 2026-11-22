@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alarm_bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/alarm_test_title"
+            android:textColor="@color/alarm_text"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="@string/alarm_test_body"
+            android:textColor="@color/alarm_muted"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnSchedule"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="28dp"
+            android:backgroundTint="@color/alarm_btn"
+            android:text="@string/alarm_test_schedule"
+            android:textAllCaps="false"
+            android:textColor="@color/alarm_btn_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:minHeight="44dp"
+            android:text="@string/alarm_test_status_idle"
+            android:textColor="@color/alarm_text"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnOpenClock"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:backgroundTint="@color/alarm_text"
+            android:text="@string/alarm_test_open_clock"
+            android:textAllCaps="false"
+            android:textColor="@color/alarm_bg"
+            android:textSize="16sp" />
+    </LinearLayout>
+</ScrollView>

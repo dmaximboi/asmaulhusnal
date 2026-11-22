@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self'; manifest-src 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Asma Clock</title>
+<meta name="description" content="Analog clock with the 99 Names of Allah, prayer times, Hijri calendar and daily routine.">
+<meta name="theme-color" content="#141414">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Asma Clock">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/amiri-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <div class="brand" id="brand">Asma Clock</div>
+    <div class="acts">
+      <button class="ib" data-act="settings" id="btnSettings" aria-label="Settings">
+        <svg viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 12h3M11 12h9M4 17h11M19 17h1"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="view" id="v-clock"></section>
+    <section class="view" id="v-prayer"></section>
+    <section class="view" id="v-calendar"></section>
+    <section class="view" id="v-routine"></section>
+    <section class="view" id="v-duas"></section>
+  </main>
+</div>
+
+<nav class="nav" id="nav"><div class="in">
+  <button data-act="tab" data-tab="clock"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span></span></button>
+  <button data-act="tab" data-tab="prayer"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><span></span></button>
+  <button data-act="tab" data-tab="calendar"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span></span></button>
+  <button data-act="tab" data-tab="routine"><svg viewBox="0 0 24 24"><path d="M10 6h10M10 12h10M10 18h10M3.5 6.5l1.5 1.5 2.5-3M3.5 12.5l1.5 1.5 2.5-3M3.5 18.5l1.5 1.5 2.5-3"/></svg><span></span></button>
+  <button data-act="tab" data-tab="duas"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M8 7h8M8 11h6"/></svg><span></span></button>
+</div></nav>
+
+<div class="sheet" id="sheet" hidden><div class="in" id="sheetIn"></div></div>
+<div id="toast"></div>
+
+<noscript><p style="padding:24px">JavaScript is required.</p></noscript>
+
+<script src="names.js"></script>
+<script src="content.js"></script>
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
