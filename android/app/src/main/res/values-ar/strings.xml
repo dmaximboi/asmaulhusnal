@@ -14,4 +14,7 @@
     <string name="alarm_channel_desc">اختبار واحد للإشعارات في الوقت المحدد</string>
     <string name="alarm_notif_title">ساعة الأسماء</string>
     <string name="alarm_notif_body">اختبار التنبيه الدقيق. تم جدولة هذا الإشعار قبل دقيقة.</string>
+    <string name="alarm_test_battery">السماح بالتنبيهات أثناء الخمول</string>
+    <string name="alarm_test_battery_ok">توفير البطارية متوقف مسبقا لهذا التطبيق.</string>
+    <string name="alarm_test_battery_need">أوقف تحسين البطارية لتطبيق ساعة الأسماء ثم عد إلى هنا.</string>
 </resources>

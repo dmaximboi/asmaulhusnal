@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.widget.Button
 import android.widget.TextView
@@ -27,6 +28,21 @@ class AlarmTestActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btnOpenClock).setOnClickListener {
             startActivity(Intent(this, MainActivity::class.java))
         }
+        findViewById<Button>(R.id.btnBattery).setOnClickListener { askIgnoreBattery() }
+    }
+
+    private fun askIgnoreBattery() {
+        val pm = getSystemService(POWER_SERVICE) as PowerManager
+        if (pm.isIgnoringBatteryOptimizations(packageName)) {
+            status.setText(R.string.alarm_test_battery_ok)
+            return
+        }
+        status.setText(R.string.alarm_test_battery_need)
+        startActivity(
+            Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(
+                Uri.parse("package:$packageName")
+            )
+        )
     }
 
     private fun trySchedule() {

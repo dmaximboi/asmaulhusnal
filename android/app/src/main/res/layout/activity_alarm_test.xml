@@ -52,10 +52,21 @@
             android:textSize="16sp" />
 
         <Button
-            android:id="@+id/btnOpenClock"
+            android:id="@+id/btnBattery"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="24dp"
+            android:backgroundTint="@color/alarm_text"
+            android:text="@string/alarm_test_battery"
+            android:textAllCaps="false"
+            android:textColor="@color/alarm_bg"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnOpenClock"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
             android:backgroundTint="@color/alarm_text"
             android:text="@string/alarm_test_open_clock"
             android:textAllCaps="false"

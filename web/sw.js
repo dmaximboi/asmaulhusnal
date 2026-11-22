@@ -1,5 +1,5 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v1';
+const CACHE = 'asma-v9';
 const ASSETS = [
   './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'names.js',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',

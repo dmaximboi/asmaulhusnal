@@ -14,4 +14,7 @@
     <string name="alarm_channel_desc">Test unique des notifications a l\'heure exacte</string>
     <string name="alarm_notif_title">Asma Clock</string>
     <string name="alarm_notif_body">Test d\'alarme exacte. Cette notification a ete programmee il y a une minute.</string>
+    <string name="alarm_test_battery">Autoriser les alertes en veille</string>
+    <string name="alarm_test_battery_ok">L\'economie de batterie est deja desactivee pour cette application.</string>
+    <string name="alarm_test_battery_need">Desactivez l\'optimisation de batterie pour Asma Clock, puis revenez ici.</string>
 </resources>

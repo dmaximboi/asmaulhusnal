@@ -19,7 +19,7 @@ const DEF = {
   adj: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
   imsakMin: 10, hijriAdj: 0, hijriMaghrib: true, weekStart: 1,
   loc: { auto: true, lat: 5.36, lng: -4.0083, name: 'Abidjan' },
-  notif: false, sound: 'chime', wake: false, panel: 'minute',
+  notif: false, sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', wake: false, panel: 'minute',
   routine: null, fasting: {}, tab: 'clock', calMode: 'hijri', lastCheck: null, checkedAt: null, fresh: true
 };
 let S = load();
@@ -32,6 +32,7 @@ function load() {
   o.loc = Object.assign(clone(DEF.loc), s.loc || {});
   if (!Array.isArray(o.routine)) o.routine = clone(D.ROUTINE);
   if (!o.fasting || typeof o.fasting !== 'object') o.fasting = {};
+  if (!s.adhanMaghrib && s.adhanOther) o.adhanMaghrib = s.adhanOther;
   if (!s.lang) { const nl = (navigator.language || 'en').slice(0, 2); if (nl === 'fr' || nl === 'ar') o.lang = nl; }
   return o;
 }
@@ -97,14 +98,19 @@ function fastInfo(d) {
   const h = hijriOf(d), dow = d.getDay(), tags = [];
   const forbidden = (h.m === 10 && h.d === 1) || (h.m === 12 && h.d >= 10 && h.d <= 13);
   const ramadan = h.m === 9;
+  let season = null;
+  if (ramadan) season = 'ramadan';
+  else if (h.m === 8) season = 'fastShaban';
+  else if (h.m === 10 && h.d >= 2) season = 'fastShawwal';
   if (!forbidden && !ramadan) {
     if (dow === 1) tags.push('fastMon');
     if (dow === 4) tags.push('fastThu');
     if (h.d >= 13 && h.d <= 15) tags.push('fastWhite');
     if (h.m === 12 && h.d === 9) tags.push('fastArafah');
     if (h.m === 1 && (h.d === 9 || h.d === 10)) tags.push('fastAshura');
+    if (h.m === 10 && h.d >= 2 && h.d <= 7) tags.push('fastShawwal');
   }
-  return { forbidden, ramadan, tags };
+  return { forbidden, ramadan, tags, season };
 }
 function isFasting(d) {
   const fi = fastInfo(d);
@@ -267,6 +273,7 @@ function renderLive(now) {
     const tags = [];
     if (fi.ramadan) tags.push(t('ramadan'));
     fi.tags.forEach(k => tags.push(t(k)));
+    if (fi.season === 'fastShaban' && !fi.ramadan) tags.push(t('fastShaban'));
     if (tags.length) s += '<div class="tags">' + esc(t('sunnahFast')) + ': ' + esc(tags.join(' · ')) + '</div>';
     if (fasting) {
       let lbl, ms, pct = 0;
@@ -366,20 +373,29 @@ function renderCalendar() {
   for (let i = 0; i < len; i++) {
     const d = addDays(first, i), h = hijriOf(d);
     const main = S.calMode === 'hijri' ? h.d : d.getDate(), small = S.calMode === 'hijri' ? d.getDate() : h.d;
-    const ev = eventsOn(d).length;
-    s += '<button class="cell' + (sameDay(d, now) ? ' today' : '') + (sameDay(d, cal.sel) ? ' sel' : '') + (d.getDay() === 5 ? ' fri' : '') + '" data-act="calSel" data-date="' + dkey(d) + '">' +
-      (ev ? '<span class="dot"></span>' : '') + '<b>' + nA(main) + '</b><em>' + nA(small) + '</em></button>';
+    const ev = eventsOn(d).length, fiDay = fastInfo(d);
+    const fastCls = fiDay.ramadan ? ' ram' : (fiDay.forbidden ? ' nofast' : (fiDay.tags.length ? ' sunfast' : ''));
+    s += '<button class="cell' + fastCls + (sameDay(d, now) ? ' today' : '') + (sameDay(d, cal.sel) ? ' sel' : '') + (d.getDay() === 5 ? ' fri' : '') + '" data-act="calSel" data-date="' + dkey(d) + '">' +
+      (ev ? '<span class="dot"></span>' : '') +
+      ((fiDay.tags.length || fiDay.ramadan) && !fiDay.forbidden ? '<span class="fmark"></span>' : '') +
+      '<b>' + nA(main) + '</b><em>' + nA(small) + '</em></button>';
   }
   s += '</div>';
+  s += '<p class="note">' + esc(t('calFastHint')) + '</p>';
+  s += '<div class="calkey"><span><i class="k sun"></i>' + esc(t('fastMark')) + '</span><span><i class="k ram"></i>' + esc(t('fastRamMark')) + '</span><span><i class="k no"></i>' + esc(t('fastNoMark')) + '</span></div>';
 
   /* selected day */
   const sd = cal.sel, sh = hijriOf(sd), st = timesFor(sd), fi = fastInfo(sd);
   s += '<div class="card"><h3>' + esc(t('dayDetails')) + '</h3><div class="dayhd"><b>' + esc(fmtGreg(sd, true)) + '</b><span>' + esc(fmtHijri(sh)) + '</span></div>';
   const evs = eventsOn(sd);
   evs.forEach(e => { s += '<div class="note" style="color:var(--acc)">' + esc(e) + '</div>'; });
-  const tg = []; if (fi.ramadan) tg.push(t('ramadan')); fi.tags.forEach(k => tg.push(t(k)));
+  const tg = [];
+  if (fi.ramadan) tg.push(t('ramadan'));
+  fi.tags.forEach(k => tg.push(t(k)));
+  if (fi.season === 'fastShaban' && !fi.ramadan) tg.push(t('fastShaban'));
+  if (fi.season === 'fastShawwal' && fi.tags.indexOf('fastShawwal') < 0) tg.push(t('fastShawwal'));
   if (fi.forbidden) s += '<div class="note">' + esc(t('fastNo')) + '</div>';
-  else if (tg.length) s += '<div class="note">' + esc(t('sunnahFast')) + ': ' + esc(tg.join(' · ')) + '</div>';
+  else if (tg.length) s += '<div class="note">' + esc((fi.ramadan ? '' : t('sunnahFast') + ': ') + tg.join(' · ')) + '</div>';
   s += '<div class="ptg">';
   ['imsak', 'fajr', 'sunrise', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => { s += '<div><span>' + esc(t(k)) + '</span><b>' + fmtHM(st[k]) + '</b></div>'; });
   s += '</div></div>';
@@ -387,6 +403,10 @@ function renderCalendar() {
   /* month events */
   const list = [];
   for (let i = 0; i < len; i++) { const d = addDays(first, i); eventsOn(d).forEach(e => list.push([d, e])); }
+  const monthH = S.calMode === 'hijri' ? cal.hm : hijriOf(first).m;
+  if (monthH === 8) list.unshift([first, t('fastShabanNote')]);
+  if (monthH === 9) list.unshift([first, t('ramadan')]);
+  if (monthH === 10) list.unshift([addDays(first, 1), t('fastShawwalNote')]);
   s += '<div class="card"><h3>' + esc(t('monthEvents')) + '</h3>';
   if (!list.length) s += '<div class="note" style="margin:0">' + esc(t('noEvents')) + '</div>';
   list.forEach(x => { s += '<div class="evl"><span>' + nA(x[0].getDate()) + ' ' + esc(D.MONTHS_G[S.lang][x[0].getMonth()].slice(0, 3)) + '</span><div>' + esc(x[1]) + '</div></div>'; });
@@ -416,7 +436,7 @@ function renderRoutine() {
   const now = new Date();
   const items = S.routine.map(it => ({ it, at: itemTime(it, now) })).filter(x => x.at).sort((a, b) => a.at - b.at);
   const nextId = (items.find(x => x.at > now && x.it.on) || {}).it;
-  let s = '<div class="pagehead"><h2>' + esc(t('routineTitle')) + '</h2><p>' + esc(t('routineSub')) + '</p></div>';
+  let s = '<div class="pagehead"><h2>' + esc(t('routineTitle')) + '</h2><p>' + esc(capPlugin('AsmaAlarms') ? t('androidRoutineSub') : t('routineSub')) + '</p></div>';
   items.forEach(x => {
     const it = x.it;
     s += '<div class="row' + (nextId === it ? ' next' : '') + (x.at < now ? ' past' : '') + '"><button style="flex:1;text-align:start" data-act="rtEdit" data-id="' + esc(it.id) + '"><div class="rn">' + esc(itemLabel(it)) + '</div><div class="rs">' + esc(itemSub(it)) + '</div></button>' +
@@ -427,7 +447,7 @@ function renderRoutine() {
 }
 function openRoutineEditor(id) {
   const isNew = !id;
-  const it = isNew ? { id: 'c' + Date.now(), name: '', fixed: '06:00', on: true } : S.routine.find(x => x.id === id);
+  const it = isNew ? { id: 'c' + Date.now(), name: '', fixed: '06:00', on: true, adhan: true } : S.routine.find(x => x.id === id);
   if (!it) return;
   const fixedMode = !!it.fixed;
   const pr = ['imsak', 'fajr', 'sunrise', 'duha', 'dhuhr', 'asr', 'maghrib', 'isha', 'midnight', 'tahajjud'];
@@ -454,31 +474,62 @@ function openRoutineEditor(id) {
     if (f.mode.value === 'fixed') { target.fixed = f.fixed.value || '06:00'; delete target.ref; delete target.off; }
     else { target.ref = f.ref.value; target.off = parseInt(f.off.value, 10) || 0; delete target.fixed; }
     target.dua = f.dua.value || undefined; target.fast = f.fast.checked || undefined; target.on = f.on.checked;
+    if (target.on) target.adhan = true;
     if (isNew) S.routine.push(target);
     save(); firedKeys.clear(); closeSheet(); renderRoutine();
   });
 }
 
 /* ---------- duas and names ---------- */
-let duaTab = 'duas', nameQ = '';
+let duaTab = 'duas', nameQ = '', duaCat = 'all', duaQ = '';
+const duaY = {};
+const ISSUE_NEW = 'https://github.com/dmaximboi/asmaulhusnal/issues/new';
+function issueUrl(title, body) {
+  return ISSUE_NEW + '?title=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(body);
+}
+function duaCard(d) {
+  return '<div class="card dua"><div class="tt">' + esc(L(d.title)) + '</div><div class="a">' + esc(d.ar) + '</div>' +
+    (d.tr ? '<div class="tl">' + esc(d.tr) + '</div>' : '') +
+    '<div class="tx">' + esc(S.lang === 'fr' ? d.fr : d.en) + '</div>' +
+    (S.lang !== 'en' && S.lang !== 'fr' ? '<div class="tx f">' + esc(d.en) + '</div>' : '') +
+    (d.note ? '<div class="nt">' + esc(L(d.note)) + '</div>' : '') +
+    '<div class="sr">' + esc(t('source')) + ': ' + esc(d.src) + '</div></div>';
+}
 function renderDuas() {
   let s = '<div class="chead" style="margin-top:14px"><div class="pagehead" style="margin:0"><h2>' + esc(t('duasTab')) + '</h2></div><div class="seg"><button data-act="duaTab" data-v="duas" class="' + (duaTab === 'duas' ? 'on' : '') + '">' + esc(t('duasTab')) + '</button><button data-act="duaTab" data-v="names" class="' + (duaTab === 'names' ? 'on' : '') + '">' + esc(t('namesTab')) + '</button></div></div>';
   if (duaTab === 'duas') {
+    s += '<div class="dua-sticky">';
+    s += '<input class="search" id="duaQ" type="search" placeholder="' + esc(t('searchDuas')) + '" value="' + esc(duaQ) + '">';
+    s += '<div class="seg" style="flex-wrap:wrap;margin:10px 0 0">';
+    s += '<button data-act="duaCat" data-c="all" class="' + (duaCat === 'all' ? 'on' : '') + '">' + esc(t('duasAll')) + '</button>';
     D.CATS.forEach(c => {
-      const list = D.DUAS.filter(d => d.cat === c);
+      if (!D.DUAS.some(d => d.cat === c)) return;
+      s += '<button data-act="duaCat" data-c="' + c + '" class="' + (duaCat === c ? 'on' : '') + '">' + esc(t(D.CAT_KEY[c])) + '</button>';
+    });
+    s += '</div></div>';
+    const q = duaQ.trim().toLowerCase();
+    D.CATS.forEach(c => {
+      if (duaCat !== 'all' && duaCat !== c) return;
+      const list = D.DUAS.filter(d => d.cat === c && (!q || [d.ar, d.tr || '', d.en, d.fr, L(d.title), d.src].join(' ').toLowerCase().includes(q)));
       if (!list.length) return;
       s += '<div class="sub">' + esc(t(D.CAT_KEY[c])) + '</div>';
-      list.forEach(d => {
-        s += '<div class="card dua"><div class="tt">' + esc(L(d.title)) + '</div><div class="a">' + esc(d.ar) + '</div><div class="tx">' + esc(S.lang === 'fr' ? d.fr : d.en) + '</div>' +
-          (S.lang !== 'en' && S.lang !== 'fr' ? '<div class="tx f">' + esc(d.en) + '</div>' : '') +
-          (d.note ? '<div class="nt">' + esc(L(d.note)) + '</div>' : '') + '<div class="sr">' + esc(t('source')) + ': ' + esc(d.src) + '</div></div>';
-      });
+      list.forEach(d => { s += duaCard(d); });
     });
   } else {
     s += '<input class="search" id="nameQ" type="search" placeholder="' + esc(t('searchNames')) + '" value="' + esc(nameQ) + '"><div class="card" id="nameList"></div>';
   }
   $('#v-duas').innerHTML = s;
   if (duaTab === 'names') { renderNameList(); $('#nameQ').addEventListener('input', e => { nameQ = e.target.value; renderNameList(); }); }
+  const dq = $('#duaQ');
+  if (dq) dq.addEventListener('input', e => {
+    duaQ = e.target.value;
+    const pos = e.target.selectionStart;
+    duaY[duaCat] = window.scrollY;
+    renderDuas();
+    const n = $('#duaQ');
+    if (n) { n.focus(); if (typeof n.setSelectionRange === 'function') n.setSelectionRange(pos, pos); }
+  });
+  window.scrollTo(0, duaY[duaCat] || 0);
 }
 function renderNameList() {
   const q = nameQ.trim().toLowerCase();
@@ -501,8 +552,11 @@ function renderSettings() {
   const prev = $('#sheet').scrollTop;
   const notifSupported = 'Notification' in window;
   const perm = notifSupported ? Notification.permission : 'denied';
-  const cityOpts = [['__auto', t('locAuto')]].concat(D.CITIES.map(c => [c[0], c[0]]));
-  const curCity = S.loc.auto ? '__auto' : (D.CITIES.find(c => c[0] === S.loc.name) ? S.loc.name : '__auto');
+  const listed = D.CITIES.some(c => c[0] === S.loc.name);
+  const cityOpts = [['__auto', t('locAuto')]];
+  if (!S.loc.auto && !listed) cityOpts.push(['__custom', S.loc.name || t('locCustom')]);
+  D.CITIES.forEach(c => cityOpts.push([c[0], c[0]]));
+  const curCity = S.loc.auto ? '__auto' : (listed ? S.loc.name : '__custom');
   let s = '<div class="sh"><h2>' + esc(t('settings')) + '</h2><button class="ib" data-act="closeSheet" aria-label="' + esc(t('close')) + '"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
 
   s += '<div class="set"><div class="st">' + esc(t('setLanguage')) + '</div>' +
@@ -515,7 +569,11 @@ function renderSettings() {
 
   s += '<div class="set"><div class="st">' + esc(t('setLocation')) + '</div>' +
     '<div class="r"><span>' + esc(S.loc.name) + '<small>' + nA(S.loc.lat.toFixed(3)) + ', ' + nA(S.loc.lng.toFixed(3)) + '</small></span><button class="btn sm" data-act="locUpdate">' + esc(t('locUpdate')) + '</button></div>' +
-    '<div class="r"><span>' + esc(t('locManual')) + '</span>' + select('city', curCity, cityOpts) + '</div></div>';
+    '<div class="r"><span>' + esc(t('locManual')) + '</span>' + select('city', curCity, cityOpts) + '</div>' +
+    '<label class="field"><span>' + esc(t('latLbl')) + '</span><input type="number" id="locLat" step="0.0001" min="-90" max="90" value="' + S.loc.lat + '"></label>' +
+    '<label class="field"><span>' + esc(t('lngLbl')) + '</span><input type="number" id="locLng" step="0.0001" min="-180" max="180" value="' + S.loc.lng + '"></label>' +
+    '<label class="field"><span>' + esc(t('locName')) + '</span><input type="text" id="locName" maxlength="60" value="' + esc(S.loc.auto ? '' : S.loc.name) + '"></label>' +
+    '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="locApply">' + esc(t('locApply')) + '</button></div></div>';
 
   s += '<div class="set"><div class="st">' + esc(t('timesTitle')) + '</div>' +
     '<div class="r"><span>' + esc(t('setMethod')) + '</span>' + select('method', S.method, [['MWL', 'Muslim World League'], ['UOIF', 'UOIF (France)'], ['EGYPT', 'Egyptian Authority'], ['KARACHI', 'Karachi'], ['ISNA', 'ISNA'], ['UMM', 'Umm al-Qura']]) + '</div>' +
@@ -526,18 +584,80 @@ function renderSettings() {
     '<div class="r"><span>' + esc(t('setHijriMaghrib')) + '</span>' + toggle('hijriMaghrib', S.hijriMaghrib) + '</div></div>';
 
   s += '<div class="set"><div class="st">' + esc(t('setNotif')) + '</div>' +
-    '<div class="r"><span>' + esc(perm === 'granted' && S.notif ? t('notifOn') : t('notifEnable')) + (perm === 'denied' && notifSupported ? '<small>' + esc(t('notifBlocked')) + '</small>' : '') + '</span>' + (perm === 'granted' && S.notif ? toggle('notifOff', true) : '<button class="btn sm" data-act="notifOn"' + (notifSupported && perm !== 'denied' ? '' : ' disabled') + '>' + esc(t('notifEnable')) + '</button>') + '</div>' +
-    '<div class="r"><span>' + esc(t('setSound')) + '</span>' + select('sound', S.sound, [['chime', t('soundChime')], ['file', t('soundFile')], ['off', t('soundOff')]]) + '</div>' +
-    '<div class="r"><span>' + esc(t('soundFile')) + '</span><span class="btns" style="margin:0"><label class="btn sm" style="cursor:pointer">' + esc(t('soundChoose')) + '<input type="file" accept="audio/*" id="adhanFile" hidden></label><button class="btn sm" data-act="soundTest">' + esc(t('soundTest')) + '</button></span></div>' +
-    '<div class="r"><span>' + esc(t('setWake')) + '</span>' + toggle('wake', S.wake, !('wakeLock' in navigator)) + '</div></div>';
+    '<div class="r"><span>' + esc(S.notif && perm === 'granted' ? t('notifOn') : t('notifEnable')) + (perm === 'denied' ? '<small>' + esc(t('notifBlocked')) + '</small>' : '') + '</span>' + toggle('notif', !!(S.notif && perm === 'granted'), !notifSupported || perm === 'denied') + '</div>' +
+    '<div class="r"><span>' + esc(t('setSound')) + '</span>' + select('sound', S.sound, [['bundled', t('soundBundled')], ['chime', t('soundChime')], ['file', t('soundFile')], ['off', t('soundOff')]]) + '</div>' +
+    (S.sound === 'bundled' ? (function () {
+      const opts = [['1', t('soundAdhan1')], ['2', t('soundAdhan2')], ['3', t('soundAdhan3')]];
+      return '<div class="r"><span>' + esc(t('setAdhanFajr')) + '</span>' + select('adhanFajr', S.adhanFajr || '2', opts) + '</div>' +
+        '<div class="r"><span>' + esc(t('setAdhanDhuhr')) + '</span>' + select('adhanDhuhr', S.adhanDhuhr || '3', opts) + '</div>' +
+        '<div class="r"><span>' + esc(t('setAdhanMaghrib')) + '</span>' + select('adhanMaghrib', S.adhanMaghrib || '1', opts) + '</div>' +
+        '<p class="note">' + esc(t('soundCredits')) + '</p>';
+    })() : '') +
+    '<div class="r"><span>' + esc(t('soundFile')) + '</span><span class="btns" style="margin:0"><label class="btn sm" style="cursor:pointer">' + esc(t('soundChoose')) + '<input type="file" accept="audio/*" id="adhanFile" hidden></label><button class="btn sm" data-act="soundTest">' + esc(t('soundTest')) + '</button></span></div></div>' +
+    (capPlugin('AsmaAlarms') ? ('<div class="set"><div class="st">' + esc(t('androidAlarms')) + '</div>' +
+      '<p class="note">' + esc(t('androidAlarmsHint')) + '</p>' +
+      '<p class="note" id="androidAlarmStatus">' + esc(t('androidAlarmsWait')) + '</p>' +
+      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="androidReady">' + esc(t('androidAlarmsAllow')) + '</button></div></div>') : '');
+
+  s += '<div class="set"><div class="st">' + esc(t('reportBug')) + '</div>' +
+    '<p class="note">' + esc(t('reportBugHint')) + '</p>' +
+    '<p class="note">' + esc(t('reportContentHint')) + '</p>' +
+    '<label class="field"><span>' + esc(t('reportBug')) + '</span><textarea id="bugBody" rows="4" maxlength="2000"></textarea></label>' +
+    '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="reportBug">' + esc(t('reportBugGo')) + '</button></div></div>';
 
   s += '<div class="btns"><button class="btn danger" data-act="resetAll">' + esc(t('reset')) + '</button></div>';
   openSheet(s, prev);
+  refreshAndroidStatus();
   const f = $('#adhanFile');
   if (f) f.addEventListener('change', async () => {
     const file = f.files && f.files[0]; if (!file) return;
     try { await idbSet('adhan', file); S.sound = 'file'; save(); adhanUrl = null; toast(t('soundSaved')); renderSettings(); } catch (e) { toast('Could not save the file'); }
   });
+}
+
+function capPlugin(name) {
+  try {
+    const cap = window.Capacitor;
+    if (!cap || typeof cap.isNativePlatform !== 'function' || !cap.isNativePlatform()) return null;
+    return (cap.Plugins && cap.Plugins[name]) || null;
+  } catch (e) { return null; }
+}
+function prayerSlotOn(k) {
+  const it = S.routine.find(x => x.key === k);
+  return !it || it.on !== false;
+}
+function syncAndroidAlarms() {
+  const pl = capPlugin('AsmaAlarms');
+  if (!pl) return;
+  if (S.sound === 'off') {
+    pl.cancelAll().catch(() => {});
+    return;
+  }
+  const now = new Date();
+  const keys = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+  const today = timesFor(now);
+  const tom = timesFor(addDays(now, 1));
+  const items = [];
+  keys.forEach(k => {
+    if (!prayerSlotOn(k)) return;
+    let at = today[k];
+    if (!at || at.getTime() <= now.getTime() + 15000) at = tom[k];
+    if (!at) return;
+    items.push({ id: k, at: at.getTime(), key: k, title: t('timeFor') + ' ' + t(k), body: fmtHM(at) });
+  });
+  pl.schedule({ items: items }).catch(() => {});
+}
+function refreshAndroidStatus() {
+  const el = $('#androidAlarmStatus');
+  const pl = capPlugin('AsmaAlarms');
+  if (!el || !pl || typeof pl.getStatus !== 'function') return;
+  pl.getStatus().then(st => {
+    const parts = [];
+    parts.push(st.exact ? t('androidExactOk') : t('androidExactNeed'));
+    parts.push(st.battery ? t('androidBatteryOk') : t('androidBatteryNeed'));
+    parts.push(st.notif ? t('androidNotifOk') : t('androidNotifNeed'));
+    el.textContent = parts.join(' ');
+  }).catch(() => {});
 }
 
 function setPath(path, val) {
@@ -550,9 +670,9 @@ function afterSetting(path) {
   save();
   if (/^(method|asr|imsakMin|adj\.|hijriAdj|hijriMaghrib|loc)/.test(path)) invalidate();
   if (path === 'lang') { S.arAll = S.lang === 'ar' ? true : S.arAll; applyLang(); }
-  if (path === 'wake') applyWake();
   renderAll(true);
   if (!$('#sheet').hidden && !$('#rtForm')) renderSettings();
+  if (/^(method|asr|imsakMin|adj\.|loc|sound|lang)/.test(path)) syncAndroidAlarms();
 }
 
 /* ---------- sheet and toast ---------- */
@@ -571,23 +691,17 @@ function toast(msg, opts) {
   el.innerHTML = '<span>' + esc(msg) + '</span>';
   if (opts.action) { const b = document.createElement('button'); b.textContent = opts.action; b.addEventListener('click', () => { opts.onAction && opts.onAction(); el.remove(); }); el.appendChild(b); }
   $('#toast').appendChild(el);
-  setTimeout(() => el.remove(), opts.ms || 3800);
+  const ms = opts.ms == null ? 3800 : opts.ms;
+  if (ms > 0) setTimeout(() => { if (el.parentNode) el.remove(); }, ms);
+  return el;
 }
 
-/* ---------- language, wake lock ---------- */
+/* ---------- language ---------- */
 function applyLang() {
   document.documentElement.lang = S.lang;
   document.documentElement.dir = S.lang === 'ar' ? 'rtl' : 'ltr';
   document.title = t('appName');
 }
-let wl = null;
-async function applyWake() {
-  try {
-    if (S.wake && 'wakeLock' in navigator && document.visibilityState === 'visible') { wl = await navigator.wakeLock.request('screen'); }
-    else if (wl) { await wl.release(); wl = null; }
-  } catch (e) { /* not allowed */ }
-}
-
 /* ---------- audio ---------- */
 let actx = null, aud = null, adhanUrl = null;
 function audioCtx() {
@@ -606,15 +720,39 @@ function chime() {
     o.connect(g); g.connect(c.destination); o.start(st); o.stop(st + 1.4);
   });
 }
-async function playSound(kind) {
+function bundledPick(it) {
+  const k = it && it.key;
+  if (k === 'fajr') return S.adhanFajr || '2';
+  if (k === 'dhuhr' || k === 'asr') return S.adhanDhuhr || '3';
+  if (k === 'maghrib' || k === 'isha') return S.adhanMaghrib || '1';
+  return S.adhanFajr || '2';
+}
+function bundledSrc(it) {
+  const n = bundledPick(it);
+  return 'audio/adhan-' + (n === '2' || n === '3' ? n : '1') + '.m4a';
+}
+async function playUrl(src) {
+  if (!aud) aud = new Audio();
+  try { aud.pause(); } catch (e) { /* ignore */ }
+  aud.src = src;
+  try { aud.currentTime = 0; } catch (e) { /* ignore */ }
+  await aud.play();
+  return aud;
+}
+async function playSound(kind, it) {
+  stopSound();
+  if (!aud) aud = new Audio();
   if (S.sound === 'off') return;
-  if (S.sound === 'file' && kind === 'adhan') {
+  if (kind !== 'adhan' || S.sound === 'chime') { chime(); return; }
+  if (S.sound === 'file') {
     try {
       if (!adhanUrl) { const b = await idbGet('adhan'); if (b) adhanUrl = URL.createObjectURL(b); }
-      if (adhanUrl) { if (!aud) aud = new Audio(); aud.src = adhanUrl; aud.currentTime = 0; await aud.play(); toast(t('soundTest'), { action: t('stop'), onAction: stopSound, ms: 20000 }); return; }
+      if (adhanUrl) { await playUrl(adhanUrl); return; }
     } catch (e) { /* fall back */ }
+    chime();
+    return;
   }
-  chime();
+  try { await playUrl(bundledSrc(it)); } catch (e) { chime(); }
 }
 function stopSound() { if (aud) { aud.pause(); aud.currentTime = 0; } }
 function unlockAudio() {
@@ -625,6 +763,12 @@ function unlockAudio() {
       adhanUrl = URL.createObjectURL(b); aud = new Audio(adhanUrl); aud.muted = true;
       aud.play().then(() => { aud.pause(); aud.muted = false; aud.currentTime = 0; }).catch(() => { aud.muted = false; });
     }).catch(() => {});
+  } else if (S.sound === 'bundled' || !S.sound) {
+    try {
+      aud = new Audio(bundledSrc({ key: 'dhuhr' }));
+      aud.muted = true;
+      aud.play().then(() => { aud.pause(); aud.muted = false; aud.currentTime = 0; }).catch(() => { aud.muted = false; });
+    } catch (e) { /* ignore */ }
   }
 }
 function idb() {
@@ -653,16 +797,95 @@ function checkAlerts(now) {
       fireAlert(it, at);
     }
   });
+  checkDayNotices(now);
+}
+function pickQuote(kinds, day) {
+  const all = D.FAST_QUOTES || [];
+  let list = all.filter(q => (q.for || []).some(k => kinds.indexOf(k) >= 0));
+  if (!list.length) list = all.filter(q => (q.for || []).indexOf('general') >= 0);
+  if (!list.length) return null;
+  const n = day.getFullYear() * 400 + day.getMonth() * 40 + day.getDate();
+  return list[Math.abs(n) % list.length];
+}
+function quoteLine(q) {
+  if (!q) return '';
+  const text = S.lang === 'ar' ? q.ar : (S.lang === 'fr' ? q.fr : q.en);
+  return t('quoteLbl') + ': ' + text + ' (' + q.src + ')';
+}
+function emitNotice(title, body, tag) {
+  toast(title + (body ? '. ' + body.split('\n')[0] : ''), { big: true, ms: 12000 });
+  if (S.notif && 'Notification' in window && Notification.permission === 'granted') {
+    const opts = { body: body || title, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: tag || 'asma-day', renotify: true, lang: S.lang, dir: S.lang === 'ar' ? 'rtl' : 'ltr' };
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then(r => r.showNotification(title, opts)).catch(() => { try { new Notification(title, opts); } catch (e) { /* ignore */ } });
+    else try { new Notification(title, opts); } catch (e) { /* ignore */ }
+  }
+}
+function dayNoticeFor(day, when) {
+  const fi = fastInfo(day), h = hijriOf(day);
+  if (fi.forbidden) {
+    const eid = (h.m === 10 && h.d === 1) ? D.EVENTS.find(e => e[0] === 10 && e[1] === 1) : D.EVENTS.find(e => e[0] === 12 && e[1] === 10);
+    const q = pickQuote(['eid'], day);
+    return { title: t('eidNoticeTitle') + (eid ? ': ' + L(eid[2]) : ''), body: t('eidNoticeBody') + '\n' + quoteLine(q) };
+  }
+  const kinds = [];
+  if (fi.ramadan) kinds.push('ramadan');
+  if (fi.tags.indexOf('fastMon') >= 0 || fi.tags.indexOf('fastThu') >= 0) kinds.push('mon');
+  if (fi.tags.indexOf('fastWhite') >= 0) kinds.push('white');
+  if (fi.tags.indexOf('fastArafah') >= 0) kinds.push('arafah');
+  if (fi.tags.indexOf('fastAshura') >= 0) kinds.push('ashura');
+  if (fi.tags.indexOf('fastShawwal') >= 0) kinds.push('shawwal');
+  if (!fi.ramadan && !fi.tags.length) return null;
+  const q = pickQuote(kinds.length ? kinds : ['general'], day);
+  const bits = [];
+  if (fi.ramadan) bits.push(h.d === 1 ? t('ramadanCome') : t('ramadanDay'));
+  else {
+    bits.push(when === 'eve' ? t('fastEveSunnah') : t('fastMornSunnah'));
+    const names = [];
+    if (fi.tags.indexOf('fastMon') >= 0) names.push(t('fastMon'));
+    if (fi.tags.indexOf('fastThu') >= 0) names.push(t('fastThu'));
+    if (fi.tags.indexOf('fastArafah') >= 0) names.push(t('fastArafah'));
+    if (fi.tags.indexOf('fastAshura') >= 0) names.push(t('fastAshura'));
+    if (fi.tags.indexOf('fastShawwal') >= 0) names.push(t('fastShawwal'));
+    if (names.length) bits.push(names.join(' · '));
+    if (fi.tags.indexOf('fastWhite') >= 0) bits.push(t(h.d === 13 ? 'white3' : (h.d === 14 ? 'white2' : 'white1')));
+  }
+  bits.push(quoteLine(q));
+  const title = fi.ramadan ? t('ramadan') : (when === 'eve' ? t('fastEveTitle') : t('fastMornTitle'));
+  return { title: title, body: bits.filter(Boolean).join('\n') };
+}
+function checkDayNotices(now) {
+  const tm = timesFor(now);
+  if (tm.fajr && now >= tm.fajr && (!tm.maghrib || now < tm.maghrib)) {
+    const k = dkey(now) + '|dayMorn';
+    if (!firedKeys.has(k)) {
+      const msg = dayNoticeFor(now, 'morn');
+      if (msg) { firedKeys.add(k); emitNotice(msg.title, msg.body, 'asma-day-morn'); }
+      else firedKeys.add(k);
+    }
+  }
+  if (tm.maghrib && now >= tm.maghrib) {
+    const k = dkey(now) + '|dayEve';
+    if (!firedKeys.has(k)) {
+      const msg = dayNoticeFor(addDays(now, 1), 'eve');
+      if (msg) { firedKeys.add(k); emitNotice(msg.title, msg.body, 'asma-day-eve'); }
+      else firedKeys.add(k);
+    }
+  }
 }
 function fireAlert(it, at) {
   const label = itemLabel(it);
   const title = t('timeFor') + ' ' + label;
   const dua = it.dua ? D.DUAS.find(d => d.id === it.dua) : null;
   const body = dua ? dua.ar : (it.fast ? t('fastAlertBody') : fmtHM(at));
-  toast(title, { big: true, ms: 9000, action: aud && !aud.paused ? t('stop') : null, onAction: stopSound });
-  playSound(it.adhan ? 'adhan' : 'chime');
+  const useAdhan = it.adhan || !it.key;
+  playSound(useAdhan ? 'adhan' : 'chime', it);
+  const hold = 12 * 60 * 1000;
+  const bar = toast(title, { big: true, ms: hold, action: t('stop'), onAction: stopSound });
+  if (aud) {
+    aud.onended = () => { if (bar && bar.parentNode) bar.remove(); };
+  }
   if (S.notif && 'Notification' in window && Notification.permission === 'granted') {
-    const opts = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'asma-' + it.id, renotify: true, lang: S.lang, dir: S.lang === 'ar' ? 'rtl' : 'ltr' };
+    const opts = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: 'asma-' + it.id, renotify: true, lang: S.lang, dir: S.lang === 'ar' ? 'rtl' : 'ltr', silent: true };
     if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then(r => r.showNotification(title, opts)).catch(() => { try { new Notification(title, opts); } catch (e) { /* ignore */ } });
     else try { new Notification(title, opts); } catch (e) { /* ignore */ }
   }
@@ -678,6 +901,21 @@ async function enableNotif() {
 }
 
 /* ---------- location and daily check ---------- */
+function applyCustomLocation() {
+  const lat = parseFloat($('#locLat') && $('#locLat').value);
+  const lng = parseFloat($('#locLng') && $('#locLng').value);
+  if (!isFinite(lat) || !isFinite(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+    toast(t('locBad'));
+    return;
+  }
+  const typed = ($('#locName') && $('#locName').value.trim()) || '';
+  S.loc = { auto: false, lat, lng, name: typed || nearestCity(lat, lng) };
+  S.fresh = false;
+  invalidate(); save(); renderAll(true);
+  syncAndroidAlarms();
+  toast(t('locOk') + ': ' + S.loc.name);
+  if (!$('#sheet').hidden) renderSettings();
+}
 function nearestCity(lat, lng) {
   let best = null, bd = 1e9;
   D.CITIES.forEach(c => { const d = C.distKm(lat, lng, c[1], c[2]); if (d < bd) { bd = d; best = c; } });
@@ -717,6 +955,7 @@ function dailyCheck(force) {
   Object.keys(S.fasting).forEach(d => { if (d < dkey(addDays(now, -2))) delete S.fasting[d]; });
   invalidate(); save();
   if (S.loc.auto) refreshLocation(false);
+  syncAndroidAlarms();
 }
 
 /* ---------- routing ---------- */
@@ -728,11 +967,13 @@ function renderTab(tab) {
   else if (tab === 'duas') renderDuas();
 }
 function showTab(tab) {
+  if (S.tab === 'duas') duaY[duaCat] = window.scrollY;
   S.tab = tab; save();
   $$('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + tab));
   renderNavLabels();
   renderTab(tab);
-  window.scrollTo(0, 0);
+  if (tab === 'duas' && duaTab === 'duas') window.scrollTo(0, duaY[duaCat] || 0);
+  else window.scrollTo(0, 0);
 }
 function renderAll() {
   renderNavLabels();
@@ -761,12 +1002,33 @@ document.addEventListener('click', ev => {
     case 'rtEdit': openRoutineEditor(b.dataset.id); break;
     case 'rtAdd': openRoutineEditor(null); break;
     case 'rtDel': S.routine = S.routine.filter(x => x.id !== b.dataset.id); save(); closeSheet(); renderRoutine(); break;
-    case 'rtReset': S.routine = clone(D.ROUTINE); save(); firedKeys.clear(); renderRoutine(); break;
-    case 'duaTab': duaTab = b.dataset.v; renderDuas(); break;
+    case 'rtReset': S.routine = clone(D.ROUTINE); save(); firedKeys.clear(); renderRoutine(); syncAndroidAlarms(); break;
+    case 'duaTab': duaY[duaCat] = window.scrollY; duaTab = b.dataset.v; renderDuas(); break;
+    case 'duaCat': duaY[duaCat] = window.scrollY; duaCat = b.dataset.c; renderDuas(); break;
+    case 'reportBug': {
+      const body = ($('#bugBody') && $('#bugBody').value.trim()) || '';
+      window.open(issueUrl('Bug or content report', body || '(describe the problem or the dua that needs a correction)'), '_blank');
+      break;
+    }
     case 'locUpdate': refreshLocation(true).then(() => { if (!$('#sheet').hidden) renderSettings(); }); break;
-    case 'notifOn': enableNotif(); break;
-    case 'soundTest': unlockAudio(); S.sound === 'off' ? toast(t('soundOff')) : playSound('adhan'); break;
-    case 'resetAll': try { localStorage.removeItem(SKEY); } catch (e) { /* ignore */ } S = load(); invalidate(); applyLang(); closeSheet(); showTab('clock'); break;
+    case 'locApply': applyCustomLocation(); break;
+    case 'soundTest': {
+      unlockAudio();
+      if (S.sound === 'off') { toast(t('soundOff')); break; }
+      const np = nextPrayer(new Date());
+      playSound('adhan', { key: np.key, adhan: true });
+      const bar = toast(t('soundTest'), { action: t('stop'), onAction: stopSound, ms: 12 * 60 * 1000 });
+      if (aud) aud.onended = () => { if (bar && bar.parentNode) bar.remove(); };
+      break;
+    }
+    case 'androidReady': {
+      const pl = capPlugin('AsmaAlarms');
+      if (pl && typeof pl.requestReady === 'function') {
+        pl.requestReady().then(() => { refreshAndroidStatus(); syncAndroidAlarms(); }).catch(() => {});
+      }
+      break;
+    }
+    case 'resetAll': try { localStorage.removeItem(SKEY); } catch (e) { /* ignore */ } S = load(); invalidate(); applyLang(); closeSheet(); showTab('clock'); syncAndroidAlarms(); break;
     default: break;
   }
 });
@@ -774,30 +1036,35 @@ document.addEventListener('click', ev => {
 document.addEventListener('change', ev => {
   const el = ev.target;
   if (el.dataset && el.dataset.rton) {
-    const it = S.routine.find(x => x.id === el.dataset.rton); if (it) { it.on = el.checked; save(); if (el.checked) { audioCtx(); } } return;
+    const it = S.routine.find(x => x.id === el.dataset.rton); if (it) { it.on = el.checked; save(); if (el.checked) { audioCtx(); } syncAndroidAlarms(); } return;
   }
   const path = el.dataset && el.dataset.set; if (!path) return;
   if (path === 'city') {
+    if (el.value === '__custom') return;
     if (el.value === '__auto') { S.loc.auto = true; refreshLocation(true); }
     else { const c = D.CITIES.find(x => x[0] === el.value); if (c) { S.loc = { auto: false, lat: c[1], lng: c[2], name: c[0] }; S.fresh = false; } }
     invalidate(); afterSetting('loc'); return;
   }
-  if (path === 'notifOff') { S.notif = false; save(); renderSettings(); return; }
+  if (path === 'notif') {
+    if (el.checked) enableNotif();
+    else { S.notif = false; save(); renderSettings(); }
+    return;
+  }
   let v = el.type === 'checkbox' ? el.checked : el.value;
   if (['asr', 'weekStart'].includes(path)) v = parseInt(v, 10);
   setPath(path, v); afterSetting(path);
 });
 
 document.addEventListener('pointerdown', function once() { unlockAudio(); document.removeEventListener('pointerdown', once); }, { once: true });
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { dailyCheck(false); applyWake(); lastSec = -1; tick(true); } });
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { dailyCheck(false); lastSec = -1; tick(true); syncAndroidAlarms(); } });
 document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !$('#sheet').hidden) closeSheet(); });
 
 /* ---------- start ---------- */
 applyLang();
 showTab(S.tab || 'clock');
 dailyCheck(false);
+syncAndroidAlarms();
 if (S.fresh && S.loc.auto) { refreshLocation(false); }
-applyWake();
 setInterval(() => tick(false), 250);
 requestAnimationFrame(frame);
 

@@ -131,6 +131,20 @@ input,select{font:inherit;color:var(--fg)}
 .cell.sel em{color:#3a3f00}
 .cell.fri b{color:var(--acc)}
 .cell.sel.fri b{color:#141414}
+.cell.sunfast{border-color:#3a4a28}
+.cell.ram{background:#2a2c18;border-color:#6a7020}
+.cell.nofast{opacity:.55}
+.cell .fmark{position:absolute;bottom:5px;width:5px;height:5px;border-radius:50%;background:#c6c45a}
+.cell.sel .fmark{background:#141414}
+.cell.ram .fmark{background:var(--acc)}
+.calkey{display:flex;flex-wrap:wrap;gap:12px 16px;margin:8px 2px 14px;font-size:12px;color:var(--mut)}
+.calkey span{display:flex;align-items:center;gap:6px}
+.calkey .k{width:8px;height:8px;border-radius:50%;display:inline-block;border:1px solid #3a4a28}
+.calkey .k.sun{background:#c6c45a;border-color:#c6c45a}
+.calkey .k.ram{background:#2a2c18;border-color:#6a7020}
+.calkey .k.no{opacity:.4;background:var(--card)}
+.dua .tl{font-size:14px;color:#cfcfca;margin-top:8px;line-height:1.5}
+.dua-sticky{position:sticky;top:0;z-index:12;background:var(--bg);padding:4px 0 10px;margin:0 -4px;padding-inline:4px}
 .evl{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
 .evl:first-of-type{border-top:0}
 .evl span{font-family:var(--mono);font-size:12px;color:var(--acc);min-width:46px}
@@ -175,7 +189,8 @@ input,select{font:inherit;color:var(--fg)}
 .sw input:checked+i{background:var(--acc)}
 .sw input:checked+i::after{inset-inline-start:21px;background:#141414}
 .sw input:disabled+i{opacity:.4}
-select,input[type=time],input[type=number],input[type=text]{background:var(--card2);border:1px solid #3a3a36;border-radius:10px;padding:9px 10px;max-width:100%}
+select,input[type=time],input[type=number],input[type=text],textarea{background:var(--card2);border:1px solid #3a3a36;border-radius:10px;padding:9px 10px;max-width:100%}
+textarea{width:100%;min-height:96px;resize:vertical}
 select{min-width:140px}
 
 /* sheet */

@@ -12,9 +12,15 @@
     <string name="alarm_test_status_set">Notification set for %1$s. You can leave the app.</string>
     <string name="alarm_test_need_notif">Allow notifications, then tap again.</string>
     <string name="alarm_test_need_exact">Allow exact alarms for this app, then tap again.</string>
-    <string name="alarm_channel_name">Alarm test</string>
-    <string name="alarm_channel_desc">One-shot test of exact-time notifications</string>
+    <string name="alarm_channel_name">Adhan</string>
+    <string name="alarm_channel_desc">Prayer adhan and the exact-alarm test</string>
+    <string name="adhan_channel_name">Adhan</string>
+    <string name="adhan_channel_desc">Prayer adhan at the scheduled time</string>
     <string name="alarm_notif_title">Asma Clock</string>
     <string name="alarm_notif_body">Exact alarm test. This notification was scheduled one minute ago.</string>
+    <string name="adhan_notif_body">Time for prayer</string>
+    <string name="alarm_test_battery">Allow alerts while idle</string>
+    <string name="alarm_test_battery_ok">Battery saving is already off for this app.</string>
+    <string name="alarm_test_battery_need">Turn off battery optimisation for Asma Clock, then return here.</string>
 </resources>
 

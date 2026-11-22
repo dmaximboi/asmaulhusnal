@@ -21,7 +21,7 @@ const DEF = {
   adj: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
   imsakMin: 10, hijriAdj: 0, hijriMaghrib: true, weekStart: 1,
   loc: { auto: true, lat: 5.36, lng: -4.0083, name: 'Abidjan' },
-  sound: 'chime', routine: null, fasting: {}, lastCheck: null, fresh: true
+  sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', routine: null, fasting: {}, lastCheck: null, fresh: true
 };
 function rawStore() { try { return JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { return {}; } }
 function load() {
@@ -31,6 +31,7 @@ function load() {
   o.loc = Object.assign(clone(DEF.loc), s.loc || {});
   if (!Array.isArray(o.routine)) o.routine = clone(D.ROUTINE);
   if (!o.fasting || typeof o.fasting !== 'object') o.fasting = {};
+  if (!s.adhanMaghrib && s.adhanOther) o.adhanMaghrib = s.adhanOther;
   if (!s.lang) { const nl = (navigator.language || 'en').slice(0, 2); if (nl === 'fr' || nl === 'ar') o.lang = nl; }
   return o;
 }
@@ -81,13 +82,18 @@ function hijriNow(now) { let a = S.hijriAdj; if (S.hijriMaghrib && now >= timesF
 function fastInfo(d) {
   const h = hijriOf(d), dow = d.getDay(), tags = [];
   const forbidden = (h.m === 10 && h.d === 1) || (h.m === 12 && h.d >= 10 && h.d <= 13), ramadan = h.m === 9;
+  let season = null;
+  if (ramadan) season = 'ramadan';
+  else if (h.m === 8) season = 'fastShaban';
+  else if (h.m === 10 && h.d >= 2) season = 'fastShawwal';
   if (!forbidden && !ramadan) {
     if (dow === 1) tags.push('fastMon'); if (dow === 4) tags.push('fastThu');
     if (h.d >= 13 && h.d <= 15) tags.push('fastWhite');
     if (h.m === 12 && h.d === 9) tags.push('fastArafah');
     if (h.m === 1 && (h.d === 9 || h.d === 10)) tags.push('fastAshura');
+    if (h.m === 10 && h.d >= 2 && h.d <= 7) tags.push('fastShawwal');
   }
-  return { forbidden, ramadan, tags };
+  return { forbidden, ramadan, tags, season };
 }
 function isFasting(d) { const fi = fastInfo(d); if (fi.forbidden) return false; return fi.ramadan || S.fasting[dkey(d)] === true; }
 const hKey = h => h.y * 12 + h.m;
@@ -291,20 +297,36 @@ function chime() {
 }
 function idb() { return new Promise((res, rej) => { const r = indexedDB.open('asma', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); }
 function idbGet(k) { return idb().then(db => new Promise((res, rej) => { const r = db.transaction('kv').objectStore('kv').get(k); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); })); }
-async function playSound(kind) {
+function bundledPick(it) {
+  const k = it && it.key;
+  if (k === 'fajr') return S.adhanFajr || '2';
+  if (k === 'dhuhr' || k === 'asr') return S.adhanDhuhr || '3';
+  if (k === 'maghrib' || k === 'isha') return S.adhanMaghrib || S.adhanOther || '1';
+  return S.adhanFajr || '2';
+}
+function bundledSrc(it) {
+  const n = bundledPick(it);
+  return 'audio/adhan-' + (n === '2' || n === '3' ? n : '1') + '.m4a';
+}
+async function playSound(kind, it) {
+  stopSound();
   if (S.sound === 'off') return;
-  if (S.sound === 'file' && kind === 'adhan') {
+  const mark = () => { playing = true; renderActive(); };
+  if (kind !== 'adhan' || S.sound === 'chime') { chime(); return; }
+  if (!aud) { aud = new Audio(); aud.onended = () => { playing = false; if (mode === 'al') renderActive(); }; }
+  if (S.sound === 'file') {
     try {
       const b = await idbGet('adhan');
       if (b) {
         if (adhanUrl) URL.revokeObjectURL(adhanUrl);
         adhanUrl = URL.createObjectURL(b);
-        if (!aud) { aud = new Audio(); aud.onended = () => { playing = false; if (mode === 'al') renderActive(); }; }
-        aud.src = adhanUrl; await aud.play(); playing = true; renderActive(); return;
+        aud.src = adhanUrl; await aud.play(); mark(); return;
       }
     } catch (e) { /* fall back to chime */ }
+    chime();
+    return;
   }
-  chime();
+  try { aud.src = bundledSrc(it); await aud.play(); mark(); } catch (e) { chime(); }
 }
 function stopSound() { if (aud) { aud.pause(); aud.currentTime = 0; } playing = false; }
 
@@ -334,9 +356,11 @@ function checkAlerts(now) {
 function showAlert(it, at) {
   alertItem = { it, at }; mode = 'al'; playing = false;
   if (desk) desk.show();
-  apply(); playSound(it.adhan ? 'adhan' : 'chime');
+  apply(); playSound((it.adhan || !it.key) ? 'adhan' : 'chime', it);
   clearTimeout(alertT);
-  alertT = setTimeout(() => { if (mode === 'al' && !playing && !hover) collapse(); else if (mode === 'al') alertT = setTimeout(() => { if (!hover) { stopSound(); collapse(); } }, 120000); }, it.adhan ? 45000 : 15000);
+  const finish = () => { playing = false; if (mode === 'al' && !hover) collapse(); };
+  if (aud) aud.onended = finish;
+  alertT = setTimeout(() => { if (!hover) { stopSound(); collapse(); } }, 12 * 60 * 1000);
 }
 
 /* ---------- location and daily check ---------- */
