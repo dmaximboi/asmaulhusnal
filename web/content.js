@@ -4,7 +4,7 @@ window.AsmaData = (function () {
 
 const T = {
 en: {
-  appName:"Asma Clock", tabClock:"Clock", tabPrayer:"Prayer", tabCalendar:"Calendar", tabRoutine:"Routine", tabDuas:"Duas",
+  appName:"Asma Clock", tabClock:"Clock", tabPrayer:"Prayer", tabCalendar:"Calendar", tabRoutine:"Routine", tabDuas:"Duas", tabLearn:"Learn",
   dhikr:"(Dhikr)", namesTitle:"99 NAMES OF ALLAH", nameLbl:"(Name)", sayInHeart:"(Say it in your heart)", nextPrayerLbl:"NEXT PRAYER",
   settings:"Settings", close:"Close", save:"Save", cancel:"Cancel", del:"Delete", add:"Add", reset:"Reset to defaults", today:"Today", tomorrow:"Tomorrow",
   fajr:"Fajr", sunrise:"Sunrise", dhuhr:"Dhuhr", asr:"Asr", maghrib:"Maghrib", isha:"Isha", imsak:"Imsak", duha:"Duha",
@@ -58,10 +58,22 @@ en: {
   ramadanDay:"Ramadan: fasting is obligatory today.",
   eidNoticeTitle:"Eid",
   eidNoticeBody:"Fasting is not permitted today. These are days of eating and drinking.",
-  quoteLbl:"Hadith"
+  quoteLbl:"Hadith",
+  learnTitle:"Learn", learnHint:"Lessons use Quran text and a public-domain English translation. Rakah steps and duas come later from cited hadith, not from guesswork.",
+  learnSoon:"This lesson is not in the app yet.",
+  learnBack:"All lessons",
+  learnWuduTitle:"Wudu",
+  learnWuduLead:"The Quran names the limbs of wudu. Wash the face and the arms to the elbows, wipe the head, and wash the feet to the ankles. If there is no water, the same verse allows tayammum on clean earth.",
+  learnQiblaTitle:"The Qibla",
+  learnQiblaLead:"The Quran tells the Prophet and the believers to turn the face toward the Sacred Mosque in prayer, wherever they are.",
+  learnAyahEn:"English (Pickthall, 1930, public domain)",
+  learnSalahTitle:"How to pray",
+  learnSalahSub:"Wudu and the qibla from the Quran. The rakah actions will follow in a later lesson with cited hadith.",
+  learnFastTitle:"Fasting",
+  learnAdhkarTitle:"Adhkar"
 },
 fr: {
-  appName:"Horloge Asma", tabClock:"Horloge", tabPrayer:"Prière", tabCalendar:"Calendrier", tabRoutine:"Routine", tabDuas:"Invocations",
+  appName:"Horloge Asma", tabClock:"Horloge", tabPrayer:"Prière", tabCalendar:"Calendrier", tabRoutine:"Routine", tabDuas:"Invocations", tabLearn:"Apprendre",
   dhikr:"(Dhikr)", namesTitle:"99 NOMS D'ALLAH", nameLbl:"(Nom)", sayInHeart:"(Dis-le dans ton cœur)", nextPrayerLbl:"PROCHAINE PRIÈRE",
   settings:"Réglages", close:"Fermer", save:"Enregistrer", cancel:"Annuler", del:"Supprimer", add:"Ajouter", reset:"Rétablir par défaut", today:"Aujourd'hui", tomorrow:"Demain",
   fajr:"Fajr", sunrise:"Lever du soleil", dhuhr:"Dhouhr", asr:"Asr", maghrib:"Maghrib", isha:"Icha", imsak:"Imsak", duha:"Duha",
@@ -115,10 +127,22 @@ fr: {
   ramadanDay:"Ramadan: le jeune est obligatoire aujourd'hui.",
   eidNoticeTitle:"Aid",
   eidNoticeBody:"Le jeune n'est pas permis aujourd'hui. Ce sont des jours de repas.",
-  quoteLbl:"Hadith"
+  quoteLbl:"Hadith",
+  learnTitle:"Apprendre", learnHint:"Les lecons s'appuient sur le Coran. La traduction anglaise est Pickthall (1930, domaine public). Les rak'a et les invocations viendront plus tard, avec des hadiths cites, sans invention.",
+  learnSoon:"Cette lecon n'est pas encore dans l'application.",
+  learnBack:"Toutes les lecons",
+  learnWuduTitle:"Ablutions",
+  learnWuduLead:"Le Coran nomme les membres du wudu: laver le visage et les bras jusqu'aux coudes, passer les mains sur la tete, laver les pieds jusqu'aux chevilles. S'il n'y a pas d'eau, le meme verset permet le tayammum sur une terre propre.",
+  learnQiblaTitle:"La Qibla",
+  learnQiblaLead:"Le Coran ordonne au Prophete et aux croyants de tourner le visage vers la Mosquee sacree pour la priere, ou qu'ils soient.",
+  learnAyahEn:"Anglais (Pickthall, 1930, domaine public)",
+  learnSalahTitle:"Comment prier",
+  learnSalahSub:"Wudu et qibla d'apres le Coran. Les gestes de la rak'a suivront dans une lecon ulterieure, avec des hadiths cites.",
+  learnFastTitle:"Le jeune",
+  learnAdhkarTitle:"Adhkar"
 },
 ar: {
-  appName:"ساعة الأسماء", tabClock:"الساعة", tabPrayer:"الصلاة", tabCalendar:"التقويم", tabRoutine:"الروتين", tabDuas:"الأدعية",
+  appName:"ساعة الأسماء", tabClock:"الساعة", tabPrayer:"الصلاة", tabCalendar:"التقويم", tabRoutine:"الروتين", tabDuas:"الأدعية", tabLearn:"تعلم",
   dhikr:"(ذكر)", namesTitle:"أسماء الله الحسنى", nameLbl:"(الاسم)", sayInHeart:"(قلها في قلبك)", nextPrayerLbl:"الصلاة القادمة",
   settings:"الإعدادات", close:"إغلاق", save:"حفظ", cancel:"إلغاء", del:"حذف", add:"إضافة", reset:"استعادة الافتراضي", today:"اليوم", tomorrow:"غدا",
   fajr:"الفجر", sunrise:"الشروق", dhuhr:"الظهر", asr:"العصر", maghrib:"المغرب", isha:"العشاء", imsak:"الإمساك", duha:"الضحى",
@@ -172,7 +196,19 @@ ar: {
   ramadanDay:"رمضان: الصيام واجب اليوم.",
   eidNoticeTitle:"عيد",
   eidNoticeBody:"لا يصام اليوم. هما يومان للأكل والشرب.",
-  quoteLbl:"حديث"
+  quoteLbl:"حديث",
+  learnTitle:"تعلم", learnHint:"الدروس من القرآن، والترجمة الإنجليزية لبيكثال (١٩٣٠) في الملك العام. صفة الركعة والأدعية لاحقا من أحاديث مسندة، بلا تخمين.",
+  learnSoon:"هذا الدرس ليس في التطبيق بعد.",
+  learnBack:"كل الدروس",
+  learnWuduTitle:"الوضوء",
+  learnWuduLead:"القرآن يسمي أعضاء الوضوء: غسل الوجه واليدين إلى المرافق، ومسح الرأس، وغسل الرجلين إلى الكعبين. وعند فقد الماء يبيح الآية التيمم بالصعيد الطيب.",
+  learnQiblaTitle:"القبلة",
+  learnQiblaLead:"القرآن يأمر النبي والمؤمنين أن يولوا وجوههم شطر المسجد الحرام في الصلاة حيثما كانوا.",
+  learnAyahEn:"الإنجليزية (بيكثال، ١٩٣٠، ملك عام)",
+  learnSalahTitle:"كيف تصلي",
+  learnSalahSub:"الوضوء والقبلة من القرآن. صفة الركعة في درس لاحق بأحاديث مسندة.",
+  learnFastTitle:"الصيام",
+  learnAdhkarTitle:"الأذكار"
 }
 };
 
@@ -743,5 +779,36 @@ const FAST_QUOTES = [
     ar:"من صام رمضان ثم أتبعه ستا من شوال كان كصيام الدهر."}
 ];
 
-return {T,MONTHS_H,MONTHS_G,DAYS,DAYS_S,EVENTS,METHODS,CITIES,CATS,CAT_KEY,DUAS,ROUTINE,FAST_QUOTES};
+/* Quran excerpts for Learn. English: Pickthall, The Meaning of the Glorious Koran, 1930 (public domain). Arabic is the Quran. No invented duas. */
+const LEARN_TOPICS = [
+  {id:"salah", titleKey:"learnSalahTitle", subKey:"learnSalahSub", lessons:["wudu","qibla"]},
+  {id:"fast", titleKey:"learnFastTitle", soon:true},
+  {id:"adhkar", titleKey:"learnAdhkarTitle", soon:true}
+];
+const LEARN_LESSONS = {
+  wudu: {
+    id:"wudu",
+    titleKey:"learnWuduTitle",
+    leadKey:"learnWuduLead",
+    ayah:{
+      src:"Quran 5:6",
+      trans:"Pickthall, The Meaning of the Glorious Koran, 1930 (public domain)",
+      ar:"يا أيها الذين آمنوا إذا قمتم إلى الصلاة فاغسلوا وجوهكم وأيديكم إلى المرافق وامسحوا برءوسكم وأرجلكم إلى الكعبين وإن كنتم جنبا فاطهروا وإن كنتم مرضى أو على سفر أو جاء أحد منكم من الغائط أو لامستم النساء فلم تجدوا ماء فتيمموا صعيدا طيبا فامسحوا بوجوهكم وأيديكم منه ما يريد الله ليجعل عليكم من حرج ولكن يريد ليطهركم وليتم نعمته عليكم لعلكم تشكرون",
+      en:"O ye who believe! When ye rise up for prayer, wash your faces, and your hands up to the elbows, and lightly rub your heads and (wash) your feet up to the ankles. And if ye are unclean, purify yourselves. And if ye are sick or on a journey, or one of you cometh from the closet, or ye have had contact with women, and ye find not water, then go to high clean soil and rub your faces and your hands therewith. Allah would not place a burden on you, but He would purify you and would perfect His grace upon you, that ye may give thanks."
+    }
+  },
+  qibla: {
+    id:"qibla",
+    titleKey:"learnQiblaTitle",
+    leadKey:"learnQiblaLead",
+    ayah:{
+      src:"Quran 2:144",
+      trans:"Pickthall, The Meaning of the Glorious Koran, 1930 (public domain)",
+      ar:"قد نرى تقلب وجهك في السماء فلنولينك قبلة ترضاها فول وجهك شطر المسجد الحرام وحيث ما كنتم فولوا وجوهكم شطره",
+      en:"We have seen the turning of thy face to heaven (for guidance, O Muhammad). And now verily We shall make thee turn (in prayer) toward a qiblah which is dear to thee. So turn thy face toward the Inviolable Place of Worship, and ye (O Muslims), wheresoever ye may be, turn your faces (when ye pray) toward it."
+    }
+  }
+};
+
+return {T,MONTHS_H,MONTHS_G,DAYS,DAYS_S,EVENTS,METHODS,CITIES,CATS,CAT_KEY,DUAS,ROUTINE,FAST_QUOTES,LEARN_TOPICS,LEARN_LESSONS};
 })();

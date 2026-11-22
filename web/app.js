@@ -153,7 +153,7 @@ let lastIdx = -1, lastSec = -1, lastMinKey = '', lastDay = dkey(new Date());
 let cal = null;
 
 function renderNavLabels() {
-  const keys = ['tabClock', 'tabPrayer', 'tabCalendar', 'tabRoutine', 'tabDuas'];
+  const keys = ['tabClock', 'tabPrayer', 'tabCalendar', 'tabRoutine', 'tabDuas', 'tabLearn'];
   $$('#nav button').forEach((b, i) => { $('span', b).textContent = t(keys[i]); b.classList.toggle('on', b.dataset.tab === S.tab); });
   $('#brand').textContent = t('appName');
   $('#btnSettings').setAttribute('aria-label', t('settings'));
@@ -539,6 +539,61 @@ function renderNameList() {
     s += '<div class="nrow"><span class="n">' + nA(i + 1) + '</span><div class="t"><b>' + esc(n[0]) + '</b><span>' + esc(S.lang === 'fr' ? n[3] : n[2]) + '</span></div><span class="a">' + esc(n[1]) + '</span></div>';
   });
   $('#nameList').innerHTML = s || '<div class="note" style="margin:0">-</div>';
+}
+
+/* ---------- learn ---------- */
+let learnLesson = null;
+function learnSvg(id) {
+  if (id === 'wudu') {
+    return '<div class="learn-fig" aria-hidden="true"><svg viewBox="0 0 320 90">' +
+      '<rect x="8" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
+      '<rect x="86" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
+      '<rect x="164" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
+      '<rect x="242" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
+      '</svg></div>';
+  }
+  if (id === 'qibla') {
+    return '<div class="learn-fig" aria-hidden="true"><svg viewBox="0 0 200 120">' +
+      '<rect x="60" y="28" width="80" height="72" fill="#1a1a1a" stroke="#d6df8c" stroke-width="1.6"/>' +
+      '<rect x="60" y="48" width="80" height="10" fill="none" stroke="#c9b37a" stroke-width="2"/>' +
+      '<path d="M100 100 L100 118" stroke="#8f8f8a" stroke-width="1.6"/>' +
+      '<path d="M40 118 H160" stroke="#8f8f8a" stroke-width="1.6"/>' +
+      '</svg></div>';
+  }
+  return '';
+}
+function renderLearn() {
+  let s = '<div class="pagehead"><h2>' + esc(t('learnTitle')) + '</h2><p>' + esc(t('learnHint')) + '</p></div>';
+  if (learnLesson) {
+    const les = D.LEARN_LESSONS[learnLesson];
+    if (!les) { learnLesson = null; }
+    else {
+      const ay = les.ayah;
+      s += '<div class="btns" style="margin-top:8px"><button class="btn sm" data-act="learnBack">' + esc(t('learnBack')) + '</button></div>';
+      s += '<div class="card dua"><div class="tt">' + esc(t(les.titleKey)) + '</div>';
+      s += '<p class="tx">' + esc(t(les.leadKey)) + '</p>';
+      s += learnSvg(les.id);
+      s += '<div class="a">' + esc(ay.ar) + '</div>';
+      s += '<div class="tx">' + esc(ay.en) + '</div>';
+      s += '<div class="sr">' + esc(t('source')) + ': ' + esc(ay.src) + '. ' + esc(t('learnAyahEn')) + '.</div></div>';
+      $('#v-learn').innerHTML = s;
+      return;
+    }
+  }
+  D.LEARN_TOPICS.forEach(tp => {
+    s += '<div class="card"><h3>' + esc(t(tp.titleKey)) + '</h3>';
+    if (tp.subKey) s += '<p class="note" style="margin:0 0 10px">' + esc(t(tp.subKey)) + '</p>';
+    if (tp.soon) s += '<p class="note" style="margin:0">' + esc(t('learnSoon')) + '</p>';
+    else {
+      (tp.lessons || []).forEach(id => {
+        const les = D.LEARN_LESSONS[id];
+        if (!les) return;
+        s += '<button class="btn" style="margin:6px 6px 0 0" data-act="learnOpen" data-id="' + esc(id) + '">' + esc(t(les.titleKey)) + '</button>';
+      });
+    }
+    s += '</div>';
+  });
+  $('#v-learn').innerHTML = s;
 }
 
 /* ---------- settings ---------- */
@@ -965,6 +1020,7 @@ function renderTab(tab) {
   else if (tab === 'calendar') renderCalendar();
   else if (tab === 'routine') renderRoutine();
   else if (tab === 'duas') renderDuas();
+  else if (tab === 'learn') renderLearn();
 }
 function showTab(tab) {
   if (S.tab === 'duas') duaY[duaCat] = window.scrollY;
@@ -1005,6 +1061,8 @@ document.addEventListener('click', ev => {
     case 'rtReset': S.routine = clone(D.ROUTINE); save(); firedKeys.clear(); renderRoutine(); syncAndroidAlarms(); break;
     case 'duaTab': duaY[duaCat] = window.scrollY; duaTab = b.dataset.v; renderDuas(); break;
     case 'duaCat': duaY[duaCat] = window.scrollY; duaCat = b.dataset.c; renderDuas(); break;
+    case 'learnOpen': learnLesson = b.dataset.id; renderLearn(); window.scrollTo(0, 0); break;
+    case 'learnBack': learnLesson = null; renderLearn(); window.scrollTo(0, 0); break;
     case 'reportBug': {
       const body = ($('#bugBody') && $('#bugBody').value.trim()) || '';
       window.open(issueUrl('Bug or content report', body || '(describe the problem or the dua that needs a correction)'), '_blank');
