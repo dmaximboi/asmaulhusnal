@@ -1,7 +1,8 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v10';
+const CACHE = 'asma-v17';
 const ASSETS = [
-  './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'names.js',
+  './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
+  'content/dict.json',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png'
 ];

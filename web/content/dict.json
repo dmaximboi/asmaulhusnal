@@ -1,0 +1,1166 @@
+{
+  "note": "First batch. Meanings from Penrice 1873 and Lane 1863-1893; French from those senses with Kazimirski 1860. Not two thousand words. Do not add unsourced entries.",
+  "source": "Penrice, Lane, Kazimirski (public domain lexicons). Language fact, not a fatwa.",
+  "words": [
+    {
+      "ar": "اللَّهُ",
+      "tr": "Allah",
+      "root": "ا ل ه",
+      "en": "The proper name of the One who is worshipped in truth. Lane treats it as the article with ilah, the deity, used until it became the unique name that is not shared. Penrice: God, the only true God. It is not a generic title like rabb or malik; those describe. This word names. Related: ilah (a god, one taken as an object of worship), aliha (gods). When the Quran says there is no ilah except Allah, ilah is the class and Allah is the name of the One who alone fills that class.",
+      "fr": "Le nom propre de Celui qui est adore en verite. Lane le prend comme l article avec ilah, la divinite, jusqu a ce que le compose soit devenu le nom unique. Penrice: Dieu, le seul vrai Dieu. Ce n est pas un titre general comme rabb ou malik. Mot lie: ilah (un dieu, un objet d adoration). Quand le Coran dit qu il n y a d ilah qu Allah, ilah est la classe, Allah est le nom de Celui qui seul la remplit.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ل ه. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِلَٰهُ",
+      "tr": "al-ilah",
+      "root": "ا ل ه",
+      "en": "A god; any being taken as an object of worship, whether in truth or in falsehood. Lane: a god, a deity. Penrice: God, a god. The plural aliha is used of the false gods. The point of the word is not \"a powerful being\" but \"one before whom worship is directed.\" That is why the shahadah is la ilaha illa Allah: there is no object of worship except Allah. An idol, a desire followed as a lord, or a created thing called upon besides Allah, all fall under ilah in this lexical field.",
+      "fr": "Un dieu; tout etre pris comme objet d adoration, en verite ou a tort. Lane: un dieu, une divinite. Penrice: Dieu, un dieu. Le pluriel aliha designe les faux dieux. Le mot ne dit pas seulement « etre puissant », mais « celui vers qui va l adoration ». D ou la shahadah: nul objet d adoration except Allah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ل ه. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّبُّ",
+      "tr": "ar-Rabb",
+      "root": "ر ب ب",
+      "en": "The lord, owner, master, nourisher, and one who raises a thing stage by stage until it is complete. Lane gives rububiyyah as lordship: possession, management, and bringing up. Penrice: Lord, a lord. Rabb of the worlds is the One who owns and tends every kind of creation. A human can be rabb of a house in the sense of owner, which is why the Quran uses rabb for Pharaoh's chief and for a master of a slave, but the absolute Rabb with the article, used of Allah, is not shared. Related: tarbiyah (raising, education), ribbah.",
+      "fr": "Le seigneur, le maitre, le nourricier, celui qui eleve une chose d etape en etape jusqu a son achevement. Lane: la rububiyyah est la seigneurie: possession, gouvernement, education. Penrice: Seigneur, un seigneur. Le Rabb des mondes possede et conduit toute espece de creature. Un homme peut etre rabb d une maison au sens de proprietaire; le Rabb absolu, dit d Allah, ne se partage pas.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ب ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّحْمَٰنُ",
+      "tr": "ar-Rahman",
+      "root": "ر ح م",
+      "en": "The entirely merciful. From rahmah, mercy, womb-like compassion. Lane: Rahman is a name applied only to Allah in Islamic usage, intensive in form, covering the vastness of mercy that reaches believer and unbeliever in this world. Penrice: The Merciful. Rahman and Rahim are both from the same root; the classical lexica treat Rahman as wider and more exclusive, Rahim as mercy that is lasting and particular. The womb (rahim) is from this root: the tie of kinship that is meant to be tender.",
+      "fr": "Le Tout Misericordieux. De rahmah, misericorde, compassion de la matrice. Lane: Rahman, dans l usage islamique, ne se dit que d Allah, forme intensive, misericorde vaste qui atteint croyant et meceant ici-bas. Penrice: le Misericordieux. Rahman et Rahim sont de la meme racine; les lexiques tiennent Rahman pour plus vaste et plus exclusif. Le mot rahim (matrice, lien de parente) est de cette racine.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ح م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّحِيمُ",
+      "tr": "ar-Rahim",
+      "root": "ر ح م",
+      "en": "The especially merciful, constantly merciful. Lane: rahim as an intensive adjective of mercy that continues. Penrice: Merciful. In the basmalah the two names stand together: Rahman, then Rahim. Lexica do not make Rahim a weaker copy of Rahman; they mark a different shade: mercy that is lasting, that reaches those who believe, that is repeated. Related: rahima (he had mercy), tarahhum, arham (more merciful), rahim (womb, kinship).",
+      "fr": "Le Tres Misericordieux, constamment misericordieux. Lane: adjectif intensif d une misericorde qui dure. Penrice: Misericordieux. Dans la basmalah les deux noms sont joints. Les lexiques ne font pas de Rahim une copie faible de Rahman; ils marquent une nuance: misericorde durable, qui atteint les croyants, qui se repete. Lie: rahima, tarahhum, rahim (matrice).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ح م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِسْلَامُ",
+      "tr": "al-islam",
+      "root": "س ل م",
+      "en": "The act of submitting, resigning, handing oneself over in peace to Allah; and the religion named from that act. Lane: aslama means he submitted, he became a muslim, he entered into silm (peace, reconciliation). Islam as a verbal noun is that submission. Penrice: Islam, the religion, resignation to the will of God. The same root gives salam (peace, safety), salim (sound, unimpaired), saleem (a heart free of disease), taslim (to greet with peace, and to resign). So the religion is not named from a tribe or a place; it is named from becoming sound and at peace by yielding to Allah. Muslim is the one who does that act.",
+      "fr": "L acte de se soumettre, de se remettre en paix a Allah; et la religion nommee d apres cet acte. Lane: aslama, il s est soumis, il est devenu muslim, il est entre dans le silm (paix, reconciliation). Islam est ce nom d action. Penrice: Islam, la religion, resignation a la volonte de Dieu. Meme racine: salam (paix, salut), salim (sain), taslim (saluer de la paix, et se resigner). La religion n est pas nommee d une tribu ou d un lieu, mais de devenir sain en se remettant a Allah. Muslim est celui qui fait cet acte.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ل م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمُسْلِمُ",
+      "tr": "al-muslim",
+      "root": "س ل م",
+      "en": "The one who submits; a Muslim. Lane: muslim, one who resigns himself to God, who enters Islam. Penrice: A Muslim. The form is the active participle of aslama. Feminine muslimah, plural muslimun / muslimat. It describes the person by the act, not by ancestry. In the Quran Ibrahim is called muslim, which the lexica take as showing the word is older than a later community label: one who handed himself to Allah.",
+      "fr": "Celui qui se soumet; un musulman. Lane: muslim, celui qui se remet a Dieu, qui entre dans l islam. Penrice: un musulman. Participe actif de aslama. Feminin muslimah. Le mot decrit la personne par l acte, non par la naissance. Dans le Coran Ibrahim est dit muslim: le lexique y voit un mot plus ancien qu une etiquette communautaire.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ل م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السَّلَامُ",
+      "tr": "as-salam",
+      "root": "س ل م",
+      "en": "Peace, safety, soundness, the greeting of peace. Lane: salam is security from harm, peace, a greeting (as-salamu alaykum). It is also a name of Allah: As-Salam, the Flawless, the One free of every defect, the source of peace. Penrice: Peace, safety, a salutation. Related: sallama (to greet, to deliver, to keep safe), istislam (surrender), silm (peace as opposed to war). When the salah ends with as-salamu alaykum, the lexica connect it to this same field: going out of prayer into the world with a word of safety.",
+      "fr": "Paix, salut, integrite, la salutation de paix. Lane: salam est la securite contre le mal, la paix, une salutation (as-salamu alaykum). C est aussi un nom d Allah: As-Salam, l Exempt de tout defaut, source de la paix. Penrice: paix, salut, une salutation. Lie: sallama, silm (paix opposee a la guerre). Le salam qui clot la salat est de ce champ: sortir de la priere par une parole de salut.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ل م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِيمَانُ",
+      "tr": "al-iman",
+      "root": "ا م ن",
+      "en": "Faith, belief, the act of believing and of rendering secure. Lane: amana, he believed; iman is belief, trust, the opposite of kufr (covering the truth) and also related to amn (safety). The believer (mumin) is one who confirms the message and is a source of amn, security, not treachery. Penrice: Faith, belief. Classical lexica list iman as confirmation with the heart, speech with the tongue, and, in the usage of the jurists and hadith folk, deeds; the dictionary itself gives the core as tasdiq, holding as true. Related: amn, amanah (trust), amin (trustworthy).",
+      "fr": "Foi, croyance, acte de croire et de rendre sur. Lane: amana, il a cru; iman est la croyance, la confiance, opposee au kufr, liee a amn (surete). Le mumin confirme le message et est source de surete, non de trahison. Penrice: foi, croyance. Le noyau lexical est le tasdiq, tenir pour vrai. Lie: amn, amanah (depot), amin (digne de confiance).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا م ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمُؤْمِنُ",
+      "tr": "al-mumin",
+      "root": "ا م ن",
+      "en": "The believer; also, as a name of Allah, the One who grants security and confirms His promise. Lane: mumin, one who believes; and of God, He who gives safety. Penrice: A believer. Plural muminun. The Quran pairs iman with righteous deeds so often that the lexica note the word in religious speech is not a bare opinion in the mind. Feminine muminah.",
+      "fr": "Le croyant; et, comme nom d Allah, Celui qui donne la surete et confirme Sa promesse. Lane: mumin, celui qui croit; de Dieu, Celui qui donne la surete. Penrice: un croyant. Pluriel muminun. Le Coran joint si souvent iman et oeuvres que le lexique note que le mot, dans la langue religieuse, n est pas une simple opinion mentale.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا م ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِحْسَانُ",
+      "tr": "al-ihsan",
+      "root": "ح س ن",
+      "en": "Excellence, doing what is beautiful, making a thing good. Lane: ahsana, he did well, he made beautiful; ihsan is beneficence and doing a thing in the best way. Penrice: To do good, kindness. In the famous hadith the Prophet defined ihsan as worshipping Allah as though you see Him. The lexicon sense underneath that definition is not a new word: it is to perfect the act. Related: hasan (good, beautiful), hasanah (a good deed), husn (beauty, goodness), ahsan (better / best).",
+      "fr": "Excellence, faire ce qui est beau, rendre une chose bonne. Lane: ahsana, il a bien fait; ihsan est la bienfaisance et le bien-faire. Penrice: faire le bien, bonte. Dans le hadith celebre, ihsan est d adorer Allah comme si tu Le voyais. Le sens lexical sous cette definition est de parfaire l acte. Lie: hasan, hasanah, husn, ahsan.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح س ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّقْوَىٰ",
+      "tr": "at-taqwa",
+      "root": "و ق ي",
+      "en": "Wary fear, self-guarding, piety. Lane: ittaqa, he guarded himself; taqwa is the verbal noun, shielding the soul from what would harm it with Allah. Penrice: Fear of God, piety. The root w-q-y is to protect, to put a wiqayah (shield) between yourself and a thing. So taqwa is not mere fright; it is placing a guard of obedience between you and Allah's displeasure. Related: taqi (pious), muttaqi (one who has taqwa), waqa (he protected).",
+      "fr": "Crainte vigilante, garde de soi, piete. Lane: ittaqa, il s est garde; taqwa est le nom d action, proteger l ame de ce qui la nuirait aupres d Allah. Penrice: crainte de Dieu, piete. La racine w-q-y est proteger, mettre une wiqayah (bouclier). La taqwa n est pas une simple frayeur; c est un garde d obeissance entre toi et le mecontentement d Allah. Lie: taqi, muttaqi, waqa.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ق ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّوْحِيدُ",
+      "tr": "at-tawhid",
+      "root": "و ح د",
+      "en": "Making one; asserting that Allah is One. Lane: wahhada, he declared to be one; tawhid is unification, the profession of the unity of God. Penrice lists wahid and ahad: one, unique. Ahad in the Quran (Surah Ikhlas) is used of Allah as incomparable, not one among a count. Wahid is one. Tawhid as a later technical name for the creed is built on this lexical act: to single Allah out. Related: wahda (oneness), wahid, ahad, wahdaniyyah.",
+      "fr": "Rendre un; affirmer qu Allah est Un. Lane: wahhada, il a declare un; tawhid est l unification, la profession de l unite de Dieu. Penrice: wahid et ahad, un, unique. Ahad dans le Coran (Ikhlas) dit d Allah qu Il n est pas un parmi un compte. Le tawhid comme nom technique du dogme est bati sur cet acte lexical: particulariser Allah. Lie: wahda, wahid, ahad.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ح د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشِّرْكُ",
+      "tr": "ash-shirk",
+      "root": "ش ر ك",
+      "en": "Association, sharing, ascribing a partner. Lane: sharika, he shared; shirk is partnership, and in religion the ascribing of a partner to Allah. Penrice: To be a companion, to associate; shirk, idolatry. A sharik is a partner. The lexicon sense is not only statues: it is giving a share of what belongs only to Allah (worship, lordship, names) to another. Related: mushrik (one who associates), shirkah (a business partnership, the same root in worldly sharing).",
+      "fr": "Association, partage, attribution d un associe. Lane: sharika, il a partage; shirk est l association, et en religion l attribution d un associe a Allah. Penrice: etre compagnon, associer; shirk, idolatrie. Un sharik est un associe. Le sens n est pas seulement les statues: c est donner une part de ce qui n appartient qu a Allah. Lie: mushrik, shirkah (societe, meme racine).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ر ك. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْكُفْرُ",
+      "tr": "al-kufr",
+      "root": "ك ف ر",
+      "en": "Covering, concealing, ingratitude, then unbelief. Lane: kafara, he covered; a farmer is kafir in old speech because he covers seed with earth. Kufr as ingratitude is covering a favour. Kufr as unbelief is covering or rejecting the truth after it comes. Penrice: To be ungrateful, to disbelieve. Related: kafir, kaffarah (an expiation that \"covers\" a fault), takfir. The dictionary warns by its first sense that kufr is not a vague insult; it is a covering of what should be acknowledged.",
+      "fr": "Couvrir, cacher, ingratitude, puis mecreance. Lane: kafara, il a couvert; le laboureur est dit kafir dans l ancienne langue parce qu il recouvre la semence. Kufr comme ingratitude recouvre un bienfait. Kufr comme mecreance recouvre ou rejette la verite. Penrice: etre ingrat, ne pas croire. Lie: kafir, kaffarah (expiation qui « couvre » une faute).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ف ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النِّفَاقُ",
+      "tr": "an-nifaq",
+      "root": "ن ف ق",
+      "en": "Hypocrisy; showing faith and hiding unbelief. Lane: nafaq is a tunnel or a hole with another opening, like the jerboa's burrow; nafaqa, the goods sold well, they \"went out.\" Nifaq is entering faith from one door and leaving from another, a double face. Penrice: Hypocrisy. Munafiq, hypocrite. The lexicon image is not a small sin of manners; it is a hidden exit from the religion while the mouth still says it.",
+      "fr": "Hypocrisie; montrer la foi et cacher la mecreance. Lane: nafaq, un terrier a deux issues; nifaq, entrer dans la foi par une porte et sortir par une autre. Penrice: hypocrisie. Munafiq, hypocrite. L image lexicale n est pas un petit defaut de politesse; c est une sortie cachee de la religion tandis que la bouche la dit encore.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن ف ق. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصَّلَاةُ",
+      "tr": "as-salah",
+      "root": "ص ل و",
+      "en": "The ritual prayer; also prayer in the wider sense of supplication and blessing. Lane: salah is prayer, supplication; of Allah toward a slave it is mercy and praise; of the angels, seeking forgiveness. Penrice: Prayer. The five daily salah are the named rite with standing, reciting, bowing, and prostration. Related: salla (he prayed), musalli (one who prays), salawat. Tasliyah upon the Prophet is from this root: asking Allah to praise and bless him.",
+      "fr": "La priere rituelle; aussi la priere au sens large de supplication et de benediction. Lane: salah, priere, invocation; d Allah envers un serviteur, misericorde et louange; des anges, demande de pardon. Penrice: priere. Les cinq salah sont le rite nomme: station, recitation, inclination, prosternation. Lie: salla, musalli, salawat. La priere sur le Prophete est de cette racine.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص ل و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الزَّكَاةُ",
+      "tr": "az-zakah",
+      "root": "ز ك و",
+      "en": "The alms due; purification and growth. Lane: zaka, it increased and was pure; zakah is purity, increase, and the portion of property given to purify the rest. Penrice: Alms, the legal alms. So the word is not \"tax\" in the lexicon. It is that which makes wealth grow by purifying it. Related: zakiyy (pure), tazkiyah (purification of wealth or of the soul), zaka (it grew).",
+      "fr": "L aumone due; purification et croissance. Lane: zaka, cela a augmente et a ete pur; zakah est purete, accroissement, et la part du bien donnee pour purifier le reste. Penrice: aumone legale. Le mot n est pas « impot » dans le lexique. C est ce qui fait croitre le bien en le purifiant. Lie: zakiyy, tazkiyah, zaka.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ز ك و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصَّوْمُ",
+      "tr": "as-sawm",
+      "root": "ص و م",
+      "en": "Fasting: holding back from food, drink, and marital relations from dawn to Maghrib, and in older speech holding back from any act. Lane: sama, he abstained; a horse standing still without fodder was said to be sa'im. Penrice: Fasting. Sawm and siyam are both used. The lexicon core is restraint, not hunger for its own sake. Related: sa'im (one who fasts), imsak (holding back, used for the pre-dawn stop of eating).",
+      "fr": "Jeune: se retenir de manger, de boire et des rapports, de l aube au Maghrib; et dans l ancienne langue, se retenir de tout acte. Lane: sama, il s est abstenu. Penrice: jeune. Sawm et siyam. Le coeur lexical est la retenue, non la faim pour elle-meme. Lie: sa im, imsak.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص و م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَجُّ",
+      "tr": "al-hajj",
+      "root": "ح ج ج",
+      "en": "The pilgrimage to the Sacred House in the appointed month, and, lexically, heading for a thing with intent. Lane: hajja, he went to, he performed the hajj; hujjah is a proof (that by which you \"intend\" a claim). Penrice: Pilgrimage. Hajj with the article is the known rite: ihram, Arafah, Tawaf, Sa'y, and the rest of its pillars as fiqh details. Related: hajj (pilgrim as hajj/hajij), hujjah (proof), mahajjah (a clear road).",
+      "fr": "Le pelerinage a la Maison sacree au mois fixe; et, lexicalement, se diriger vers une chose avec intention. Lane: hajja, il s est rendu, il a fait le hajj; hujjah est une preuve. Penrice: pelerinage. Le hajj avec l article est le rite connu. Lie: hujjah (preuve), mahajjah (voie claire).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ج ج. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعُمْرَةُ",
+      "tr": "al-umrah",
+      "root": "ع م ر",
+      "en": "The lesser pilgrimage, a visit to the House that can be at any time of year. Lane: umrah is a visit, from amara, to inhabit, to visit, to live long. Penrice: A visitation, the lesser pilgrimage. Related: umr (life-span), imarah (building, inhabiting), ma'mur (inhabited). The House is al-Bayt al-Ma'mur in another use of the root: the inhabited house.",
+      "fr": "Le petit pelerinage, visite de la Maison en tout temps de l annee. Lane: umrah, une visite, de amara, habiter, visiter, vivre longtemps. Penrice: visite, petit pelerinage. Lie: umr (duree de vie), imarah (batir, habiter), ma mur (habite).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع م ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْوُضُوءُ",
+      "tr": "al-wudu",
+      "root": "و ض ا",
+      "en": "The ritual wash of the face, arms, head, and feet before salah. Lane: wadu' / wudu', purity and the water used for it; wadu' is also a man of brightness and neatness. Penrice does not always list later fiqh terms at length; Lane gives wudu' as ablution. Related: wadi' (bright, clean), nazaFah is a different root. The Quran names the acts in 5:6 without this verbal noun; the lexica still know the wash by this name in the speech of the Arabs after Islam.",
+      "fr": "Le lavage rituel du visage, des bras, de la tete et des pieds avant la salat. Lane: wudu, purete et l eau qui y sert; wadu, homme net et eclatant. Lane donne wudu comme ablution. Le Coran nomme les actes en 5:6; les lexiques connaissent ce lavage sous ce nom dans la langue apres l islam.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ض ا. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْغُسْلُ",
+      "tr": "al-ghusl",
+      "root": "غ س ل",
+      "en": "Washing the whole body. Lane: ghasala, he washed; ghusl is a washing, especially the complete bath that removes major impurity. Penrice: To wash. Related: ghasl (the act of washing), maghsal, ghasul (wash-water). Distinct from wudu, which is a wash of named limbs.",
+      "fr": "Laver tout le corps. Lane: ghasala, il a lave; ghusl est un lavage, surtout le bain complet qui leve l impurete majeure. Penrice: laver. Distinct du wudu, lavage de membres nommes. Lie: ghasl, ghasul.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. غ س ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّيَمُّمُ",
+      "tr": "at-tayammum",
+      "root": "ي م م",
+      "en": "Aiming for, seeking; then the dry ablution: striking clean earth and wiping face and hands. Lane: tayammama, he repaired to, he intended; in law, he performed tayammum. Penrice: To repair to, to intend. Quran 5:6 uses tayammamu sa'idan tayyiban, repair to clean earth. The lexicon first sense is heading toward a thing, which is why the rite is named: you head for earth when water is gone.",
+      "fr": "Se diriger vers, viser; puis l ablution seche: frapper une terre propre et passer sur le visage et les mains. Lane: tayammama, il s est dirige, il a vise; en droit, il a fait le tayammum. Penrice: se diriger, viser. Coran 5:6: tayammamu sa idan tayyiban. Le premier sens est d aller vers une chose: on va a la terre quand l eau manque.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ي م م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقِبْلَةُ",
+      "tr": "al-qiblah",
+      "root": "ق ب ل",
+      "en": "The direction faced in salah; that which is in front. Lane: qiblah, the direction, the Ka'bah as faced in prayer; qabl is before, in front. Penrice: The qiblah, the direction of prayer. Related: qabila (he accepted), qubul (front, acceptance), muqabalah (facing one another). To turn one's wajh (face) toward the qiblah is to put that house in front of the chest.",
+      "fr": "La direction face a laquelle on prie; ce qui est en avant. Lane: qiblah, la direction, la Ka ba face a la priere; qabl, avant, en face. Penrice: la qiblah. Lie: qabila (accepter), qubul (devant, acceptation). Tourner le visage vers la qiblah, c est mettre cette maison devant la poitrine.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق ب ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْكَعْبَةُ",
+      "tr": "al-Ka'bah",
+      "root": "ك ع ب",
+      "en": "The Ka'bah: the cube-shaped House in Makkah. Lane: ka'b is an ankle-bone, a cube; the Ka'bah is named for its cubic form. Penrice: The Kaabah. It is also called al-Bayt, al-Bayt al-Haram, al-Bayt al-Atiq. The word itself in the lexicon is the shape, not a metaphor.",
+      "fr": "La Ka ba: la Maison cubique a Makkah. Lane: ka b, os de la cheville, cube; la Ka ba est nommee pour sa forme cubique. Penrice: la Kaabah. On dit aussi al-Bayt, al-Bayt al-Haram. Le mot, dans le lexique, est la forme.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ع ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَسْجِدُ",
+      "tr": "al-masjid",
+      "root": "س ج د",
+      "en": "A place of sujud, a mosque. Lane: masjid, the place where one prostrates; then the house built for salah. Penrice: A place of worship, a mosque. Plural masajid. Al-Masjid al-Haram is the Sacred Mosque around the Ka'bah; al-Masjid al-Aqsa is named in the Quran. Related: sajada (he prostrated), sujud, sajdah, masjad (another form of the place-name).",
+      "fr": "Un lieu de sujud, une mosquee. Lane: masjid, l endroit ou l on se prosterne; puis la maison batie pour la salat. Penrice: lieu de culte, mosquee. Pluriel masajid. Al-Masjid al-Haram, al-Masjid al-Aqsa. Lie: sajada, sujud, sajdah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ج د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السُّجُودُ",
+      "tr": "as-sujud",
+      "root": "س ج د",
+      "en": "Prostration: putting the forehead on the ground in worship. Lane: sajada, he prostrated, he bent down; sujud is the verbal noun. Penrice: To worship, to prostrate. The seven limbs of sujud are fiqh detail on top of this lexical act. Related: sajdah (one prostration), masjid, sajid (one who is in sujud). Trees and shadows are said in the Quran to make sujud, which the lexica take as submission, not a human forehead.",
+      "fr": "Prosternation: mettre le front a terre en adoration. Lane: sajada, il s est prosterne; sujud est le nom d action. Penrice: adorer, se prosterner. Les sept membres sont un detail de fiqh sur cet acte lexical. Lie: sajdah, masjid, sajid. Les ombres font sujud dans le Coran: soumission, non un front humain.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ج د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرُّكُوعُ",
+      "tr": "ar-ruku'",
+      "root": "ر ك ع",
+      "en": "Bowing: the ruku of salah, the back level, hands on the knees. Lane: raka'a, he bowed; ruku' is a bowing of the body. Penrice: To bow down. Related: raki' (one who bows), rukka' (plural). Older speech could use it of any bowing; in Islamic speech it names that pillar of salah.",
+      "fr": "Inclination: le ruku de la salat, dos droit, mains sur les genoux. Lane: raka a, il s est incline; ruku, inclination du corps. Penrice: s incliner. Lie: raki, rukka. L ancienne langue peut dire toute inclination; dans la langue islamique, c est ce pilier de la salat.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ك ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّكْعَةُ",
+      "tr": "ar-rak'ah",
+      "root": "ر ك ع",
+      "en": "One unit of salah: standing, reciting, one ruku, two sujuds. Lane lists rak'ah as a single bowing, then the unit of prayer that contains it. The word is the unit counted in Fajr (two), Maghrib (three), the four-rakah prayers (four).",
+      "fr": "Une unite de salat: station, recitation, un ruku, deux sujuds. Lane: rak ah, une inclination, puis l unite de priere qui la contient. C est l unite comptee au Fajr (deux), au Maghrib (trois), aux prieres de quatre.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ك ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْأَذَانُ",
+      "tr": "al-adhan",
+      "root": "ا ذ ن",
+      "en": "The call to salah. Lane: adhana, he announced, he made to hear; udhun is the ear; adhan is a proclamation. Penrice: To call, to proclaim. Mu'adhdhin, the caller. The lexical core is making the ear aware, not a melody. Iqamah is from another root (q-w-m), the second call when the row stands.",
+      "fr": "L appel a la salat. Lane: adhana, il a annonce, il a fait entendre; udhun, l oreille; adhan, une proclamation. Penrice: appeler, proclamer. Mu adhdhin, l appeleur. Le coeur lexical est de faire entendre, non une melodie. L iqamah est d une autre racine (q-w-m).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ذ ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِقَامَةُ",
+      "tr": "al-iqamah",
+      "root": "ق و م",
+      "en": "Setting up, making to stand; the second call that the salah is about to begin. Lane: aqama, he set up, he established; iqamah is establishment. Penrice: To set upright, to establish. The Quran uses aqimu as-salah, establish the prayer. Related: qama (he stood), qiyam (standing), qawm (a people who \"stand\" as a group), qiyamah (the rising).",
+      "fr": "Dresser, faire tenir; le second appel que la salat va commencer. Lane: aqama, il a dresse, il a etabli; iqamah, etablissement. Penrice: dresser, etablir. Le Coran: aqimu as-salah. Lie: qama, qiyam, qawm, qiyamah (le lever).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق و م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِمَامُ",
+      "tr": "al-imam",
+      "root": "ا م م",
+      "en": "The one who is in front; a leader in salah or a guide in a wider sense. Lane: imam, an exemplar, a leader whom people follow; also a road and a book that is followed. Penrice: A leader, an exemplar. Plural a'immah. Umm is mother, ummah a community: the root is that which others go toward. The imam of salah is the one whose motion the row follows.",
+      "fr": "Celui qui est en avant; chef de salat ou guide au sens large. Lane: imam, un modele, un chef que l on suit; aussi une route et un livre suivi. Penrice: chef, modele. Pluriel a immah. Umm, mere; ummah, communaute: la racine est ce vers quoi les autres vont.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا م م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّشَهُّدُ",
+      "tr": "at-tashahhud",
+      "root": "ش ه د",
+      "en": "The sitting in salah in which one recites the testimony. Lane: shahida, he witnessed; tashahhud is pronouncing the shahadah. Penrice: To bear witness. The words at-tahiyyat are the known formula; the name of the sitting is from the two testimonies in it. Related: shahid (witness), shahadah (testimony, and martyrdom), mashhad.",
+      "fr": "L assise de la salat ou l on recite le temoignage. Lane: shahida, il a temoigne; tashahhud, prononcer la shahadah. Penrice: temoigner. Le nom de l assise vient des deux temoignages. Lie: shahid, shahadah (temoignage, et martyre).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ه د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشَّهَادَةُ",
+      "tr": "ash-shahadah",
+      "root": "ش ه د",
+      "en": "Testimony, witnessing, the two phrases of faith, and martyrdom. Lane: shahadah is evidence given as a witness; death in the path of Allah is named shahadah because the martyr (shahid) is a witness, or because angels witness him, or because he is witnessed as truthful. Penrice: Testimony, a martyr. The lexicon holds several explanations of why the slain in that path are called shuhada; it does not pick one as a ruling.",
+      "fr": "Temoignage, les deux phrases de la foi, et le martyre. Lane: shahadah, preuve donnee comme temoin; la mort dans le sentier d Allah est nommee shahadah. Penrice: temoignage, un martyr. Le lexique tient plusieurs explications du nom shuhada; il n en fait pas un jugement.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ه د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْفَرْضُ",
+      "tr": "al-fard",
+      "root": "ف ر ض",
+      "en": "A thing appointed, cut, made obligatory. Lane: farada, he appointed a portion, he made obligatory; fard is an ordinance, a prescribed duty. Penrice: To appoint, an ordinance. In later fiqh, fard is a duty proved by decisive evidence; the lexicon itself is older than that school term: it is what has been imposed and marked off. Related: faridah (an appointed due, including the faridah of inheritance).",
+      "fr": "Une chose fixee, decoupee, rendue obligatoire. Lane: farada, il a fixe une part, il a rendu obligatoire; fard, une ordonnance, un devoir prescrit. Penrice: fixer, une ordonnance. Dans le fiqh ulterieur, fard est un devoir a preuve decisive; le lexique est plus ancien: c est ce qui a ete impose. Lie: faridah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ر ض. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السُّنَّةُ",
+      "tr": "as-sunnah",
+      "root": "س ن ن",
+      "en": "A beaten path, a custom, a way that is followed; then the way of the Prophet. Lane: sunnah, a beaten track, a rule of conduct; sanan is the course. Penrice: A law, an institution. Plural sunan. In hadith speech, the Sunnah is what is reported of the Prophet's sayings, deeds, and approvals. In fiqh, a sunnah act is recommended, not fard; that is a later grading on top of the lexical \"path.\" Related: sanna (he instituted a way).",
+      "fr": "Un sentier batte, un usage, une voie suivie; puis la voie du Prophete. Lane: sunnah, piste, regle de conduite. Penrice: une loi, une institution. Pluriel sunan. Dans le langage du hadith, la Sunna est ce qui est rapporte du Prophete. Dans le fiqh, un acte sunna est recommande, non fard: classement ulterieur sur le « sentier » lexical.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ن ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النَّفْلُ",
+      "tr": "an-nafl",
+      "root": "ن ف ل",
+      "en": "An extra, a gift beyond what is due; supererogatory worship. Lane: nafl, spoil given beyond the share, a voluntary gift; nawafil are extra prayers. Penrice: Spoil, a gift. The nafl salah is named from this: it is extra to the fard. Related: anfal (spoils, the Quran's surah name), nawafil.",
+      "fr": "Un extra, un don au-dela du du; culte surerogatoire. Lane: nafl, but donne au-dela de la part, don volontaire; nawafil, prieres extra. Penrice: butin, un don. La salat nafl est nommee ainsi: extra au fard. Lie: anfal, nawafil.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن ف ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الدُّعَاءُ",
+      "tr": "ad-du'a'",
+      "root": "د ع و",
+      "en": "Calling upon, invocation, supplication. Lane: da'a, he called; du'a' is a call, a prayer of request. Penrice: To call, to pray. It is wider than salah. Salah is the rite; du'a is asking. Related: da'wah (a call, an invitation to the religion), da'i (one who calls), mad'u (the one called).",
+      "fr": "Appel, invocation, supplication. Lane: da a, il a appele; du a, un appel, une priere de demande. Penrice: appeler, prier. Plus large que la salah. La salah est le rite; le du a est la demande. Lie: da wah, da i, mad u.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. د ع و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الذِّكْرُ",
+      "tr": "adh-dhikr",
+      "root": "ذ ك ر",
+      "en": "Remembrance, mention, a reminding. Lane: dhakara, he remembered, he mentioned; dhikr is recollection and the mention of Allah. Penrice: To remember, to mention. The Quran itself is called dhikr, a reminder. Related: tadhkirah (a reminder), dhakir, dhukr (a mention), dhukrah. Dhikr can be heart, tongue, or both in later usage; the lexicon starts at mention and memory.",
+      "fr": "Rappel, mention, ressouvenance. Lane: dhakara, il s est souvenu, il a mentionne; dhikr, recollection et mention d Allah. Penrice: se souvenir, mentionner. Le Coran est dit dhikr, un rappel. Lie: tadhkirah, dhakir. Le dhikr peut etre coeur, langue, ou les deux dans l usage ulterieur; le lexique part de la mention et de la memoire.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ذ ك ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّسْبِيحُ",
+      "tr": "at-tasbih",
+      "root": "س ب ح",
+      "en": "Declaring Allah far above every defect; saying Subhan Allah. Lane: sabbaha, he declared remote from evil; subhan is a verbal noun of declaring glory. Penrice: To praise, to celebrate the praise of God. The image of the root sabaha is to swim, to go far; tasbih is putting Allah far from what does not befit Him. Related: subhan, sabih (one who glorifies), musabbah.",
+      "fr": "Declarer Allah loin de tout defaut; dire Subhan Allah. Lane: sabbaha, il a declare loin du mal; subhan, nom d action de glorifier. Penrice: louer, celebrer la louange de Dieu. L image de sabaha est nager, aller loin; le tasbih eloigne d Allah ce qui ne Lui convient pas. Lie: subhan, sabih.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ب ح. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَمْدُ",
+      "tr": "al-hamd",
+      "root": "ح م د",
+      "en": "Praise that is both thanks and recognition of excellence. Lane: hamd is praise of a praiseworthy quality, whether for a favour or for a quality in the praised one; it is not only shukr (thanks for a gift). Penrice: Praise. Al-hamdu lillah is the opening of the Fatiha. Related: hamida (he praised), mahmud (praised), ahmad, muhammad (one who is praised much).",
+      "fr": "Louange qui est a la fois remerciement et reconnaissance d une excellence. Lane: hamd, louange d une qualite louable, pour un bienfait ou pour une qualite; ce n est pas seulement shukr (remerciement d un don). Penrice: louange. Al-hamdu lillah ouvre la Fatiha. Lie: hamida, mahmud, ahmad, muhammad.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح م د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الِاسْتِغْفَارُ",
+      "tr": "al-istighfar",
+      "root": "غ ف ر",
+      "en": "Seeking covering of a sin, asking forgiveness. Lane: ghafara, he covered; maghfirah is pardon as a covering of the fault; istighfar is asking that covering. Penrice: To forgive, to cover. A helmet is mighfar, that which covers the head. Related: ghaffar, ghafur (names of Allah, intensive of covering sins), ghufran.",
+      "fr": "Demander le recouvrement d un peche, demander pardon. Lane: ghafara, il a couvert; maghfirah, pardon comme couverture de la faute; istighfar, demander cette couverture. Penrice: pardonner, couvrir. Un casque est mighfar. Lie: ghaffar, ghafur, ghufran.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. غ ف ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّوْبَةُ",
+      "tr": "at-tawbah",
+      "root": "ت و ب",
+      "en": "Turning back, repentance. Lane: taba, he returned; tawbah is a return from sin to obedience. Penrice: To repent, to turn to God. Allah is at-Tawwab, the One who turns to the slave with acceptance as the slave turns. Related: taba (he repented), matab (a place or act of turning back). The lexicon is a turn, not a feeling alone.",
+      "fr": "Retour, repentir. Lane: taba, il est revenu; tawbah, retour du peche a l obeissance. Penrice: se repentir, revenir a Dieu. Allah est at-Tawwab, Celui qui se tourne vers le serviteur. Lie: taba, matab. Le lexique est un tournant, non un seul sentiment.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ت و ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "التَّوَكُّلُ",
+      "tr": "at-tawakkul",
+      "root": "و ك ل",
+      "en": "Entrusting one's affair to another; relying upon Allah. Lane: tawakkul is committing a matter to a wakil (trustee, agent). Penrice: To trust, to appoint an agent. The wakil is the one charged. Tawakkul is not leaving work; the lexicon is handing the outcome to the Trustee while the limbs still act. Related: wakil, wakalah (agency).",
+      "fr": "Confier son affaire a un autre; s en remettre a Allah. Lane: tawakkul, remettre une affaire a un wakil (mandataire). Penrice: se fier, nommer un agent. Le tawakkul n est pas quitter le travail; le lexique est de remettre l issue au Mandataire tandis que les membres agissent. Lie: wakil, wakalah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ك ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصَّبْرُ",
+      "tr": "as-sabr",
+      "root": "ص ب ر",
+      "en": "Patience, steadfastness, holding the soul. Lane: sabara, he restrained; sabr is restraining the soul from impatience, from panic, from forbidden complaint. Penrice: Patience. Related: sabir, sabbar, sabur. The lexica split sabr into patience in obedience, in leaving sin, and in a calamity; those are uses, not three different words.",
+      "fr": "Patience, constance, retenue de l ame. Lane: sabara, il a retenu; sabr, retenir l ame de l impatience, de la panique, de la plainte interdite. Penrice: patience. Lie: sabir, sabbar. Les lexiques distinguent le sabr dans l obeissance, dans le quitter le peche, et dans le malheur: emplois, non trois mots.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص ب ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشُّكْرُ",
+      "tr": "ash-shukr",
+      "root": "ش ك ر",
+      "en": "Thanks, acknowledging a favour and using it well. Lane: shakara, he thanked; shukr is gratitude of heart, tongue, and limbs. Penrice: To thank. Related: shakir, shakur (names of Allah as appreciative of a little deed), mashkur. Distinct from hamd, which can praise a quality even without a gift to you.",
+      "fr": "Remerciement, reconnaitre un bienfait et s en servir bien. Lane: shakara, il a remercie; shukr, gratitude du coeur, de la langue et des membres. Penrice: remercier. Lie: shakir, shakur. Distinct du hamd, qui peut louer une qualite sans don recu.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ك ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِخْلَاصُ",
+      "tr": "al-ikhlas",
+      "root": "خ ل ص",
+      "en": "Making pure, clearing from admixture; sincerity of worship for Allah alone. Lane: khalasa, it became pure; ikhlas is purifying an act from shirk and from showing off. Penrice: To purify, to be sincere. Surah al-Ikhlas is named from this: it clears tawhid of partners. Related: khalis (pure), khulasah (the clarified part), mukhlis (one who makes his deen sincere).",
+      "fr": "Rendre pur, oter le melange; sincerite du culte pour Allah seul. Lane: khalasa, cela est devenu pur; ikhlas, purifier un acte du shirk et de l ostentation. Penrice: purifier, etre sincere. La sourate al-Ikhlas est nommee de la: elle nettoie le tawhid des associes. Lie: khalis, mukhlis.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. خ ل ص. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النِّيَّةُ",
+      "tr": "an-niyyah",
+      "root": "ن و ي",
+      "en": "Intention, the aim the heart resolves. Lane: nawa, he intended; niyyah is the intention. Penrice: To intend. The famous hadith \"actions are by niyyah\" uses this word. The lexicon places it in the heart's aiming, not on the tongue. Related: nawa (he intended), manwa (a place intended).",
+      "fr": "Intention, le but que le coeur resout. Lane: nawa, il a vise; niyyah, l intention. Penrice: viser. Le hadith « les actes valent par la niyyah » use ce mot. Le lexique le place dans le viser du coeur, non sur la langue. Lie: nawa, manwa.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن و ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَلَالُ",
+      "tr": "al-halal",
+      "root": "ح ل ل",
+      "en": "That which is loosed, permitted, lawful. Lane: halla, it became loosed, it was lawful; halal is the opposite of haram (restricted, sacred, forbidden). Penrice: Lawful. Related: hallala (he made lawful, or he said la ilaha illa Allah, another use), tahleel. A thing is halal when the knot of prohibition is not on it.",
+      "fr": "Ce qui est delie, permis, licite. Lane: halla, cela s est delie, cela a ete licite; halal, oppose de haram. Penrice: licite. Lie: hallala, tahleel. Une chose est halal quand le noeud de l interdiction n est pas sur elle.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ل ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَرَامُ",
+      "tr": "al-haram",
+      "root": "ح ر م",
+      "en": "That which is forbidden, sacred, inviolable. Lane: haruma, it was forbidden or sacred; haram is a sanctuary and a prohibited thing. Penrice: Unlawful, sacred. Al-Masjid al-Haram is the mosque of the sanctuary. Related: ihram (the state in which certain lawful things become forbidden for the pilgrim), hurmah (inviolability), mahram. The same root holds both \"sacred\" and \"forbidden\" because the sacred is fenced.",
+      "fr": "Ce qui est interdit, sacre, inviolable. Lane: haruma, cela a ete interdit ou sacre; haram, un sanctuaire et une chose prohibee. Penrice: illicite, sacre. Al-Masjid al-Haram. Lie: ihram, hurmah, mahram. La meme racine tient « sacre » et « interdit » parce que le sacre est cloture.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ر م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعِبَادَةُ",
+      "tr": "al-ibadah",
+      "root": "ع ب د",
+      "en": "Worship, servitude, the work of a slave toward his lord. Lane: abada, he served, he worshipped; ibadah is worship and obedience with humility. Penrice: To worship, to serve. Abd is a slave, a servant. Ibadah in the lexicon is not only rites; it is the condition of an abd. Related: abd, abid (worshipper), ma'bud (the one worshipped), ubudiyyah.",
+      "fr": "Adoration, servitude, oeuvre de l esclave envers son seigneur. Lane: abada, il a servi, il a adore; ibadah, culte et obeissance humble. Penrice: adorer, servir. Abd, esclave, serviteur. L ibadah n est pas seulement des rites; c est la condition d un abd. Lie: abd, abid, ma bud.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ب د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الطَّهَارَةُ",
+      "tr": "at-taharah",
+      "root": "ط ه ر",
+      "en": "Purity, cleanliness, being free of filth and of the ritual states that block salah. Lane: tahara, it was pure; taharah is purity. Penrice: To be pure, clean. Related: tahir (pure), tathir (making pure), mutahhar. Opposite: najasah (filth) from another root.",
+      "fr": "Purete, proprete, etre exempt d impurete et des etats rituels qui empechent la salat. Lane: tahara, cela a ete pur; taharah, purete. Penrice: etre pur, propre. Lie: tahir, tathir. Oppose: najasah, d une autre racine.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ط ه ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الدُّنْيَا",
+      "tr": "ad-dunya",
+      "root": "د ن و",
+      "en": "The nearer life, this world. Lane: dunya, the nearer, the feminine of adna (nearer, lower); this present world as opposed to al-akhirah. Penrice: The world, the present life. Related: dana (it drew near), dunuw (nearness), adna. It is named dunya because it is the nearer of the two abodes, not because it is \"low\" alone, though adna also means lower.",
+      "fr": "La vie la plus proche, ce monde. Lane: dunya, la plus proche, feminin de adna; ce monde present oppose a al-akhirah. Penrice: le monde, la vie presente. Lie: dana, dunuw, adna. Elle est dite dunya parce qu elle est la plus proche des deux demeures.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. د ن و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْآخِرَةُ",
+      "tr": "al-akhirah",
+      "root": "ا خ ر",
+      "en": "The last abode, the hereafter. Lane: akhir, last; al-akhirah, the latter life. Penrice: The life to come. Related: akhir (last), ukhra (another, a later one), akhirah as the feminine of the last. It is not a vague \"future\"; it is the abode that comes after this one.",
+      "fr": "La derniere demeure, l au-dela. Lane: akhir, dernier; al-akhirah, la vie derniere. Penrice: la vie a venir. Lie: akhir, ukhra. Ce n est pas un « futur » vague; c est la demeure qui vient apres celle-ci.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا خ ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْجَنَّةُ",
+      "tr": "al-jannah",
+      "root": "ج ن ن",
+      "en": "A garden, Paradise. Lane: jannah, a garden of trees whose ground is hidden by shade; jinn and janin (foetus) are from covering and hiding. Penrice: A garden, Paradise. Plural jannat. Jannah with the article in religious speech is the abode of reward. Related: jinn (hidden beings), junun (a covering of the mind), mijann (a shield).",
+      "fr": "Un jardin, le Paradis. Lane: jannah, jardin d arbres dont le sol est cache par l ombre; jinn et janin (foetus) viennent du cacher. Penrice: jardin, Paradis. Pluriel jannat. Lie: jinn, junun, mijann (bouclier).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج ن ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "جَهَنَّمُ",
+      "tr": "Jahannam",
+      "root": "ج ه ن م",
+      "en": "Hell, Gehenna. Penrice: Hell. Lane treats Jahannam as a proper name of the Fire. It is used as a name, not a common noun of \"any fire.\" Related Quranic names of the Fire include an-Nar, as-Sa'ir, al-Jahim, al-Hutamah, each with its own lexical shade of blaze or breaking.",
+      "fr": "L Enfer, Gehenne. Penrice: Enfer. Lane traite Jahannam comme nom propre du Feu. Ce n est pas un nom commun de « n importe quel feu ». Autres noms coraniques: an-Nar, as-Sa ir, al-Jahim, al-Hutamah, chacun avec son ombre lexicale.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج ه ن م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقِيَامَةُ",
+      "tr": "al-qiyamah",
+      "root": "ق و م",
+      "en": "The rising, the Day of Resurrection. Lane: qiyamah, a rising, the resurrection. Penrice: The resurrection. From qama, he stood. Yawm al-qiyamah is the day when the dead are made to stand. Related: qiyam, aqama, mustaqim (straight, that which stands even).",
+      "fr": "Le lever, le Jour de la Resurrection. Lane: qiyamah, un lever, la resurrection. Penrice: la resurrection. De qama, il s est tenu. Yawm al-qiyamah, le jour ou les morts sont faits debout. Lie: qiyam, mustaqim.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق و م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقَدَرُ",
+      "tr": "al-qadar",
+      "root": "ق د ر",
+      "en": "Measure, amount, decree. Lane: qadara, he measured, he decreed, he had power; qadar is a determined measure. Penrice: To measure, to decree, power. Qudrah is power. Taqdir is determining. The creed term al-qadar (the decree) sits on this lexical measure: what Allah has measured out. Related: qadir, qadeer (able, a name of Allah), miqdar (an amount).",
+      "fr": "Mesure, quantite, decret. Lane: qadara, il a mesure, il a decrete, il a pu; qadar, une mesure determinee. Penrice: mesurer, decreter, pouvoir. Qudrah, puissance. Le terme de credo al-qadar repose sur cette mesure lexicale: ce qu Allah a mesure. Lie: qadir, qadeer, miqdar.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق د ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْأُمَّةُ",
+      "tr": "al-ummah",
+      "root": "ا م م",
+      "en": "A community, a nation, a people gathered on a way; also a period of time, and a model of good. Lane: ummah, a people, a generation, a way of religion, a man who is an imam of good. Penrice: A people, a nation, a time. Related: umm (mother), imam. Ibrahim is called ummah in the Quran in the sense of a model who is a nation in himself, which Penrice and Lane both allow from the root of being followed.",
+      "fr": "Une communaute, un peuple rassemble sur une voie; aussi un laps de temps, et un modele de bien. Lane: ummah, un peuple, une generation, une voie de religion, un homme imam de bien. Penrice: peuple, nation, un temps. Lie: umm, imam. Ibrahim est dit ummah dans le Coran: un modele qui est une nation a lui seul.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا م م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النَّبِيُّ",
+      "tr": "an-nabiyy",
+      "root": "ن ب ا",
+      "en": "A prophet: one who brings news from Allah. Lane: nabi', from naba' (tidings), one who informs from God; some linked it to a root of elevation. Penrice: A prophet. Plural anbiya', nabiyyun. Related: naba' (a report of weight), anba'a (he informed). Distinct from rasul in later kalam: a rasul is sent with a message to a people; a nabi receives news. The lexicon knows both as bringers of naba' from Allah.",
+      "fr": "Un prophete: celui qui apporte une nouvelle d Allah. Lane: nabi, de naba (nouvelle), celui qui informe de la part de Dieu. Penrice: un prophete. Pluriel anbiya. Lie: naba, anba a. Distinct de rasul dans le kalam ulterieur: un rasul est envoye a un peuple. Le lexique connait les deux comme porteurs de naba d Allah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن ب ا. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّسُولُ",
+      "tr": "ar-rasul",
+      "root": "ر س ل",
+      "en": "A messenger, one sent. Lane: rasul, a messenger; risalah is the message. Penrice: An apostle, a messenger. Plural rusul. Related: arsala (he sent), mursal (one sent), risalah. The rasul is defined by being sent, not only by knowing unseen news.",
+      "fr": "Un messager, un envoye. Lane: rasul, un messager; risalah, le message. Penrice: apotre, messager. Pluriel rusul. Lie: arsala, mursal, risalah. Le rasul est defini par l envoi, non seulement par la connaissance d une nouvelle.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر س ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَلَكُ",
+      "tr": "al-malak",
+      "root": "م ل ك",
+      "en": "An angel. Lane: malak, an angel; the plural mala'ikah. Penrice: An angel. Distinct from malik (king) in vowelling, though some etymologies link angels to a root of message (a l k) rather than ownership. The Quranic usage is created beings who obey, not objects of worship. Related in form: mala'ikah.",
+      "fr": "Un ange. Lane: malak, un ange; pluriel mala ikah. Penrice: un ange. Distinct de malik (roi) par les voyelles. L usage coranique: creatures obeissantes, non objets d adoration.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م ل ك. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْكِتَابُ",
+      "tr": "al-kitab",
+      "root": "ك ت ب",
+      "en": "A writing, a book, a thing prescribed. Lane: kataba, he wrote; kitab is a book, a letter, a decree written. Penrice: A book, a writing. Ahl al-kitab, people of the Book. Related: katib (scribe), maktub (written, decreed), kutub. The Quran calls itself kitab: a writing brought together.",
+      "fr": "Un ecrit, un livre, une chose prescrite. Lane: kataba, il a ecrit; kitab, un livre, une lettre, un decret ecrit. Penrice: livre, ecrit. Ahl al-kitab. Lie: katib, maktub, kutub. Le Coran se nomme kitab: un ecrit rassemble.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ت ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقُرْآنُ",
+      "tr": "al-Quran",
+      "root": "ق ر ا",
+      "en": "The Recital, the Quran. Lane: qara'a, he recited, he gathered; Quran is the name of the Recitation that is gathered and recited. Penrice: The Coran, recitation. Related: qira'ah (a reading), qari' (a reciter), muqri'. It is named from being recited, not from being a closed volume only, though it is also kitab.",
+      "fr": "La Recitation, le Coran. Lane: qara a, il a recite, il a rassemble; Quran, nom de la Recitation rassemblee et recitee. Penrice: le Coran, recitation. Lie: qira ah, qari. Il est nomme d etre recite, non seulement d etre un volume ferme, bien qu il soit aussi kitab.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق ر ا. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْآيَةُ",
+      "tr": "al-ayah",
+      "root": "ا ي ي",
+      "en": "A sign, a mark, a miracle, a verse of the Quran. Lane: ayah, a sign by which a thing is known; then a verse. Penrice: A sign, a verse. Plural ayat. The same word is used of the splitting of the sea and of a line of Quran: both are signs. Related: ta'yid is a different root; ayah stands on its own as a token that points.",
+      "fr": "Un signe, une marque, un miracle, un verset du Coran. Lane: ayah, un signe par lequel on connait une chose; puis un verset. Penrice: signe, verset. Pluriel ayat. Le meme mot dit la fente de la mer et une ligne du Coran: ce sont des signes.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ي ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السُّورَةُ",
+      "tr": "as-surah",
+      "root": "س و ر",
+      "en": "A surah of the Quran: a fence, a rank, a complete portion. Lane: sur, a wall, an enclosure; surah, a degree of a building, then a chapter of the Quran as a fenced portion. Penrice: A chapter of the Coran. Related: sur (wall around a city). The image is a walled-off piece, not a random cut.",
+      "fr": "Une sourate du Coran: une enceinte, un rang, une portion complete. Lane: sur, un mur; surah, un degre d un batiment, puis un chapitre du Coran comme portion cloturee. Penrice: un chapitre du Coran. Lie: sur (mur d une ville).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س و ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَدِيثُ",
+      "tr": "al-hadith",
+      "root": "ح د ث",
+      "en": "A report, a new thing, speech; then a report of the Prophet. Lane: hadith, a thing that happens, a narrative; hadatha, he related. Penrice: A story, a new thing. In Islamic science, al-hadith is the attributed report. Related: huduth (coming into being), muhdath (new, invented), tahdith (telling).",
+      "fr": "Un recit, une chose nouvelle, une parole; puis un recit du Prophete. Lane: hadith, une chose qui arrive, un recit. Penrice: une histoire, une chose nouvelle. Dans la science islamique, al-hadith est le recit attribue. Lie: huduth, muhdath, tahdith.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح د ث. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْفِقْهُ",
+      "tr": "al-fiqh",
+      "root": "ف ق ه",
+      "en": "Understanding, then the understanding of the rulings of the deen. Lane: faqiha, he understood; fiqh is understanding, and later the science of law. Penrice: To understand. A faqih is one who understands. The lexicon starts at understanding, not at a school of law.",
+      "fr": "Comprehension, puis la comprehension des statuts de la religion. Lane: faqiha, il a compris; fiqh, comprehension, puis la science du droit. Penrice: comprendre. Un faqih est celui qui comprend. Le lexique part de la comprehension, non d une ecole.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ق ه. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعِلْمُ",
+      "tr": "al-ilm",
+      "root": "ع ل م",
+      "en": "Knowledge, knowing a thing as it is. Lane: alima, he knew; ilm is knowledge. Penrice: To know, knowledge. Related: alim (knower), allam, alim as a name of Allah, ma'lum (known), alam (a sign, a flag; and alam, the world, as that by which the Maker is known, in some etymologies). Distinct from ma'rifah in later usage (recognition); the lexicon uses ilm as the wide word for knowledge.",
+      "fr": "Savoir, connaitre une chose telle qu elle est. Lane: alima, il a su; ilm, le savoir. Penrice: savoir, connaissance. Lie: alim, allam, ma lum, alam (signe; et le monde). Distinct de ma rifah dans l usage ulterieur; le lexique tient ilm comme le mot large du savoir.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ل م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحِكْمَةُ",
+      "tr": "al-hikmah",
+      "root": "ح ك م",
+      "en": "Wisdom, a sound judgment put in its place. Lane: hikmah, wisdom, science, a ruling that is just; hakama, he judged, he restrained (a hikmah of a bridle). Penrice: Wisdom, judgment. Related: hukm (judgment, ruling), hakim (wise, a judge), hakam (an arbiter). Wisdom in the lexicon is not a vague glow; it is putting a thing in its right measure, as a bridle holds a mount.",
+      "fr": "Sagesse, un jugement sain mis a sa place. Lane: hikmah, sagesse, science, un arret juste; hakama, il a juge, il a retenu (hikmah d un mors). Penrice: sagesse, jugement. Lie: hukm, hakim, hakam. La sagesse n est pas une lueur vague; c est mettre une chose a sa juste mesure.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ك م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَقُّ",
+      "tr": "al-haqq",
+      "root": "ح ق ق",
+      "en": "Truth, reality, a right that is due, that which is established. Lane: haqq, truth, a just claim, what is due; haqqa, it became true and established. Penrice: Truth, a right. Allah is al-Haqq. Related: haqiqah (reality), istihqaq (deserving), tahqiq. Opposite: batil (that which is null, vain).",
+      "fr": "Verite, realite, un droit du, ce qui est etabli. Lane: haqq, verite, une creance juste, le du; haqqa, cela s est verifie. Penrice: verite, un droit. Allah est al-Haqq. Lie: haqiqah, tahqiq. Oppose: batil (vain, nul).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ق ق. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْبَاطِلُ",
+      "tr": "al-batil",
+      "root": "ب ط ل",
+      "en": "False, vain, that which does not hold. Lane: batala, it was null, it perished; batil is falsehood, vanity. Penrice: Vain, false. Related: butlan (nullity), abtal (he made void). The Quran opposes haqq and batil as what stands and what falls.",
+      "fr": "Faux, vain, ce qui ne tient pas. Lane: batala, cela a ete nul, cela a peri; batil, faussete, vanite. Penrice: vain, faux. Lie: butlan, abtal. Le Coran oppose haqq et batil comme ce qui tient et ce qui tombe.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب ط ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النُّورُ",
+      "tr": "an-nur",
+      "root": "ن و ر",
+      "en": "Light. Lane: nur, light, as opposed to zulmah (darkness); nar is fire. Penrice: Light. Allah is nur of the heavens and the earth in the famous ayah: the lexica treat nur as light that makes things seen. Related: anara (he illuminated), manar (a lighthouse, a place of light), munir (giving light).",
+      "fr": "Lumiere. Lane: nur, lumiere, opposee a zulmah (tenebres); nar, feu. Penrice: lumiere. Allah est nur des cieux et de la terre dans le verset celebre: les lexiques tiennent nur comme lumiere qui fait voir. Lie: anara, manar, munir.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن و ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الظُّلْمُ",
+      "tr": "az-zulm",
+      "root": "ظ ل م",
+      "en": "Wrong, putting a thing in the wrong place, darkness of injustice. Lane: zalama, he wronged, he put a thing out of its place; zulm is injustice. Zulmah is darkness. Penrice: To act wrongfully, darkness. Related: zalim (wrongdoer), mazlum (wronged), zalamat. The famous lexical definition is: putting a thing in other than its place.",
+      "fr": "Tort, mettre une chose hors de sa place, tenebre de l injustice. Lane: zalama, il a lese, il a mis une chose hors de sa place; zulm, injustice. Zulmah, tenebres. Penrice: agir injustement, tenebres. Definition lexicale celebre: mettre une chose ailleurs qu a sa place.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ظ ل م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعَدْلُ",
+      "tr": "al-adl",
+      "root": "ع د ل",
+      "en": "Justice, evenness, making two sides equal. Lane: adala, he made equal, he acted justly; adl is justice, and a thing of equivalent value. Penrice: Justice, equity. Related: adil (just), i'tidal (balance, moderation), ta'dil. Opposite of zulm.",
+      "fr": "Justice, egalite, rendre les deux cotes egaux. Lane: adala, il a egalise, il a agi justement; adl, justice, et une chose de valeur equivalente. Penrice: justice, equite. Lie: adil, i tidal, ta dil. Oppose du zulm.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع د ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْبِرُّ",
+      "tr": "al-birr",
+      "root": "ب ر ر",
+      "en": "Piety, ample goodness, kindness especially to parents. Lane: birr, extensive goodness, piety, kindness; barra, he was kind, he was dutiful. Penrice: Piety, kindness. Related: barr (pious, kind; a name of Allah), barr (land as opposed to bahr, sea, another sense of the spelling). The Quran's birr is a wide goodness, not a single rite.",
+      "fr": "Piete, ample bonte, bonte surtout envers les parents. Lane: birr, bonte etendue, piete; barra, il a ete bon, pieux. Penrice: piete, bonte. Lie: barr (pieux; un nom d Allah). Le birr du Coran est une large bonte, non un seul rite.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب ر ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النَّفْسُ",
+      "tr": "an-nafs",
+      "root": "ن ف س",
+      "en": "The soul, the self, a person, the blood-life. Lane: nafs, soul, self, person; nafas is breath. Penrice: Soul, person. Plural anfus, nufus. Related: naffasa (he eased, he breathed), tanaffus (breathing). The Quran speaks of nafs that commands evil, nafs that reproaches, and nafs at peace: three descriptions of the same lexical self, not three extra souls in the dictionary.",
+      "fr": "L ame, le soi, une personne, la vie du sang. Lane: nafs, ame, soi, personne; nafas, souffle. Penrice: ame, personne. Pluriel anfus, nufus. Lie: naffasa, tanaffus. Le Coran parle de nafs qui ordonne le mal, qui se blame, et en paix: trois descriptions du meme soi lexical.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن ف س. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرُّوحُ",
+      "tr": "ar-ruh",
+      "root": "ر و ح",
+      "en": "Spirit, breath of life, revelation, the angel of revelation. Lane: ruh, soul, spirit, breath, a blowing of comfort (rawh, rest). Penrice: Spirit, the spirit. The Quran uses ruh for the revelation brought to the Prophet, for Isa as a ruh from Allah, and for the command of the ruh that the people ask about. The lexica list these uses; they do not pretend to define the unseen essence. Related: rih (wind), rawh (ease), rahah (rest), tarwih.",
+      "fr": "Esprit, souffle de vie, revelation, l ange de la revelation. Lane: ruh, ame, esprit, souffle, souffle de confort (rawh, repos). Penrice: esprit. Le Coran use ruh pour la revelation, pour Isa, et pour l ordre du ruh dont on interroge. Les lexiques listent ces emplois; ils ne definissent pas l essence invisible. Lie: rih (vent), rawh, rahah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر و ح. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقَلْبُ",
+      "tr": "al-qalb",
+      "root": "ق ل ب",
+      "en": "The heart; that which turns. Lane: qalb, the heart; qalaba, he turned a thing over. Penrice: Heart. Plural qulub. The lexicon notes the heart as the seat of turning: a qalb that turns. Related: taqallub (fluctuation), maqlub (turned over), munqalab (a place of turning, an outcome).",
+      "fr": "Le coeur; ce qui tourne. Lane: qalb, le coeur; qalaba, il a retourne. Penrice: coeur. Pluriel qulub. Le lexique note le coeur comme siege du tourner. Lie: taqallub, maqlub, munqalab (lieu de retournement, issue).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق ل ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْفِطْرَةُ",
+      "tr": "al-fitrah",
+      "root": "ف ط ر",
+      "en": "The original make, the innate disposition. Lane: fatara, he cleaved, he created for the first time; fitrah is the native constitution. Penrice: To create, to cleave. Iftar is breaking the fast (cleaving the abstinence). Related: fatir (originator, a name of Allah), fitr (the feast of breaking, Id al-Fitr). The hadith of fitrah uses this lexical first-make of the human.",
+      "fr": "La fabrication premiere, la disposition inneee. Lane: fatara, il a fendu, il a cree pour la premiere fois; fitrah, la constitution native. Penrice: creer, fendre. Iftar, rompre le jeune (fendre l abstinence). Lie: fatir, fitr (la fete de rupture).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ط ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصَّدَقَةُ",
+      "tr": "as-sadaqah",
+      "root": "ص د ق",
+      "en": "Charity, a truthful gift. Lane: sadaqah, alms; sadaqa, he told truth, he was sincere; a sadaqah is a gift that confirms the truth of faith. Penrice: Alms. Related: sidq (truth), sadiq (truthful, a friend), sadaq (bridal gift), tasdiq (confirmation). Zakah is the due portion; sadaqah in wide speech includes voluntary charity.",
+      "fr": "Aumone, un don sincere. Lane: sadaqah, aumone; sadaqa, il a dit vrai; une sadaqah confirme la verite de la foi. Penrice: aumone. Lie: sidq, sadiq, sadaq (don nuptial), tasdiq. La zakah est la part due; la sadaqah au sens large inclut le don volontaire.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص د ق. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرِّبَا",
+      "tr": "ar-riba",
+      "root": "ر ب و",
+      "en": "Increase, usury, unjust increase on a debt. Lane: raba, it increased; riba is excess, usury. Penrice: Usury, increase. Related: rabwah (high ground), tarbiyah (raising, from a related sense of making grow). The Quran forbids riba as that excess on loans; the lexicon is the excess itself.",
+      "fr": "Accroissement, usure, exces injuste sur une dette. Lane: raba, cela a augmente; riba, exces, usure. Penrice: usure, accroissement. Lie: rabwah (hauteur). Le Coran interdit le riba comme cet exces sur les prets; le lexique est l exces lui-meme.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ب و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْجِهَادُ",
+      "tr": "al-jihad",
+      "root": "ج ه د",
+      "en": "Striving with effort; exerting power in a cause. Lane: jahada, he strove; juhd is effort, exhaustion of power; jihad is striving. Penrice: To strive, to fight. Related: ijtihad (striving of the mind to reach a ruling), mujahid, juhd. The lexicon is effort, not a later slogan. Fighting in the path of Allah is one use of this striving in the Quran; striving with the self and with wealth is also in that speech.",
+      "fr": "S efforcer avec peine; depenser sa force dans une cause. Lane: jahada, il s est efforce; juhd, effort; jihad, effort. Penrice: s efforcer, combattre. Lie: ijtihad, mujahid, juhd. Le lexique est l effort, non un slogan. Le combat dans le sentier d Allah est un emploi de cet effort dans le Coran; l effort par soi et par le bien l est aussi.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج ه د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْهِجْرَةُ",
+      "tr": "al-hijrah",
+      "root": "ه ج ر",
+      "en": "Leaving, migration, cutting off from a place or a thing. Lane: hajara, he forsook, he emigrated; hijrah is emigration. Penrice: To emigrate, to forsake. The Hijrah of the Prophet from Makkah to Madinah is the named instance. Related: muhajir (emigrant), hajr (forsaking, including a speech-cut). Lexically it is a leaving, not a holiday.",
+      "fr": "Quitter, emigration, se couper d un lieu ou d une chose. Lane: hajara, il a abandonne, il a emigre; hijrah, emigration. Penrice: emigrier, abandonner. La Hijra du Prophete de Makkah a Madinah est l instance nommee. Lie: muhajir, hajr. Lexicalement c est un depart, non une fete.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ه ج ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْفِتْنَةُ",
+      "tr": "al-fitnah",
+      "root": "ف ت ن",
+      "en": "A trial, a proving by fire, discord that tests. Lane: fatana, he tried (as gold is tried in fire); fitnah is a trial, temptation, civil discord. Penrice: Temptation, trial. Related: fattan, maftun. The word is not only \"chaos\"; it is a test that may burn and show what is in the metal.",
+      "fr": "Une epreuve, un essai par le feu, une discorde qui teste. Lane: fatana, il a eprouve (comme l or au feu); fitnah, epreuve, tentation, discorde. Penrice: tentation, epreuve. Lie: fattan, maftun. Le mot n est pas seulement « chaos »; c est un test qui peut bruler et montrer le metal.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ت ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْبَرَكَةُ",
+      "tr": "al-barakah",
+      "root": "ب ر ك",
+      "en": "Increase, abiding good, blessing. Lane: barakah, increase and continuance of good; baraka, it remained, it knelt (a camel's birk, chest). Penrice: Blessing. Related: tabarak (He is blessed, of Allah), mubarak (blessed), barakat. The image of remaining and increasing is why a little with barakah outstrips a lot without it, in the speech built on this word.",
+      "fr": "Accroissement, bien qui demeure, benediction. Lane: barakah, accroissement et duree du bien; baraka, cela est reste, s est agenouille (birk du chameau). Penrice: benediction. Lie: tabarak, mubarak, barakat. L image de rester et d augmenter explique qu un peu avec barakah depasse beaucoup sans elle.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب ر ك. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرِّزْقُ",
+      "tr": "ar-rizq",
+      "root": "ر ز ق",
+      "en": "Provision, what is apportioned of food and of benefit. Lane: razaqa, he provided; rizq is a portion of provision. Penrice: Provision, food. Related: razzaq (provider, a name of Allah), marzuq. Rizq in the lexicon is wider than a salary: anything by which a body or a soul is sustained.",
+      "fr": "Provision, ce qui est departi de nourriture et de benefice. Lane: razaqa, il a pourvu; rizq, une part de provision. Penrice: provision, nourriture. Lie: razzaq, marzuq. Le rizq est plus large qu un salaire: tout ce par quoi un corps ou une ame est soutenu.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ز ق. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْأَجْرُ",
+      "tr": "al-ajr",
+      "root": "ا ج ر",
+      "en": "A wage, a reward. Lane: ajr, hire, reward; ajara, he rewarded, he hired. Penrice: Reward, hire. Related: ajir (a hired worker), istijar (to hire), ujrah. With Allah it is the reward of deeds; with people it is a wage. The lexicon is payment for work.",
+      "fr": "Un salaire, une recompense. Lane: ajr, loyer, recompense; ajara, il a recompense, il a loue. Penrice: recompense, loyer. Lie: ajir, ujrah. Aupres d Allah, recompense des actes; aupres des gens, un salaire. Le lexique est un paiement pour un travail.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ج ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الذَّنْبُ",
+      "tr": "adh-dhanb",
+      "root": "ذ ن ب",
+      "en": "A sin, a fault; lexically also a tail (the consequence that follows). Lane: dhanb, a sin, a crime; also a tail. Penrice: A sin. Plural dhunub. Related: mudhnib (a sinner). Some lexica note the tail-sense: a sin as what follows the person. Istighfar is sought for dhunub.",
+      "fr": "Un peche, une faute; lexicalement aussi une queue (la suite qui suit). Lane: dhanb, peche, crime; aussi une queue. Penrice: un peche. Pluriel dhunub. Lie: mudhnib. Certains lexiques notent le sens de queue: un peche comme ce qui suit la personne.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ذ ن ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَغْفِرَةُ",
+      "tr": "al-maghfirah",
+      "root": "غ ف ر",
+      "en": "Forgiveness as a covering of the sin. Lane: maghfirah, pardon. See istighfar. Penrice: Forgiveness. It is Allah's covering, not the slave's claim. Related: ghaffar, ghafur, ghufran, istighfar.",
+      "fr": "Pardon comme couverture du peche. Lane: maghfirah, pardon. Voir istighfar. Penrice: pardon. C est la couverture d Allah, non la pretention du serviteur. Lie: ghaffar, ghafur, ghufran, istighfar.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. غ ف ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الرَّحْمَةُ",
+      "tr": "ar-rahmah",
+      "root": "ر ح م",
+      "en": "Mercy, compassion, a tender benefit. Lane: rahmah, mercy. Penrice: Mercy. Related: Rahman, Rahim, rahim (womb), tarahum. A rain can be called rahmah as a mercy sent down. The womb (rahim) is named from this tenderness.",
+      "fr": "Misericorde, compassion, un bien tendre. Lane: rahmah, misericorde. Penrice: misericorde. Lie: Rahman, Rahim, rahim (matrice), tarahum. Une pluie peut etre dite rahmah. La matrice est nommee de cette tendresse.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ر ح م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْخُشُوعُ",
+      "tr": "al-khushu'",
+      "root": "خ ش ع",
+      "en": "Humility that appears in the limbs from a lowered heart. Lane: khasha'a, he was lowly, he cast down his eyes; khushu' is humility. Penrice: To be humble. Related: khashi'. Quran 23:2: those who are humble in their salah. The lexicon is a lowering, not a theatre of tears.",
+      "fr": "Humilite qui parait dans les membres d un coeur abaisse. Lane: khasha a, il a ete humble, il a baisse les yeux; khushu, humilite. Penrice: etre humble. Lie: khashi. Coran 23:2. Le lexique est un abaissement, non un theatre de larmes.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. خ ش ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْخَشْيَةُ",
+      "tr": "al-khashyah",
+      "root": "خ ش ي",
+      "en": "Fear mixed with knowledge and awe. Lane: khashiya, he feared; khashyah is fear. Penrice: To fear. The Quran says of the scholars that they fear Allah: khashyah in that speech is not panic, it is fear that comes with ilm. Related: khashi (one who fears). Distinct from khawf in shade: khashyah is often fear of a great one you know.",
+      "fr": "Crainte melee de savoir et d awe. Lane: khashiya, il a craint; khashyah, crainte. Penrice: craindre. Le Coran dit des savants qu ils craignent Allah: khashyah n est pas la panique, c est la crainte avec ilm. Lie: khashi. Distincte du khawf par la nuance.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. خ ش ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْوَلِيُّ",
+      "tr": "al-waliyy",
+      "root": "و ل ي",
+      "en": "A close friend, a protector, one placed near. Lane: waliy, one who is near, a friend, a patron, a protector; walayah is nearness and authority to manage. Penrice: A friend, a protector. Allah is wali of the believers. Related: tawalla (he turned to, he took as wali), mawla (master or freed slave, a near one), wilayah. In later speech awliya' Allah are the allies of Allah; the lexicon is nearness and protection, not a rank sold as a title.",
+      "fr": "Un ami proche, un protecteur, un place pres. Lane: waliy, un proche, un ami, un patron; walayah, proximite et autorite de gerer. Penrice: ami, protecteur. Allah est wali des croyants. Lie: tawalla, mawla, wilayah. Dans un langage ulterieur, awliya Allah; le lexique est proximite et protection, non un titre vendu.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ل ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشَّفَاعَةُ",
+      "tr": "ash-shafa'ah",
+      "root": "ش ف ع",
+      "en": "Intercession: joining a plea to another's need. Lane: shafa'a, he interceded; shaf' is a pair (even number), so shafa'ah is adding yourself as a second to someone's case. Penrice: Intercession. Related: shafi' (intercessor), shaf' (even, as opposed to witr, odd). The lexicon is pairing a request, not a right to overrule Allah.",
+      "fr": "Intercession: joindre une supplique au besoin d un autre. Lane: shafa a, il a intercede; shaf, une paire, donc shafa ah, s ajouter comme second a la cause de quelqu un. Penrice: intercession. Lie: shafi, shaf (pair, oppose a witr, impair). Le lexique est d apparier une demande, non un droit de casser le decret d Allah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ف ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعَرْشُ",
+      "tr": "al-arsh",
+      "root": "ع ر ش",
+      "en": "A throne, a raised seat of rule; the Throne. Lane: arsh, a throne, a roof of palmboughs, a structure raised. Penrice: A throne. Al-Arsh in the Quran is the Throne of Allah, described as being borne and as being above. The lexicon is a throne of kingship, not a chair of a body. Related: arasha (he constructed a trellis).",
+      "fr": "Un trone, un siege eleve de commandement; le Trone. Lane: arsh, un trone, un toit de palmes, une structure elevee. Penrice: un trone. Al-Arsh dans le Coran est le Trone d Allah. Le lexique est un trone de royaute, non une chaise d un corps. Lie: arasha (construire une treille).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ر ش. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْكُرْسِيُّ",
+      "tr": "al-kursiyy",
+      "root": "ك ر س",
+      "en": "A seat, a footstool, a chair of knowledge or of rule. Lane: kursiyy, a seat, a chair. Penrice: A throne, a chair. The ayah of the Kursi (2:255) uses this word. Some lexica distinguish kursiyy (seat) from arsh (throne) as lesser to greater; that is a lexical shade, not a diagram of unseen furniture.",
+      "fr": "Un siege, un marchepied, une chaise de savoir ou de commandement. Lane: kursiyy, un siege. Penrice: trone, chaise. Le verset du Kursi (2:255) use ce mot. Certains lexiques distinguent kursiyy et arsh comme moindre et plus grand: une nuance lexicale, non un dessin de meubles invisibles.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ر س. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْغَيْبُ",
+      "tr": "al-ghayb",
+      "root": "غ ي ب",
+      "en": "That which is absent from the senses, the unseen. Lane: ghayb, absence, the unseen; ghaba, he was absent. Penrice: The unseen. Related: gha'ib (absent), ghaybah (absence), mughayyab. Opposite of shahadah in the pair al-ghayb wa ash-shahadah: the unseen and the witnessed. Knowledge of the ghayb in the Quran is Allah's; the lexicon is simply what is not present to you.",
+      "fr": "Ce qui est absent des sens, l invisible. Lane: ghayb, absence, l invisible; ghaba, il a ete absent. Penrice: l invisible. Lie: gha ib, ghaybah. Oppose de shahadah dans la paire al-ghayb wa ash-shahadah. La connaissance du ghayb dans le Coran est a Allah; le lexique est ce qui ne t est pas present.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. غ ي ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشَّرِيعَةُ",
+      "tr": "ash-shari'ah",
+      "root": "ش ر ع",
+      "en": "A watering-place, a path to water, then a revealed law as a path. Lane: shari'ah, a way to water, a law of religion. Penrice: A law. Related: shara'a (he ordained a path), mashra'ah, shar'. The image is a clear way down to water that cattle can enter: a deen made walkable, not a maze.",
+      "fr": "Un abreuvoir, un chemin vers l eau, puis une loi revelee comme voie. Lane: shari ah, un chemin vers l eau, une loi de religion. Penrice: une loi. Lie: shara a, shar. L image est une voie claire vers l eau ou le betail peut entrer: une religion praticable, non un labyrinthe.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ر ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمِلَّةُ",
+      "tr": "al-millah",
+      "root": "م ل ل",
+      "en": "A religion, a way of a community, especially the millah of Ibrahim. Lane: millah, a religion, a way. Penrice: A religion. Related in speech to ummah, but millah is the rite-and-creed way, ummah the people on it. Ibrahim's millah is named in the Quran as hanif, inclining away from shirk.",
+      "fr": "Une religion, une voie d une communaute, surtout la millah d Ibrahim. Lane: millah, une religion, une voie. Penrice: une religion. Voisin d ummah, mais millah est la voie de rite et de credo, ummah le peuple qui s y tient. La millah d Ibrahim est dite hanif dans le Coran.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م ل ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَنِيفُ",
+      "tr": "al-hanif",
+      "root": "ح ن ف",
+      "en": "One who inclines away from error toward the straight; used of Ibrahim. Lane: hanif, one who inclines from a crooked religion to the true; hanaf is an inclination of the foot. Penrice: A true believer, orthodox. Plural hunafa'. The lexicon is an incline toward tawhid, away from the millah of shirk.",
+      "fr": "Celui qui s ecarte de l erreur vers le droit; dit d Ibrahim. Lane: hanif, celui qui penche d une religion courbe vers la vraie; hanaf, inclination du pied. Penrice: vrai croyant. Pluriel hunafa. Le lexique est un penchant vers le tawhid, loin de la millah du shirk.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ن ف. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "مَكَّةُ",
+      "tr": "Makkah",
+      "root": "م ك ك",
+      "en": "Makkah, the town of the Sacred House. Penrice: Mecca. Lane lists Makkah as the well-known city. Bakkah is used in the Quran as another name of the site (3:96). The lexicon treats them as names of the place, not as metaphors.",
+      "fr": "Makkah, la ville de la Maison sacree. Penrice: La Mecque. Lane liste Makkah comme la ville connue. Bakkah est un autre nom du lieu dans le Coran (3:96). Le lexique les tient pour des noms de lieu.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م ك ك. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَدِينَةُ",
+      "tr": "al-Madinah",
+      "root": "م د ن",
+      "en": "A city; al-Madinah, the City of the Prophet, formerly Yathrib. Lane: madinah, a city; plural mudun. Penrice: A city. Related: madani (of the city), tamaddun (later word for civilisation, built on city). Without the article, any town; with the article in Islamic speech, that city.",
+      "fr": "Une ville; al-Madinah, la Ville du Prophete, autrefois Yathrib. Lane: madinah, une ville; pluriel mudun. Penrice: une ville. Sans article, toute ville; avec l article dans la langue islamique, cette ville-la.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م د ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْفَجْرُ",
+      "tr": "al-fajr",
+      "root": "ف ج ر",
+      "en": "Dawn, the splitting of the dark by the first light. Lane: fajr, daybreak; fajara, he split, he caused to gush. Penrice: Daybreak. Salah al-Fajr is the prayer of that time. Related: tafjir (causing springs to burst), fujur (immorality, a \"splitting\" from what is right, another use of the root).",
+      "fr": "L aube, la fente de la nuit par la premiere lumiere. Lane: fajr, poindre du jour; fajara, il a fendu, il a fait jaillir. Penrice: poindre du jour. La salat al-Fajr est la priere de ce temps. Lie: tafjir, fujur (immoralite, autre emploi de la racine).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ج ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الظُّهْرُ",
+      "tr": "az-zuhr",
+      "root": "ظ ه ر",
+      "en": "Noon, the back of the day when the sun is high; zuhr prayer. Lane: zuhr, midday; zahr, the back. Penrice: Midday. Related: zahara (it appeared, it became outward), zahir (outward), zahirah (the heat of noon). Dhuhr salah begins after the sun has passed the zenith, a fiqh timing on this lexical noon.",
+      "fr": "Midi, le dos du jour quand le soleil est haut; la priere du zuhr. Lane: zuhr, midi; zahr, le dos. Penrice: midi. Lie: zahara, zahir, zahirah (chaleur de midi). La salat du Dhuhr commence apres le zenith: un horaire de fiqh sur ce midi lexical.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ظ ه ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعَصْرُ",
+      "tr": "al-asr",
+      "root": "ع ص ر",
+      "en": "Late afternoon, an age, a pressing. Lane: asr, afternoon; asr, an epoch; asara, he pressed (juice). Penrice: Time, the afternoon. Surah al-Asr swears by this. Salah al-Asr is the prayer of the declining day. Related: asir (captive, one \"pressed\"), i'sar.",
+      "fr": "Fin d apres-midi, une epoque, un pressage. Lane: asr, apres-midi; asr, une epoque; asara, il a presse. Penrice: le temps, l apres-midi. La sourate al-Asr jure par cela. La salat al-Asr est la priere du jour qui decline. Lie: asir (captif).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ص ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَغْرِبُ",
+      "tr": "al-maghrib",
+      "root": "غ ر ب",
+      "en": "The place or time of sunset, the west. Lane: maghrib, sunset, the west; gharaba, the sun set, it went away. Penrice: The west, sunset. Salah al-Maghrib is the prayer at that disappearance of the sun. Related: ghurub (setting), gharib (a stranger, one far from home, another shade of the root \"going far\").",
+      "fr": "Le lieu ou le temps du coucher du soleil, l ouest. Lane: maghrib, coucher, l ouest; gharaba, le soleil s est couche. Penrice: l ouest, le coucher. La salat al-Maghrib est la priere a cette disparition. Lie: ghurub, gharib (etranger, autre ombre de la racine).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. غ ر ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعِشَاءُ",
+      "tr": "al-isha'",
+      "root": "ع ش و",
+      "en": "The first part of the night, the evening meal time; isha prayer. Lane: isha', the beginning of darkness after Maghrib, the evening. Penrice: The evening. Related: asha (he ate the evening meal), ashiyyah (evening). Salah al-Isha is the prayer of that nightfall.",
+      "fr": "Le debut de la nuit, l heure du repas du soir; la priere de l isha. Lane: isha, le debut de l obscurite apres le Maghrib. Penrice: le soir. Lie: asha (manger le repas du soir), ashiyyah. La salat al-Isha est la priere de cette tombee de la nuit.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ش و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السَّحَرُ",
+      "tr": "as-sahar",
+      "root": "س ح ر",
+      "en": "The last part of the night before dawn. Lane: sahar, the time before daybreak. Penrice: The dawn, the time just before it. Related: sahur (the pre-dawn meal of the fasting person), sahir. Distinct from sihr (sorcery), which is a different vowelling of a related spelling: sihr is covering the truth with a trick; sahar is the thinning dark.",
+      "fr": "La fin de la nuit avant l aube. Lane: sahar, le temps avant le poindre. Penrice: l aube, le temps juste avant. Lie: sahur (repas d avant l aube du jeuneur). Distinct de sihr (sorcellerie), autre voyelle: le sihr recouvre la verite d un artifice; le sahar est le noir qui s amincit.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ح ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِمْسَاكُ",
+      "tr": "al-imsak",
+      "root": "م س ك",
+      "en": "Holding back, withholding; the stop of eating at Fajr. Lane: amsaka, he held, he withheld; imsak is holding. Penrice: To hold, to withhold. Related: mask (holding), mismak. In fasting speech, imsak is the moment one holds back from food. The same root gives miskin in a different pattern (one who has little to hold).",
+      "fr": "Retenir, retenir; l arret de manger au Fajr. Lane: amsaka, il a retenu; imsak, retenue. Penrice: tenir, retenir. Dans le langage du jeune, l imsak est l instant ou l on se retient de la nourriture.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م س ك. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِفْطَارُ",
+      "tr": "al-iftar",
+      "root": "ف ط ر",
+      "en": "Breaking the fast; opening the fast at Maghrib. Lane: aftara, he broke his fast; iftar is that breaking. Penrice: To breakfast, to break a fast. See fitrah. Related: fatur, muftir (one who is not fasting). The lexical image is splitting the sawm open.",
+      "fr": "Rompre le jeune; l ouvrir au Maghrib. Lane: aftara, il a rompu son jeune; iftar, cette rupture. Penrice: dejeuner, rompre un jeune. Voir fitrah. Lie: muftir. L image lexicale est de fendre le sawm.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ف ط ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْوِتْرُ",
+      "tr": "al-witr",
+      "root": "و ت ر",
+      "en": "Odd number; the witr prayer of odd rakahs at night. Lane: witr, odd (as opposed to shaf', even); also a wrong that leaves one \"odd\" by taking a kin. Penrice: Odd number. Related: watara, tawatur. The salah called witr is named from being an odd unit after the even pairs of night prayer.",
+      "fr": "Nombre impair; la priere du witr, rakahs impaires de la nuit. Lane: witr, impair (oppose a shaf, pair). Penrice: nombre impair. La salat dite witr est nommee d etre une unite impaire apres les paires de la nuit.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ت ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْجُمُعَةُ",
+      "tr": "al-jumu'ah",
+      "root": "ج م ع",
+      "en": "Friday; the day of gathering. Lane: jumu'ah, Friday, from jama'a, he gathered. Penrice: Friday. Related: jama'ah (a group, a congregation), jam' (gathering), masjid jami' (a congregational mosque), ijma' (agreement, a gathering of views). Salah al-Jumu'ah is the Friday prayer of the gathering.",
+      "fr": "Le vendredi; le jour du rassemblement. Lane: jumu ah, vendredi, de jama a, il a rassemble. Penrice: vendredi. Lie: jama ah, jam, ijma. La salat al-Jumu ah est la priere du rassemblement.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج م ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعِيدُ",
+      "tr": "al-id",
+      "root": "ع و د",
+      "en": "A returning feast, a festival. Lane: id, a feast, from ada, it returned (a day that returns). Penrice: A festival. Related: awda (he returned), ma'ad (a place of return, the hereafter as return), istia'dah. Id al-Fitr and Id al-Adha are the two named returns of joy in the year.",
+      "fr": "Une fete qui revient, un festival. Lane: id, une fete, de ada, cela est revenu (un jour qui revient). Penrice: une fete. Lie: awda, ma ad (lieu de retour). Id al-Fitr et Id al-Adha sont les deux retours nommes de joie dans l annee.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع و د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصِّرَاطُ",
+      "tr": "as-sirat",
+      "root": "ص ر ط",
+      "en": "A path, a road; the straight path, and the Path of the hereafter. Lane: sirat, a way. Penrice: A way, a path. As-sirat al-mustaqim in the Fatiha is the straight road. In hadith speech of the last day, as-sirat is the path over the Fire; the lexicon of Penrice is the Quranic road. Related in sense: tariq, sabil (other words for way).",
+      "fr": "Un chemin, une route; le droit chemin, et le Pont de l au-dela. Lane: sirat, une voie. Penrice: une voie, un chemin. As-sirat al-mustaqim dans la Fatiha. Dans le langage du hadith du dernier jour, as-sirat est la voie sur le Feu; le lexique de Penrice est la route coranique.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص ر ط. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمِيزَانُ",
+      "tr": "al-mizan",
+      "root": "و ز ن",
+      "en": "A balance, scales, a just measure. Lane: mizan, a balance; wazn, weight. Penrice: A balance. Related: wazana (he weighed), mawzun (well-weighed). The mizan of the last day is the scale of deeds in Quranic speech. In this world the word is any just weighing.",
+      "fr": "Une balance, des plateaux, une juste mesure. Lane: mizan, une balance; wazn, poids. Penrice: une balance. Lie: wazana, mawzun. Le mizan du dernier jour est la balance des actes dans la parole coranique. Ici-bas, toute pesee juste.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ز ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحِسَابُ",
+      "tr": "al-hisab",
+      "root": "ح س ب",
+      "en": "Reckoning, account. Lane: hasaba, he reckoned; hisab is an account. Penrice: An account, a reckoning. Yawm al-hisab, the Day of Reckoning. Related: hasib (a reckoner, a name of Allah), ihtisab (taking into account, expecting reward), hasb (sufficiency: hasbunallah).",
+      "fr": "Compte, reglement. Lane: hasaba, il a compte; hisab, un compte. Penrice: un compte, un calcul. Yawm al-hisab. Lie: hasib, ihtisab, hasb (suffisance: hasbunallah).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح س ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْبَرْزَخُ",
+      "tr": "al-barzakh",
+      "root": "ب ر ز خ",
+      "en": "A barrier between two things; the interval between death and resurrection. Lane: barzakh, a bar, an interval, a thing between two things. Penrice: A bar, a partition. Quran 55:20, a barzakh between two seas that they do not overpass. In later speech the barzakh is the life of the grave as that interval; the Quranic lexicon is the barrier-interval itself.",
+      "fr": "Une barriere entre deux choses; l intervalle entre la mort et la resurrection. Lane: barzakh, une barre, un intervalle. Penrice: une barre, une cloison. Coran 55:20, un barzakh entre deux mers. Dans un langage ulterieur, le barzakh est la vie de la tombe comme cet intervalle; le lexique coranique est l intervalle-barriere lui-meme.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب ر ز خ. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقَبْرُ",
+      "tr": "al-qabr",
+      "root": "ق ب ر",
+      "en": "A grave. Lane: qabr, a grave; qabara, he buried. Penrice: A grave. Plural qubur. Related: maqbarah (a burial ground). The questioning of the grave is hadith speech; the lexicon is the pit in which the dead are placed.",
+      "fr": "Une tombe. Lane: qabr, une tombe; qabara, il a enterre. Penrice: une tombe. Pluriel qubur. Lie: maqbarah. L interrogation de la tombe est un langage de hadith; le lexique est la fosse ou l on place le mort.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق ب ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَوْتُ",
+      "tr": "al-mawt",
+      "root": "م و ت",
+      "en": "Death, the leaving of life. Lane: mawt, death; mata, he died. Penrice: Death. Related: mayyit (dead), mawtah (a death), amat (He caused to die). Opposite: hayah. The Quran uses mawt for the death of the body and, in some ayahs, for a death of the heart; the lexicon starts at the end of hayah.",
+      "fr": "La mort, le quitter de la vie. Lane: mawt, mort; mata, il est mort. Penrice: mort. Lie: mayyit, amat. Oppose: hayah. Le Coran use mawt pour la mort du corps et, en certains versets, pour une mort du coeur; le lexique part de la fin de hayah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م و ت. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْحَيَاةُ",
+      "tr": "al-hayah",
+      "root": "ح ي ي",
+      "en": "Life. Lane: hayah, life; hayya, he lived. Penrice: Life. Allah is al-Hayy. Related: hayy (living), yuhyi (He gives life), hayawan (in Quranic speech, the true life of the hereafter, 29:64). Al-hayat ad-dunya is this nearer life.",
+      "fr": "La vie. Lane: hayah, vie; hayya, il a vecu. Penrice: vie. Allah est al-Hayy. Lie: hayy, yuhyi, hayawan (dans le Coran, la vraie vie de l au-dela, 29:64). Al-hayat ad-dunya est cette vie plus proche.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ح ي ي. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الشَّيْطَانُ",
+      "tr": "ash-shaytan",
+      "root": "ش ط ن",
+      "en": "A devil, a rebellious distant one. Lane: shaytan, a devil; often derived from shatana, he was far, he became rebellious, or from shata, he burned. Penrice: Satan, a devil. Plural shayatin. Iblis is a proper name of the one who refused; shaytan is also used of that one and of every rebellious tempter, jinn or man, in Quranic speech.",
+      "fr": "Un diable, un rebelle eloigne. Lane: shaytan, un diable; souvent de shatana, il s est eloigne, il s est rebelle, ou de shata, il a brule. Penrice: Satan, un diable. Pluriel shayatin. Iblis est un nom propre de celui qui a refuse; shaytan se dit aussi de lui et de tout tentateur rebelle, djinn ou homme.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ش ط ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "إِبْلِيسُ",
+      "tr": "Iblis",
+      "root": "ب ل س",
+      "en": "Iblis, the one who despaired and refused. Lane and Penrice: Iblis, a proper name. Often tied to ablasa, he despaired, he was struck silent with grief. Penrice: Eblis. He is called shaytan in many ayahs. The lexicon treats Iblis as that named being who refused sujud to Adam, not as a title of every devil.",
+      "fr": "Iblis, celui qui a desespere et refuse. Lane et Penrice: Iblis, nom propre. Souvent lie a ablasa, il a desespere. Penrice: Eblis. Il est dit shaytan en beaucoup de versets. Le lexique tient Iblis pour cet etre nomme qui a refuse le sujud a Adam, non pour un titre de tout diable.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب ل س. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْجِنُّ",
+      "tr": "al-jinn",
+      "root": "ج ن ن",
+      "en": "The jinn: beings hidden from sight. Lane: jinn, from the root of covering (see jannah). Penrice: Genii, jinn. Related: jannah, janin, junun. They are a created kind in the Quran, made of smokeless fire in the Quranic wording, not metaphors for a mood. Singular jinni / jann in some uses.",
+      "fr": "Les djinns: etres caches a la vue. Lane: jinn, de la racine du cacher (voir jannah). Penrice: genies, djinns. Lie: jannah, janin, junun. Ce sont une espece creee dans le Coran, non des metaphores d une humeur.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج ن ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِنْسَانُ",
+      "tr": "al-insan",
+      "root": "ا ن س",
+      "en": "The human being. Lane: insan, man, a human; uns is sociability, the opposite of being wild. Penrice: Man. Related: ins (mankind, as opposed to jinn), anasa (he was sociable, he perceived), uns. The word marks the companionable creature who is seen, against the jinn who are covered.",
+      "fr": "L etre humain. Lane: insan, l homme, un humain; uns, sociabilite, oppose de l etat sauvage. Penrice: homme. Lie: ins (les hommes, opposes aux djinns), anasa, uns. Le mot marque la creature sociable qui se voit, contre le jinn qui est couvert.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ن س. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعَبْدُ",
+      "tr": "al-abd",
+      "root": "ع ب د",
+      "en": "A slave, a servant, a worshipper. Lane: abd, a slave. Penrice: A servant, a slave. Plural ibad, abid. Every human is abd of Allah by creation; ibadah is the work of that slave when it is given willingly. Related: ibadah, abid, ubudiyyah. Abd Allah is a servant of Allah, a praised name.",
+      "fr": "Un esclave, un serviteur, un adorateur. Lane: abd, un esclave. Penrice: serviteur, esclave. Pluriel ibad, abid. Tout humain est abd d Allah par creation; l ibadah est l oeuvre de cet esclave quand elle est donnee. Lie: ibadah, abid. Abd Allah, serviteur d Allah, un nom loue.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ب د. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "آمِينَ",
+      "tr": "Amin",
+      "root": "ا م ن",
+      "en": "Ameen: O Allah, respond; so be it. Lane: amin, a word said after a du'a, from the root of amn / iman in the sense of asking that it be so and be secure. Penrice lists amin as \"so be it.\" It is said after al-Fatiha. It is not a verse of the Fatiha in the count of the ayahs; it is a response word of the same root as iman.",
+      "fr": "Amin: O Allah, exauce; qu il en soit ainsi. Lane: amin, mot dit apres un du a, de la racine d amn / iman. Penrice: ainsi soit-il. On le dit apres al-Fatiha. Ce n est pas un verset de la Fatiha dans le compte des ayahs; c est un mot de reponse de la meme racine que iman.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا م ن. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "بِسْمِ اللَّهِ",
+      "tr": "bismillah",
+      "root": "س م و",
+      "en": "In the name of Allah. Ism is a name, a noun by which a thing is known. Lane: ism, a name; basmalah is the saying of bismillah. Penrice: A name. The full basmalah adds ar-Rahman ar-Rahim. Related: samma (he named), asma' (names), tasmiyah. Beginning an act with the name is seeking barakah by naming the One in whose name you start.",
+      "fr": "Au nom d Allah. Ism, un nom, un nom par lequel on connait une chose. Lane: ism, un nom; basmalah, le dire de bismillah. Penrice: un nom. La basmalah complete ajoute ar-Rahman ar-Rahim. Lie: samma, asma, tasmiyah. Commencer un acte par le nom, c est chercher la barakah en nommant Celui au nom de qui tu commences.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س م و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْإِجْمَاعُ",
+      "tr": "al-ijma'",
+      "root": "ج م ع",
+      "en": "Gathering, consensus. Lane: ajma'a, he agreed, he resolved; ijma' is agreement of a group. Penrice: To collect, to agree. In usul al-fiqh, ijma' is the agreement of the mujtahids of an age; that is a technical use on top of the lexical gathering of views. Related: jama'a, jumu'ah, jama'ah.",
+      "fr": "Rassemblement, consensus. Lane: ajma a, il est tombe d accord; ijma, accord d un groupe. Penrice: rassembler, convenir. Dans les usul, l ijma est l accord des mujtahids d une epoque: emploi technique sur le rassemblement lexical. Lie: jama a, jumu ah, jama ah.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ج م ع. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْقِيَاسُ",
+      "tr": "al-qiyas",
+      "root": "ق ي س",
+      "en": "Measuring one thing by another, analogy. Lane: qasa, he measured; qiyas is measurement and analogy. In fiqh, qiyas is joining a new case to a known ruling by a shared cause. The lexicon is the measuring, not a named school. (Lane s.v. q-y-s / q-w-s in the sense of measuring.)",
+      "fr": "Mesurer une chose par une autre, analogie. Lane: qasa, il a mesure; qiyas, mesure et analogie. Dans le fiqh, joindre un cas nouveau a un statut connu par une cause commune. Le lexique est la mesure. (Lane, s.v. mesurer.)",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ق ي س. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْوَاجِبُ",
+      "tr": "al-wajib",
+      "root": "و ج ب",
+      "en": "That which falls due, that which is incumbent. Lane: wajaba, it fell due, it was necessary; wajib is obligatory, a thing that has fallen as a duty. Penrice: To be necessary. In some schools wajib is a grade just under fard; the lexicon itself is simply what is due and binding. Related: wujub, ijab (making due; also the first half of a contract).",
+      "fr": "Ce qui echoue comme du, ce qui s impose. Lane: wajaba, cela est devenu du, necessaire; wajib, obligatoire. Penrice: etre necessaire. Dans certaines ecoles, wajib est un degre sous le fard; le lexique est simplement ce qui est du. Lie: wujub, ijab.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. و ج ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَكْرُوهُ",
+      "tr": "al-makruh",
+      "root": "ك ر ه",
+      "en": "That which is disliked, hateful to the soul. Lane: kariha, he disliked; makruh is a thing disliked. Penrice: To dislike. In fiqh, makruh is an act rewarded if left, not punished as haram if done, in many schools; that grading is later. The lexicon is simply what is hated or disliked.",
+      "fr": "Ce qui est deteste, odieux a l ame. Lane: kariha, il a deteste; makruh, une chose detestee. Penrice: detester. Dans le fiqh, makruh est un acte recompense si on le laisse, souvent non puni comme haram; ce classement est ulterieur. Le lexique est ce qui est hai ou deteste.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ر ه. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمُبَاحُ",
+      "tr": "al-mubah",
+      "root": "ب و ح",
+      "en": "That which is made open, permitted, neither commanded nor forbidden. Lane: abaha, he permitted, he made lawful; mubah is permitted. The root baha / b-w-h is connected with making a thing public and open. In fiqh, mubah is the level of the merely allowed. The lexicon is an opened thing, not a recommended thing (that would be mandub / sunnah).",
+      "fr": "Ce qui est rendu ouvert, permis, ni commande ni defendu. Lane: abaha, il a permis; mubah, permis. Dans le fiqh, le niveau du simplement permis. Le lexique est une chose ouverte, non une chose recommandee (ce serait mandub / sunnah).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ب و ح. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السَّبِيلُ",
+      "tr": "as-sabil",
+      "root": "س ب ل",
+      "en": "A way, a road, a means. Lane: sabil, a way. Penrice: A way. Ibn as-sabil is the traveller, the son of the road. Fi sabil Allah, in the way of Allah, is a Quranic idiom of a path taken for Allah, including fighting, spending, and other acts named in their ayahs. Related: sabila (it flowed, of rain, another shade).",
+      "fr": "Une voie, une route, un moyen. Lane: sabil, une voie. Penrice: une voie. Ibn as-sabil, le voyageur, fils de la route. Fi sabil Allah, dans le sentier d Allah, idiome coranique d un chemin pris pour Allah. Lie: sabila (couler, d une pluie, autre ombre).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س ب ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الصِّدْقُ",
+      "tr": "as-sidq",
+      "root": "ص د ق",
+      "en": "Truthfulness, correspondence of inner and outer. Lane: sidq, truth, sincerity. Penrice: Truth. Related: sadaqa, sadiq, sadiq (friend), siddiq (one who is ever truthful; Abu Bakr as-Siddiq in history, and a Quranic rank). See sadaqah. Opposite: kadhib (lying).",
+      "fr": "Veracite, accord du dedans et du dehors. Lane: sidq, verite, sincerite. Penrice: verite. Lie: sadaqa, sadiq, siddiq. Voir sadaqah. Oppose: kadhib (mensonge).",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ص د ق. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْكَذِبُ",
+      "tr": "al-kadhib",
+      "root": "ك ذ ب",
+      "en": "Lying, a false report. Lane: kadhaba, he lied; kadhib is falsehood. Penrice: To lie. Related: kadhdhab (a great liar), mukadhdhib (one who cries lies to a messenger). Opposite of sidq. Takdhib is calling a truth a lie.",
+      "fr": "Mensonge, un faux recit. Lane: kadhaba, il a menti; kadhib, faussete. Penrice: mentir. Lie: kadhdhab, mukadhdhib. Oppose du sidq. Takdhib, traiter une verite de mensonge.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ك ذ ب. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْيَوْمُ",
+      "tr": "al-yawm",
+      "root": "ي و م",
+      "en": "A day, from sunrise to sunset, and a period called a day. Lane: yawm, a day. Penrice: A day. Plural ayyam. Yawm ad-din, the Day of Judgment. Related: yawma'idhin (that day). Al-yawm can mean today.",
+      "fr": "Un jour, du lever au coucher, et une periode dite jour. Lane: yawm, un jour. Penrice: un jour. Pluriel ayyam. Yawm ad-din, le Jour du jugement. Al-yawm peut dire aujourd hui.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ي و م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "اللَّيْلُ",
+      "tr": "al-layl",
+      "root": "ل ي ل",
+      "en": "Night. Lane: layl, night. Penrice: Night. Opposite: nahar (daytime). Related: laylah (a night), layali. Quranic oaths by the night and its covering. Qiyam al-layl is standing in salah in the night.",
+      "fr": "La nuit. Lane: layl, nuit. Penrice: nuit. Oppose: nahar (le jour). Lie: laylah, layali. Serments coraniques par la nuit. Qiyam al-layl, se tenir en salat dans la nuit.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ل ي ل. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النَّهَارُ",
+      "tr": "an-nahar",
+      "root": "ن ه ر",
+      "en": "Daytime, the period of light. Lane: nahar, day as opposed to layl; nahr is a river (another root pattern: flowing). Penrice: Day. Related: nahar as the bright stretch in which people spread to seek fadl (bounty).",
+      "fr": "Le jour, la periode de lumiere. Lane: nahar, le jour oppose a layl; nahr, une riviere (autre schema: couler). Penrice: jour. Le nahar est l etendue claire ou les gens se dispersent pour chercher un fadl.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن ه ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "السَّمَاءُ",
+      "tr": "as-sama'",
+      "root": "س م و",
+      "en": "The sky, heaven, that which is high. Lane: sama', sky, heaven; from a root of height (sama, it was high). Penrice: Heaven, the sky. Plural samawat. Related: ism (name) is sometimes tied by folk etymology to height; Lane treats ism under its own entry. As-samawat wa al-ard, the heavens and the earth.",
+      "fr": "Le ciel, le firmament, ce qui est haut. Lane: sama, ciel; d une racine de hauteur. Penrice: ciel. Pluriel samawat. As-samawat wa al-ard, les cieux et la terre.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. س م و. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْأَرْضُ",
+      "tr": "al-ard",
+      "root": "ا ر ض",
+      "en": "The earth, land, ground. Lane: ard, earth, land. Penrice: The earth. Related: ardi (earthly). Opposite pair with sama'. Fiqh uses ard for the ground of tayammum: clean earth.",
+      "fr": "La terre, le sol, le pays. Lane: ard, terre, pays. Penrice: la terre. Pair oppose a sama. Le fiqh use ard pour le sol du tayammum: terre propre.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ا ر ض. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْمَاءُ",
+      "tr": "al-ma'",
+      "root": "م و ه",
+      "en": "Water. Lane: ma', water. Penrice: Water. The Quran makes every living thing from water. Related: mah (water in some dialects), ma'ih. Tahur is a description of water that purifies, from t-h-r, not from this root.",
+      "fr": "L eau. Lane: ma, eau. Penrice: eau. Le Coran fait toute chose vivante d eau. Tahur est une description de l eau qui purifie, de t-h-r, non de cette racine.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. م و ه. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "النَّارُ",
+      "tr": "an-nar",
+      "root": "ن و ر",
+      "en": "Fire. Lane: nar, fire; nur is light. Penrice: Fire. An-Nar with the article in religious speech is Hell. Related: nur (light), munir. The two words share a root in the lexica of light and heat, with nar as the burning and nur as the shining.",
+      "fr": "Le feu. Lane: nar, feu; nur, lumiere. Penrice: feu. An-Nar avec l article, dans la langue religieuse, est l Enfer. Lie: nur, munir. Les deux mots partagent une racine de lumiere et de chaleur: nar, le bruler; nur, le luire.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ن و ر. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    },
+    {
+      "ar": "الْعَظِيمُ",
+      "tr": "al-azim",
+      "root": "ع ظ م",
+      "en": "Great, mighty, vast in rank. Lane: azim, great; azm is a bone (the root covers greatness and bones as the strong frame). Penrice: Great. Allah is al-Azim. Related: azama (it was great), ta'zim (magnifying), izam (bones). A reflection that \"greatness is like bone\" is not a lexicon ruling; Lane lists both senses of the root without that sermon. See PROJECT on this root.",
+      "fr": "Grand, puissant, vaste en rang. Lane: azim, grand; azm, un os (la racine couvre la grandeur et les os comme charpente). Penrice: grand. Allah est al-Azim. Lie: azama, ta zim, izam. Une reflexion « la grandeur est comme l os » n est pas un jugement du lexique; Lane liste les deux sens sans ce sermon.",
+      "src": "Penrice, A Dictionary and Glossary of the Kor-an, London 1873, s.v. ع ظ م. Lane, An Arabic-English Lexicon, London 1863-1893, same root. French sense: Kazimirski, Dictionnaire arabe-francais, Paris 1860, same root. Language fact from those lexicons, not a ruling."
+    }
+  ]
+}

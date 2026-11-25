@@ -15,6 +15,9 @@ object ExactAlarmScheduler {
     const val EXTRA_KEY = "key"
     const val EXTRA_TITLE = "title"
     const val EXTRA_BODY = "body"
+    const val EXTRA_SPEAK = "speak"
+    const val EXTRA_SHARE = "share"
+    const val EXTRA_LANG = "lang"
     const val EXTRA_TEST = "test"
 
     private const val PREFS = "asma_alarms"
@@ -33,6 +36,7 @@ object ExactAlarmScheduler {
             "asr" -> 103
             "maghrib" -> 104
             "isha" -> 105
+            "fast-eve" -> 110
             else -> (id.hashCode() and 0x7fffffff) % 9000 + 200
         }
     }
@@ -62,14 +66,20 @@ object ExactAlarmScheduler {
             val key = o.optString("key", id)
             val title = o.optString("title")
             val body = o.optString("body")
+            val speak = o.optString("speak")
+            val share = o.optString("share")
+            val lang = o.optString("lang")
             val stored = JSONObject()
             stored.put("id", id)
             stored.put("at", at)
             stored.put("key", key)
             stored.put("title", title)
             stored.put("body", body)
+            stored.put("speak", speak)
+            stored.put("share", share)
+            stored.put("lang", lang)
             keep.put(stored)
-            schedulePrayer(context, id, at, key, title, body)
+            schedulePrayer(context, id, at, key, title, body, speak, share, lang)
         }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
@@ -97,23 +107,37 @@ object ExactAlarmScheduler {
         } catch (_: Exception) {
             /* ignore */
         }
-        listOf("fajr", "dhuhr", "asr", "maghrib", "isha").forEach { cancelCode(context, requestCodeFor(it)) }
+        listOf("fajr", "dhuhr", "asr", "maghrib", "isha", "fast-eve").forEach { cancelCode(context, requestCodeFor(it)) }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(KEY_ITEMS).apply()
     }
 
-    fun schedulePrayer(context: Context, id: String, whenAt: Long, key: String, title: String, body: String) {
+    fun schedulePrayer(
+        context: Context,
+        id: String,
+        whenAt: Long,
+        key: String,
+        title: String,
+        body: String,
+        speak: String = "",
+        share: String = "",
+        lang: String = "en"
+    ) {
         val intent = Intent(context, ExactAlarmReceiver::class.java)
             .putExtra(EXTRA_WHEN, whenAt)
             .putExtra(EXTRA_ID, id)
             .putExtra(EXTRA_KEY, key)
             .putExtra(EXTRA_TITLE, title)
             .putExtra(EXTRA_BODY, body)
+            .putExtra(EXTRA_SPEAK, speak)
+            .putExtra(EXTRA_SHARE, share)
+            .putExtra(EXTRA_LANG, lang)
             .putExtra(EXTRA_TEST, false)
         setExact(context, requestCodeFor(id), whenAt, intent)
     }
 
     fun bumpNextDay(context: Context, intent: Intent) {
         if (intent.getBooleanExtra(EXTRA_TEST, false)) return
+        if ((intent.getStringExtra(EXTRA_KEY) ?: "") == "notice") return
         val id = intent.getStringExtra(EXTRA_ID) ?: return
         val whenAt = intent.getLongExtra(EXTRA_WHEN, 0L)
         if (id.isEmpty() || whenAt <= 0L) return

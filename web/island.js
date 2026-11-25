@@ -108,7 +108,7 @@ function hijriMonthStart(y, m) {
 const eventsOn = d => { const h = hijriOf(d); return D.EVENTS.filter(e => e[0] === h.m && e[1] === h.d).map(e => L(e[2])); };
 
 /* ---------- state ---------- */
-let mode = 'c', cur = 0, hover = false, ignoring = true, alertItem = null, playing = false;
+let mode = 'c', cur = 0, hover = false, ignoring = true, alertItem = null, playing = false, wantPlay = false;
 let collapseT = 0, dwellT = 0, alertT = 0, lastSec = -1, lastDay = dkey(new Date()), calDirty = true;
 let cal = null;
 const isl = $('#isl');
@@ -207,7 +207,10 @@ function apply() {
   renderActive();
 }
 function expand(p) { mode = 'e'; cur = p || 0; apply(); }
-function collapse() { mode = 'c'; alertItem = null; clearTimeout(alertT); cur = 0; resetCal(); apply(); }
+function collapse() {
+  if (wantPlay) return;
+  mode = 'c'; alertItem = null; clearTimeout(alertT); cur = 0; resetCal(); apply();
+}
 function go(d) {
   if (mode !== 'e') return;
   const n = Math.max(0, Math.min(3, cur + d));
@@ -224,7 +227,10 @@ function setHover(inside) {
   } else {
     hover = false; clearTimeout(dwellT); dwellT = 0;
     setIgnore(true);
-    if ((mode === 'e' || mode === 'al') && !collapseT) collapseT = setTimeout(() => { collapseT = 0; if (!hover && !(mode === 'al' && playing)) collapse(); }, 500);
+    if ((mode === 'e' || mode === 'al') && !collapseT) collapseT = setTimeout(() => {
+      collapseT = 0;
+      if (!hover && !(mode === 'al' && (playing || wantPlay))) collapse();
+    }, 500);
   }
 }
 if (desk) {
@@ -308,27 +314,51 @@ function bundledSrc(it) {
   const n = bundledPick(it);
   return 'audio/adhan-' + (n === '2' || n === '3' ? n : '1') + '.m4a';
 }
+let keepT = 0;
+function holdAwake(on) { if (desk && desk.holdAwake) desk.holdAwake(on); }
+function armKeep() {
+  clearInterval(keepT);
+  keepT = setInterval(() => {
+    if (!wantPlay || !aud) { clearInterval(keepT); keepT = 0; return; }
+    if (aud.ended) { endAdhan(); return; }
+    if (aud.paused) aud.play().catch(() => {});
+  }, 1500);
+}
+function endAdhan() {
+  wantPlay = false; playing = false; holdAwake(false);
+  clearInterval(keepT); keepT = 0;
+  clearTimeout(alertT);
+  if (mode === 'al' && !hover) collapse();
+  else if (mode === 'al') renderActive();
+}
 async function playSound(kind, it) {
   stopSound();
   if (S.sound === 'off') return;
-  const mark = () => { playing = true; renderActive(); };
   if (kind !== 'adhan' || S.sound === 'chime') { chime(); return; }
-  if (!aud) { aud = new Audio(); aud.onended = () => { playing = false; if (mode === 'al') renderActive(); }; }
+  wantPlay = true; playing = true; holdAwake(true);
+  if (!aud) aud = new Audio();
+  aud.preload = 'auto';
+  aud.onended = endAdhan;
+  aud.onpause = () => { if (wantPlay && !aud.ended) aud.play().catch(() => {}); };
   if (S.sound === 'file') {
     try {
       const b = await idbGet('adhan');
       if (b) {
         if (adhanUrl) URL.revokeObjectURL(adhanUrl);
         adhanUrl = URL.createObjectURL(b);
-        aud.src = adhanUrl; await aud.play(); mark(); return;
+        aud.src = adhanUrl; await aud.play(); armKeep(); renderActive(); return;
       }
     } catch (e) { /* fall back to chime */ }
-    chime();
+    wantPlay = false; playing = false; holdAwake(false); chime();
     return;
   }
-  try { aud.src = bundledSrc(it); await aud.play(); mark(); } catch (e) { chime(); }
+  try { aud.src = bundledSrc(it); await aud.play(); armKeep(); renderActive(); } catch (e) { wantPlay = false; playing = false; holdAwake(false); chime(); }
 }
-function stopSound() { if (aud) { aud.pause(); aud.currentTime = 0; } playing = false; }
+function stopSound() {
+  wantPlay = false; holdAwake(false); clearInterval(keepT); keepT = 0;
+  if (aud) { aud.onpause = null; aud.pause(); aud.currentTime = 0; }
+  playing = false;
+}
 
 /* ---------- routine alerts ---------- */
 const firedKeys = new Set();
@@ -354,13 +384,11 @@ function checkAlerts(now) {
   });
 }
 function showAlert(it, at) {
-  alertItem = { it, at }; mode = 'al'; playing = false;
+  alertItem = { it, at }; mode = 'al'; playing = true; wantPlay = true;
   if (desk) desk.show();
-  apply(); playSound((it.adhan || !it.key) ? 'adhan' : 'chime', it);
+  apply();
+  playSound((it.adhan || !it.key) ? 'adhan' : 'chime', it);
   clearTimeout(alertT);
-  const finish = () => { playing = false; if (mode === 'al' && !hover) collapse(); };
-  if (aud) aud.onended = finish;
-  alertT = setTimeout(() => { if (!hover) { stopSound(); collapse(); } }, 12 * 60 * 1000);
 }
 
 /* ---------- location and daily check ---------- */

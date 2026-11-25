@@ -14,6 +14,13 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
+const APP_BUILD = 1;
+const APP_NAME = '1.0';
+const SITE_URL = 'https://digital26.online';
+const UPDATE_URLS = [
+  'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
+  'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/master/web/version.json'
+];
 const DEF = {
   lang: 'en', arClock: true, arAll: false, h24: false, method: 'MWL', asr: 1,
   adj: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
@@ -207,21 +214,39 @@ function setPanel(i, animate) {
   if (animate) { p.classList.remove('swap'); void p.offsetWidth; p.classList.add('swap'); }
 }
 
-function frame() {
+let loopsOn = false, tickId = 0, clockRaf = 0;
+function frameOnce() {
   const dial = $('#dial');
   if (dial && S.tab === 'clock') {
     const now = new Date();
     const sf = now.getSeconds() + now.getMilliseconds() / 1000;
-    $('#sHand').setAttribute('transform', 'rotate(' + (sf * 6).toFixed(2) + ')');
-    $('#mHand').setAttribute('transform', 'rotate(' + ((now.getMinutes() + sf / 60) * 6).toFixed(2) + ')');
-    $('#hHand').setAttribute('transform', 'rotate(' + (((now.getHours() % 12) + now.getMinutes() / 60) * 30).toFixed(2) + ')');
+    const sh = $('#sHand'), mh = $('#mHand'), hh = $('#hHand');
+    if (!sh || !mh || !hh) return;
+    sh.setAttribute('transform', 'rotate(' + (sf * 6).toFixed(2) + ')');
+    mh.setAttribute('transform', 'rotate(' + ((now.getMinutes() + sf / 60) * 6).toFixed(2) + ')');
+    hh.setAttribute('transform', 'rotate(' + (((now.getHours() % 12) + now.getMinutes() / 60) * 30).toFixed(2) + ')');
     const idx = Math.min(98, Math.floor(sf / 60 * 99));
     if (idx !== lastIdx) {
       lastIdx = idx; updateNames(idx);
       if (S.panel === 'hand') setPanel(idx, true);
     }
   }
-  requestAnimationFrame(frame);
+}
+function startLoops() {
+  if (loopsOn) return;
+  loopsOn = true;
+  if (!tickId) tickId = setInterval(() => tick(false), 250);
+  const loop = () => {
+    if (!loopsOn) return;
+    frameOnce();
+    clockRaf = requestAnimationFrame(loop);
+  };
+  clockRaf = requestAnimationFrame(loop);
+}
+function stopLoops() {
+  loopsOn = false;
+  if (tickId) { clearInterval(tickId); tickId = 0; }
+  if (clockRaf) { cancelAnimationFrame(clockRaf); clockRaf = 0; }
 }
 
 function tick(force) {
@@ -495,18 +520,32 @@ function duaCard(d) {
     (d.note ? '<div class="nt">' + esc(L(d.note)) + '</div>' : '') +
     '<div class="sr">' + esc(t('source')) + ': ' + esc(d.src) + '</div></div>';
 }
+function duaCatLabel() {
+  return duaCat === 'all' ? t('duasAll') : t(D.CAT_KEY[duaCat] || 'duasAll');
+}
+function setDuaSide(open) {
+  const side = $('#duaSide'), mask = $('#duaMask');
+  if (!side || !mask) return;
+  mask.hidden = !open;
+  side.hidden = !open;
+  side.classList.toggle('on', !!open);
+}
 function renderDuas() {
   let s = '<div class="chead" style="margin-top:14px"><div class="pagehead" style="margin:0"><h2>' + esc(t('duasTab')) + '</h2></div><div class="seg"><button data-act="duaTab" data-v="duas" class="' + (duaTab === 'duas' ? 'on' : '') + '">' + esc(t('duasTab')) + '</button><button data-act="duaTab" data-v="names" class="' + (duaTab === 'names' ? 'on' : '') + '">' + esc(t('namesTab')) + '</button></div></div>';
   if (duaTab === 'duas') {
-    s += '<div class="dua-sticky">';
+    s += '<div class="dua-sticky"><div class="dua-tools">';
     s += '<input class="search" id="duaQ" type="search" placeholder="' + esc(t('searchDuas')) + '" value="' + esc(duaQ) + '">';
-    s += '<div class="seg" style="flex-wrap:wrap;margin:10px 0 0">';
-    s += '<button data-act="duaCat" data-c="all" class="' + (duaCat === 'all' ? 'on' : '') + '">' + esc(t('duasAll')) + '</button>';
+    s += '<button class="btn sm" data-act="duaSide" aria-label="' + esc(t('duaCats')) + '">' + esc(t('duaCats')) + '</button>';
+    s += '</div><p class="note" style="margin:8px 2px 0">' + esc(duaCatLabel()) + '</p></div>';
+    s += '<div class="dua-mask" id="duaMask" data-act="duaSideClose" hidden></div>';
+    s += '<aside class="dua-side" id="duaSide" hidden>';
+    s += '<div class="sh"><h2>' + esc(t('duaCats')) + '</h2><button class="ib" data-act="duaSideClose" aria-label="' + esc(t('duaCatsClose')) + '"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>';
+    s += '<button class="cat' + (duaCat === 'all' ? ' on' : '') + '" data-act="duaCat" data-c="all">' + esc(t('duasAll')) + '</button>';
     D.CATS.forEach(c => {
       if (!D.DUAS.some(d => d.cat === c)) return;
-      s += '<button data-act="duaCat" data-c="' + c + '" class="' + (duaCat === c ? 'on' : '') + '">' + esc(t(D.CAT_KEY[c])) + '</button>';
+      s += '<button class="cat' + (duaCat === c ? ' on' : '') + '" data-act="duaCat" data-c="' + c + '">' + esc(t(D.CAT_KEY[c])) + '</button>';
     });
-    s += '</div></div>';
+    s += '</aside>';
     const q = duaQ.trim().toLowerCase();
     D.CATS.forEach(c => {
       if (duaCat !== 'all' && duaCat !== c) return;
@@ -542,58 +581,163 @@ function renderNameList() {
 }
 
 /* ---------- learn ---------- */
-let learnLesson = null;
-function learnSvg(id) {
-  if (id === 'wudu') {
-    return '<div class="learn-fig" aria-hidden="true"><svg viewBox="0 0 320 90">' +
-      '<rect x="8" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
-      '<rect x="86" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
-      '<rect x="164" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
-      '<rect x="242" y="18" width="68" height="52" rx="8" fill="none" stroke="#d6df8c" stroke-width="1.6"/>' +
-      '</svg></div>';
-  }
-  if (id === 'qibla') {
-    return '<div class="learn-fig" aria-hidden="true"><svg viewBox="0 0 200 120">' +
-      '<rect x="60" y="28" width="80" height="72" fill="#1a1a1a" stroke="#d6df8c" stroke-width="1.6"/>' +
-      '<rect x="60" y="48" width="80" height="10" fill="none" stroke="#c9b37a" stroke-width="2"/>' +
-      '<path d="M100 100 L100 118" stroke="#8f8f8a" stroke-width="1.6"/>' +
-      '<path d="M40 118 H160" stroke="#8f8f8a" stroke-width="1.6"/>' +
-      '</svg></div>';
-  }
-  return '';
+let learnTab = 'salah', dictQ = '', dictLetter = '', dictWords = null, rootEntries = null;
+const accOpen = { wudu: true, tayammum: false, salah: false, mistakes: false, whatif: false };
+const accSlide = { wudu: 0, tayammum: 0, salah: 0, mistakes: 0, whatif: 0 };
+function learnNavHtml() {
+  return '<div class="dua-sticky"><div class="seg learn-tabs">' +
+    '<button data-act="learnTab" data-v="salah" class="' + (learnTab === 'salah' ? 'on' : '') + '">' + esc(t('learnNavSalah')) + '</button>' +
+    '<button data-act="learnTab" data-v="dict" class="' + (learnTab === 'dict' ? 'on' : '') + '">' + esc(t('learnNavDict')) + '</button>' +
+    '<button data-act="learnTab" data-v="root" class="' + (learnTab === 'root' ? 'on' : '') + '">' + esc(t('learnNavRoot')) + '</button>' +
+    '</div></div>';
 }
-function renderLearn() {
-  let s = '<div class="pagehead"><h2>' + esc(t('learnTitle')) + '</h2><p>' + esc(t('learnHint')) + '</p></div>';
-  if (learnLesson) {
-    const les = D.LEARN_LESSONS[learnLesson];
-    if (!les) { learnLesson = null; }
-    else {
-      const ay = les.ayah;
-      s += '<div class="btns" style="margin-top:8px"><button class="btn sm" data-act="learnBack">' + esc(t('learnBack')) + '</button></div>';
-      s += '<div class="card dua"><div class="tt">' + esc(t(les.titleKey)) + '</div>';
-      s += '<p class="tx">' + esc(t(les.leadKey)) + '</p>';
-      s += learnSvg(les.id);
-      s += '<div class="a">' + esc(ay.ar) + '</div>';
-      s += '<div class="tx">' + esc(ay.en) + '</div>';
-      s += '<div class="sr">' + esc(t('source')) + ': ' + esc(ay.src) + '. ' + esc(t('learnAyahEn')) + '.</div></div>';
-      $('#v-learn').innerHTML = s;
-      return;
-    }
+function renderSalahSlide(st) {
+  let s = '<div class="acc-slide dua">';
+  s += '<span class="num">' + nA(st.n) + '</span>';
+  if (st.level === 'fard') s += '<span class="tag">' + esc(t('learnLevelFard')) + '</span>';
+  if (st.level === 'sunnah') s += '<span class="tag">' + esc(t('learnLevelSunnah')) + '</span>';
+  if (st.neglect) s += '<span class="tag">' + esc(t('learnNeglect')) + '</span>';
+  s += '<div class="tt">' + esc(L(st.title)) + '</div>';
+  s += '<p class="tx">' + esc(L(st.act)) + '</p>';
+  if (st.say) {
+    s += '<div class="a">' + esc(st.say.ar) + '</div>';
+    if (st.say.tr) s += '<div class="tl">' + esc(st.say.tr) + '</div>';
+    s += '<div class="tx">' + esc(S.lang === 'fr' ? st.say.fr : st.say.en) + '</div>';
+    if (S.lang === 'ar') s += '<div class="tx f">' + esc(st.say.en) + '</div>';
   }
-  D.LEARN_TOPICS.forEach(tp => {
-    s += '<div class="card"><h3>' + esc(t(tp.titleKey)) + '</h3>';
-    if (tp.subKey) s += '<p class="note" style="margin:0 0 10px">' + esc(t(tp.subKey)) + '</p>';
-    if (tp.soon) s += '<p class="note" style="margin:0">' + esc(t('learnSoon')) + '</p>';
-    else {
-      (tp.lessons || []).forEach(id => {
-        const les = D.LEARN_LESSONS[id];
-        if (!les) return;
-        s += '<button class="btn" style="margin:6px 6px 0 0" data-act="learnOpen" data-id="' + esc(id) + '">' + esc(t(les.titleKey)) + '</button>';
-      });
+  if (st.src) s += '<div class="sr">' + esc(t('source')) + ': ' + esc(st.src) + '</div>';
+  s += '</div>';
+  return s;
+}
+function renderSalahLearn() {
+  const sections = (window.AsmaSalah && window.AsmaSalah.SECTIONS) || [];
+  let s = '<div class="pagehead"><h2>' + esc(t('learnSalahTitle')) + '</h2><p>' + esc(t('learnSalahSub')) + '</p></div>';
+  sections.forEach(sec => {
+    const slides = sec.slides || [];
+    const open = !!accOpen[sec.id];
+    let i = accSlide[sec.id] || 0;
+    if (i < 0) i = 0;
+    if (i >= slides.length) i = Math.max(0, slides.length - 1);
+    accSlide[sec.id] = i;
+    const st = slides[i];
+    s += '<div class="acc' + (open ? ' open' : '') + '">';
+    s += '<button class="acc-head" data-act="accToggle" data-id="' + sec.id + '" aria-expanded="' + (open ? 'true' : 'false') + '">';
+    s += '<b>' + esc(t(sec.titleKey)) + '</b><em>' + nA(slides.length) + '</em>';
+    s += '<svg class="ch" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>';
+    if (open && st) {
+      s += '<div class="acc-body">';
+      s += '<div class="acc-track" data-id="' + sec.id + '">' + renderSalahSlide(st) + '</div>';
+      s += '<div class="acc-nav">';
+      s += '<button class="btn sm" data-act="accGo" data-id="' + sec.id + '" data-d="-1"' + (i <= 0 ? ' disabled' : '') + '>' + esc(t('learnAccPrev')) + '</button>';
+      s += '<span class="acc-pos">' + nA(i + 1) + esc(t('learnAccOf')) + nA(slides.length) + '</span>';
+      s += '<button class="btn sm" data-act="accGo" data-id="' + sec.id + '" data-d="1"' + (i >= slides.length - 1 ? ' disabled' : '') + '>' + esc(t('learnAccNext')) + '</button>';
+      s += '</div></div>';
     }
     s += '</div>';
   });
+  return s;
+}
+function accGo(id, d) {
+  const sec = ((window.AsmaSalah && window.AsmaSalah.SECTIONS) || []).find(x => x.id === id);
+  if (!sec) return;
+  const n = (sec.slides || []).length;
+  accSlide[id] = Math.max(0, Math.min(n - 1, (accSlide[id] || 0) + d));
+  const y = window.scrollY;
+  renderLearn();
+  window.scrollTo(0, y);
+}
+function bindAccSwipe() {
+  $$('.acc-track').forEach(track => {
+    let x0 = 0, y0 = 0, on = false;
+    track.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      on = true;
+      x0 = e.touches[0].clientX;
+      y0 = e.touches[0].clientY;
+    }, { passive: true });
+    track.addEventListener('touchend', e => {
+      if (!on) return;
+      on = false;
+      const p = e.changedTouches && e.changedTouches[0];
+      if (!p) return;
+      const dx = p.clientX - x0, dy = p.clientY - y0;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy)) return;
+      const rtl = document.documentElement.getAttribute('dir') === 'rtl';
+      accGo(track.dataset.id, (dx < 0) === !rtl ? 1 : -1);
+    }, { passive: true });
+  });
+}
+function dictLetterOf(w) {
+  const r = String((w && w.root) || '').replace(/\s+/g, '');
+  let ch = r.charAt(0);
+  if ('أإآٱ'.indexOf(ch) >= 0) ch = 'ا';
+  return ch;
+}
+function renderDictLearn() {
+  let s = '<div class="pagehead"><h2>' + esc(t('learnDictTitle')) + '</h2><p>' + esc(t('learnDictHint')) + '</p></div>';
+  const words = dictWords || [];
+  if (words.length) s += '<p class="note">' + esc(t('learnDictCount').replace('%n', nA(words.length))) + '</p>';
+  s += '<input class="search" id="dictQ" type="search" placeholder="' + esc(t('learnDictSearch')) + '" value="' + esc(dictQ) + '">';
+  const order = 'ابتثجحخدذرزسشصضطظعغفقكلمنهوي';
+  const have = {};
+  words.forEach(w => { const Ltr = dictLetterOf(w); if (Ltr) have[Ltr] = true; });
+  const letters = order.split('').filter(ch => have[ch]);
+  if (letters.length) {
+    s += '<div class="dict-letters">';
+    s += '<button type="button" class="' + (!dictLetter ? 'on' : '') + '" data-act="dictLetter" data-l="">' + esc(t('learnDictAll')) + '</button>';
+    letters.forEach(ch => {
+      s += '<button type="button" class="' + (dictLetter === ch ? 'on' : '') + '" data-act="dictLetter" data-l="' + ch + '">' + ch + '</button>';
+    });
+    s += '</div>';
+  }
+  const q = dictQ.trim().toLowerCase();
+  const shown = words.filter(w => {
+    if (dictLetter && dictLetterOf(w) !== dictLetter) return false;
+    if (!q) return true;
+    return [w.ar, w.tr, w.root, w.en, w.fr, w.src].join(' ').toLowerCase().indexOf(q) !== -1;
+  });
+  if (!words.length) s += '<p class="note">' + esc(t('learnDictEmpty')) + '</p>';
+  shown.forEach(w => {
+    s += '<div class="card dua dict-card">';
+    s += '<div class="a">' + esc(w.ar || '') + '</div>';
+    if (w.tr) s += '<div class="tl">' + esc(w.tr) + '</div>';
+    if (w.root) s += '<div class="tag">' + esc(t('learnDictRoot')) + ': ' + esc(w.root) + '</div>';
+    s += '<p class="tx">' + esc(S.lang === 'fr' ? (w.fr || w.en || '') : (w.en || '')) + '</p>';
+    if (S.lang === 'ar' && w.en) s += '<p class="tx f">' + esc(w.en) + '</p>';
+    if (w.src) s += '<div class="sr">' + esc(t('source')) + ': ' + esc(w.src) + '</div>';
+    s += '<button type="button" class="btn sm dict-rep" data-act="reportDict" data-ar="' + esc(w.ar || '') + '">' + esc(t('learnDictReport')) + '</button>';
+    s += '</div>';
+  });
+  return s;
+}
+function renderRootLearn() {
+  let s = '<div class="pagehead"><h2>' + esc(t('learnRootTitle')) + '</h2><p>' + esc(t('learnRootHint')) + '</p></div>';
+  const list = rootEntries || [];
+  if (!list.length) s += '<p class="note">' + esc(t('learnRootEmpty')) + '</p>';
+  list.forEach(r => {
+    s += '<div class="card dua"><div class="tt">' + esc(r.letters || '') + '</div>';
+    if (r.ar) s += '<div class="a">' + esc(r.ar) + '</div>';
+    s += '<div class="tx">' + esc(L(r.body) || r.en || '') + '</div>';
+    if (r.src) s += '<div class="sr">' + esc(t('source')) + ': ' + esc(r.src) + '</div>';
+    s += '</div>';
+  });
+  return s;
+}
+function renderLearn() {
+  let s = learnNavHtml();
+  if (learnTab === 'dict') s += renderDictLearn();
+  else if (learnTab === 'root') s += renderRootLearn();
+  else s += renderSalahLearn();
   $('#v-learn').innerHTML = s;
+  if (learnTab === 'salah') bindAccSwipe();
+  const dq = $('#dictQ');
+  if (dq) dq.addEventListener('input', e => { dictQ = e.target.value; renderLearn(); const n = $('#dictQ'); if (n) { n.focus(); if (typeof n.setSelectionRange === 'function') n.setSelectionRange(n.value.length, n.value.length); } });
+  if (learnTab === 'dict' && dictWords === null) {
+    fetch('content/dict.json').then(r => r.ok ? r.json() : { words: [] }).then(j => { dictWords = (j && j.words) || []; renderLearn(); }).catch(() => { dictWords = []; renderLearn(); });
+  }
+  if (learnTab === 'root' && rootEntries === null) {
+    fetch('content/roots.json').then(r => r.ok ? r.json() : { entries: [] }).then(j => { rootEntries = (j && j.entries) || []; renderLearn(); }).catch(() => { rootEntries = []; renderLearn(); });
+  }
 }
 
 /* ---------- settings ---------- */
@@ -654,6 +798,10 @@ function renderSettings() {
       '<p class="note" id="androidAlarmStatus">' + esc(t('androidAlarmsWait')) + '</p>' +
       '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="androidReady">' + esc(t('androidAlarmsAllow')) + '</button></div></div>') : '');
 
+  s += '<div class="set"><div class="st">' + esc(t('updTitle')) + '</div>' +
+    '<p class="note">' + esc(t('updNow')) + ': ' + esc(APP_NAME) + '</p>' +
+    '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="checkUpdate">' + esc(t('updCheck')) + '</button></div></div>';
+
   s += '<div class="set"><div class="st">' + esc(t('reportBug')) + '</div>' +
     '<p class="note">' + esc(t('reportBugHint')) + '</p>' +
     '<p class="note">' + esc(t('reportContentHint')) + '</p>' +
@@ -684,23 +832,39 @@ function prayerSlotOn(k) {
 function syncAndroidAlarms() {
   const pl = capPlugin('AsmaAlarms');
   if (!pl) return;
-  if (S.sound === 'off') {
-    pl.cancelAll().catch(() => {});
-    return;
-  }
   const now = new Date();
-  const keys = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
   const today = timesFor(now);
   const tom = timesFor(addDays(now, 1));
   const items = [];
-  keys.forEach(k => {
-    if (!prayerSlotOn(k)) return;
-    let at = today[k];
-    if (!at || at.getTime() <= now.getTime() + 15000) at = tom[k];
-    if (!at) return;
-    items.push({ id: k, at: at.getTime(), key: k, title: t('timeFor') + ' ' + t(k), body: fmtHM(at) });
-  });
-  pl.schedule({ items: items }).catch(() => {});
+  if (S.sound !== 'off') {
+    ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].forEach(k => {
+      if (!prayerSlotOn(k)) return;
+      let at = today[k];
+      if (!at || at.getTime() <= now.getTime() + 15000) at = tom[k];
+      if (!at) return;
+      items.push({ id: k, at: at.getTime(), key: k, title: t('timeFor') + ' ' + t(k), body: fmtHM(at) });
+    });
+  }
+  let mag = today.maghrib, noticeDay = addDays(now, 1);
+  if (!mag || mag.getTime() <= now.getTime() + 15000) {
+    mag = tom.maghrib;
+    noticeDay = addDays(now, 2);
+  }
+  const msg = mag ? dayNoticeFor(noticeDay, 'eve') : null;
+  if (msg && mag) {
+    items.push({
+      id: 'fast-eve',
+      at: mag.getTime() + 120000,
+      key: 'notice',
+      title: msg.title,
+      body: msg.body,
+      speak: msg.speak || msg.body,
+      share: msg.share || (msg.body + '\n' + SITE_URL),
+      lang: S.lang
+    });
+  }
+  if (!items.length) pl.cancelAll().catch(() => {});
+  else pl.schedule({ items: items }).catch(() => {});
 }
 function refreshAndroidStatus() {
   const el = $('#androidAlarmStatus');
@@ -727,7 +891,7 @@ function afterSetting(path) {
   if (path === 'lang') { S.arAll = S.lang === 'ar' ? true : S.arAll; applyLang(); }
   renderAll(true);
   if (!$('#sheet').hidden && !$('#rtForm')) renderSettings();
-  if (/^(method|asr|imsakMin|adj\.|loc|sound|lang)/.test(path)) syncAndroidAlarms();
+  if (/^(method|asr|imsakMin|adj\.|loc|sound|lang|notif)/.test(path)) syncAndroidAlarms();
 }
 
 /* ---------- sheet and toast ---------- */
@@ -786,12 +950,24 @@ function bundledSrc(it) {
   const n = bundledPick(it);
   return 'audio/adhan-' + (n === '2' || n === '3' ? n : '1') + '.m4a';
 }
+let wantPlay = false, keepT = 0;
+function armKeep() {
+  clearInterval(keepT);
+  keepT = setInterval(() => {
+    if (!wantPlay || !aud) { clearInterval(keepT); keepT = 0; return; }
+    if (aud.ended) { wantPlay = false; clearInterval(keepT); keepT = 0; return; }
+    if (aud.paused) aud.play().catch(() => {});
+  }, 1500);
+}
 async function playUrl(src) {
   if (!aud) aud = new Audio();
   try { aud.pause(); } catch (e) { /* ignore */ }
+  aud.preload = 'auto';
   aud.src = src;
   try { aud.currentTime = 0; } catch (e) { /* ignore */ }
+  aud.onpause = () => { if (wantPlay && !aud.ended) aud.play().catch(() => {}); };
   await aud.play();
+  armKeep();
   return aud;
 }
 async function playSound(kind, it) {
@@ -799,17 +975,21 @@ async function playSound(kind, it) {
   if (!aud) aud = new Audio();
   if (S.sound === 'off') return;
   if (kind !== 'adhan' || S.sound === 'chime') { chime(); return; }
+  wantPlay = true;
   if (S.sound === 'file') {
     try {
       if (!adhanUrl) { const b = await idbGet('adhan'); if (b) adhanUrl = URL.createObjectURL(b); }
       if (adhanUrl) { await playUrl(adhanUrl); return; }
     } catch (e) { /* fall back */ }
-    chime();
+    wantPlay = false; chime();
     return;
   }
-  try { await playUrl(bundledSrc(it)); } catch (e) { chime(); }
+  try { await playUrl(bundledSrc(it)); } catch (e) { wantPlay = false; chime(); }
 }
-function stopSound() { if (aud) { aud.pause(); aud.currentTime = 0; } }
+function stopSound() {
+  wantPlay = false; clearInterval(keepT); keepT = 0;
+  if (aud) { aud.onpause = null; aud.pause(); aud.currentTime = 0; }
+}
 function unlockAudio() {
   audioCtx();
   if (S.sound === 'file') {
@@ -875,12 +1055,24 @@ function emitNotice(title, body, tag) {
     else try { new Notification(title, opts); } catch (e) { /* ignore */ }
   }
 }
+function whiteDaysList(day, h) {
+  const start = addDays(day, 13 - h.d);
+  const parts = [];
+  for (let i = 0; i < 3; i++) {
+    const d = addDays(start, i);
+    const hh = hijriOf(d);
+    parts.push(nA(hh.d) + ' ' + D.MONTHS_H[S.lang][hh.m - 1] + ' (' + fmtGreg(d, true) + ')');
+  }
+  return parts.join(S.lang === 'ar' ? '، ' : '; ');
+}
 function dayNoticeFor(day, when) {
   const fi = fastInfo(day), h = hijriOf(day);
+  const shareLine = t('fastShareLine').replace('%url', SITE_URL);
   if (fi.forbidden) {
     const eid = (h.m === 10 && h.d === 1) ? D.EVENTS.find(e => e[0] === 10 && e[1] === 1) : D.EVENTS.find(e => e[0] === 12 && e[1] === 10);
     const q = pickQuote(['eid'], day);
-    return { title: t('eidNoticeTitle') + (eid ? ': ' + L(eid[2]) : ''), body: t('eidNoticeBody') + '\n' + quoteLine(q) };
+    const body = t('eidNoticeBody') + '\n' + quoteLine(q);
+    return { title: t('eidNoticeTitle') + (eid ? ': ' + L(eid[2]) : ''), body: body, speak: body, share: body + '\n' + shareLine };
   }
   const kinds = [];
   if (fi.ramadan) kinds.push('ramadan');
@@ -892,6 +1084,7 @@ function dayNoticeFor(day, when) {
   if (!fi.ramadan && !fi.tags.length) return null;
   const q = pickQuote(kinds.length ? kinds : ['general'], day);
   const bits = [];
+  let speak = '';
   if (fi.ramadan) bits.push(h.d === 1 ? t('ramadanCome') : t('ramadanDay'));
   else {
     bits.push(when === 'eve' ? t('fastEveSunnah') : t('fastMornSunnah'));
@@ -902,11 +1095,23 @@ function dayNoticeFor(day, when) {
     if (fi.tags.indexOf('fastAshura') >= 0) names.push(t('fastAshura'));
     if (fi.tags.indexOf('fastShawwal') >= 0) names.push(t('fastShawwal'));
     if (names.length) bits.push(names.join(' · '));
-    if (fi.tags.indexOf('fastWhite') >= 0) bits.push(t(h.d === 13 ? 'white3' : (h.d === 14 ? 'white2' : 'white1')));
+    if (fi.tags.indexOf('fastWhite') >= 0) {
+      const end = nA(15) + ' ' + D.MONTHS_H[S.lang][h.m - 1] + ' ' + nA(h.y);
+      const days = whiteDaysList(day, h);
+      const left = h.d === 13 ? 3 : (h.d === 14 ? 2 : 1);
+      const wk = (when === 'eve' ? 'whiteEve' : 'white') + left;
+      bits.push(t(wk).replace('%end', end).replace('%days', days));
+      bits.push(t('whiteDaysList').replace('%days', days));
+      if (when === 'eve') speak = t('fastSpeakWhite').replace('%end', end).replace('%days', days);
+    } else if (when === 'eve' && fi.tags.indexOf('fastMon') >= 0) speak = t('fastSpeakMon');
+    else if (when === 'eve' && fi.tags.indexOf('fastThu') >= 0) speak = t('fastSpeakThu');
+    bits.push(t('fastEncourage'));
   }
   bits.push(quoteLine(q));
+  bits.push(shareLine);
   const title = fi.ramadan ? t('ramadan') : (when === 'eve' ? t('fastEveTitle') : t('fastMornTitle'));
-  return { title: title, body: bits.filter(Boolean).join('\n') };
+  const body = bits.filter(Boolean).join('\n');
+  return { title: title, body: body, speak: speak || body, share: body };
 }
 function checkDayNotices(now) {
   const tm = timesFor(now);
@@ -922,8 +1127,10 @@ function checkDayNotices(now) {
     const k = dkey(now) + '|dayEve';
     if (!firedKeys.has(k)) {
       const msg = dayNoticeFor(addDays(now, 1), 'eve');
-      if (msg) { firedKeys.add(k); emitNotice(msg.title, msg.body, 'asma-day-eve'); }
-      else firedKeys.add(k);
+      if (msg) {
+        firedKeys.add(k);
+        if (!capPlugin('AsmaAlarms')) emitNotice(msg.title, msg.body, 'asma-day-eve');
+      } else firedKeys.add(k);
     }
   }
 }
@@ -950,7 +1157,7 @@ async function enableNotif() {
   try {
     const p = await Notification.requestPermission();
     S.notif = p === 'granted'; save();
-    if (S.notif) { toast(t('notifOn')); audioCtx(); }
+    if (S.notif) { toast(t('notifOn')); audioCtx(); syncAndroidAlarms(); }
   } catch (e) { /* ignore */ }
   renderSettings();
 }
@@ -1002,6 +1209,84 @@ function refreshLocation(manual) {
     navigator.geolocation.getCurrentPosition(pos => done(pos.coords.latitude, pos.coords.longitude), fail, { timeout: 12000, maximumAge: 6 * 3600 * 1000 });
   });
 }
+let updKind = '', updUrl = '', updCode = 0;
+function nativeInstall() {
+  return !!(capPlugin('AsmaAlarms') || window.asmaDesktop);
+}
+function hideUpd() {
+  const el = $('#upd');
+  if (el) el.hidden = true;
+}
+function showUpd(kind, url, code, body) {
+  const el = $('#upd');
+  if (!el) return;
+  updKind = kind;
+  updUrl = url || '';
+  updCode = code || 0;
+  const go = kind === 'web' ? t('updReload') : t('updGet');
+  el.innerHTML = '<p>' + esc(t('updTitle') + '. ' + body) + '</p><div class="btns"><button class="btn sm" data-act="updGo">' + esc(go) + '</button><button class="btn sm" data-act="updLater">' + esc(t('updLater')) + '</button></div>';
+  el.hidden = false;
+  if (S.notif && 'Notification' in window && Notification.permission === 'granted') {
+    const opts = { body: body, tag: 'asma-update', renotify: true, icon: 'icons/icon-192.png' };
+    if (navigator.serviceWorker && navigator.serviceWorker.ready) navigator.serviceWorker.ready.then(r => r.showNotification(t('updTitle'), opts)).catch(() => { try { new Notification(t('updTitle'), opts); } catch (e) { /* ignore */ } });
+    else try { new Notification(t('updTitle'), opts); } catch (e) { /* ignore */ }
+  }
+}
+function fetchRemoteVersion() {
+  return fetch(UPDATE_URLS[0], { cache: 'no-store' }).then(r => r.ok ? r.json() : Promise.reject()).catch(() =>
+    fetch(UPDATE_URLS[1], { cache: 'no-store' }).then(r => r.ok ? r.json() : null).catch(() => null)
+  );
+}
+function checkAppUpdate(force) {
+  const now = Date.now();
+  if (!force && S.updateChecked && now - S.updateChecked < 12 * 3600 * 1000) {
+    /* still look for a waiting service worker */
+  } else if (nativeInstall()) {
+    fetchRemoteVersion().then(j => {
+      S.updateChecked = Date.now();
+      save();
+      if (!j) {
+        if (force) toast(t('updFail'));
+        return;
+      }
+      const code = parseInt(j.apkCode, 10) || 0;
+      if (code <= APP_BUILD) {
+        if (force) toast(t('updNone'));
+        return;
+      }
+      if (!force && S.updateDismissed === code) return;
+      showUpd('apk', j.apkUrl || UPDATE_URLS[0], code, t('updApkBody') + (j.apkName ? ' (' + j.apkName + ')' : ''));
+    }).catch(() => { if (force) toast(t('updFail')); });
+  } else if (force && !nativeInstall()) {
+    if ('serviceWorker' in navigator && navigator.serviceWorker.getRegistration) {
+      navigator.serviceWorker.getRegistration().then(reg => {
+        if (reg && reg.waiting) showUpd('web', '', 0, t('updWebBody'));
+        else toast(t('updNone'));
+      }).catch(() => toast(t('updNone')));
+    } else toast(t('updNone'));
+  }
+  if ('serviceWorker' in navigator && navigator.serviceWorker.getRegistration) {
+    navigator.serviceWorker.getRegistration().then(reg => { if (reg && reg.update) reg.update(); }).catch(() => {});
+  }
+}
+function bindServiceWorker() {
+  if (!('serviceWorker' in navigator) || location.protocol === 'file:') return;
+  const had = !!navigator.serviceWorker.controller;
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js').then(reg => {
+      if (!had) return;
+      if (reg.waiting) showUpd('web', '', 0, t('updWebBody'));
+      reg.addEventListener('updatefound', () => {
+        const w = reg.installing;
+        if (!w) return;
+        w.addEventListener('statechange', () => {
+          if (w.state === 'installed' && navigator.serviceWorker.controller) showUpd('web', '', 0, t('updWebBody'));
+        });
+      });
+    }).catch(() => {});
+  });
+}
+
 function dailyCheck(force) {
   const now = new Date(), k = dkey(now);
   if (!force && S.lastCheck === k) return;
@@ -1011,6 +1296,7 @@ function dailyCheck(force) {
   invalidate(); save();
   if (S.loc.auto) refreshLocation(false);
   syncAndroidAlarms();
+  checkAppUpdate(false);
 }
 
 /* ---------- routing ---------- */
@@ -1024,6 +1310,7 @@ function renderTab(tab) {
 }
 function showTab(tab) {
   if (S.tab === 'duas') duaY[duaCat] = window.scrollY;
+  setDuaSide(false);
   S.tab = tab; save();
   $$('.view').forEach(v => v.classList.toggle('on', v.id === 'v-' + tab));
   renderNavLabels();
@@ -1061,8 +1348,31 @@ document.addEventListener('click', ev => {
     case 'rtReset': S.routine = clone(D.ROUTINE); save(); firedKeys.clear(); renderRoutine(); syncAndroidAlarms(); break;
     case 'duaTab': duaY[duaCat] = window.scrollY; duaTab = b.dataset.v; renderDuas(); break;
     case 'duaCat': duaY[duaCat] = window.scrollY; duaCat = b.dataset.c; renderDuas(); break;
-    case 'learnOpen': learnLesson = b.dataset.id; renderLearn(); window.scrollTo(0, 0); break;
-    case 'learnBack': learnLesson = null; renderLearn(); window.scrollTo(0, 0); break;
+    case 'duaSide': setDuaSide(true); break;
+    case 'duaSideClose': setDuaSide(false); break;
+    case 'learnTab': learnTab = b.dataset.v; renderLearn(); window.scrollTo(0, 0); break;
+    case 'dictLetter': dictLetter = b.dataset.l || ''; renderLearn(); break;
+    case 'reportDict': {
+      window.open(issueUrl('Dictionary report', 'Word: ' + (b.dataset.ar || '') + '\n(describe the error in the meaning or the source)'), '_blank');
+      break;
+    }
+    case 'accToggle': {
+      accOpen[b.dataset.id] = !accOpen[b.dataset.id];
+      const y = window.scrollY;
+      renderLearn();
+      window.scrollTo(0, y);
+      break;
+    }
+    case 'accGo': accGo(b.dataset.id, +b.dataset.d); break;
+    case 'checkUpdate': checkAppUpdate(true); break;
+    case 'updLater':
+      if (updKind === 'apk' && updCode) { S.updateDismissed = updCode; save(); }
+      hideUpd();
+      break;
+    case 'updGo':
+      if (updKind === 'web') { hideUpd(); location.reload(); break; }
+      if (updUrl) window.open(updUrl, '_blank');
+      break;
     case 'reportBug': {
       const body = ($('#bugBody') && $('#bugBody').value.trim()) || '';
       window.open(issueUrl('Bug or content report', body || '(describe the problem or the dua that needs a correction)'), '_blank');
@@ -1114,8 +1424,47 @@ document.addEventListener('change', ev => {
 });
 
 document.addEventListener('pointerdown', function once() { unlockAudio(); document.removeEventListener('pointerdown', once); }, { once: true });
-document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { dailyCheck(false); lastSec = -1; tick(true); syncAndroidAlarms(); } });
-document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !$('#sheet').hidden) closeSheet(); });
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    startLoops();
+    dailyCheck(false); lastSec = -1; tick(true); syncAndroidAlarms();
+  } else {
+    stopLoops();
+  }
+});
+document.addEventListener('keydown', ev => {
+  if (ev.key !== 'Escape') return;
+  if ($('#duaSide') && $('#duaSide').classList.contains('on')) { setDuaSide(false); return; }
+  if (!$('#sheet').hidden) closeSheet();
+});
+
+const TABS = ['clock', 'prayer', 'calendar', 'routine', 'duas', 'learn'];
+let swipeX = 0, swipeY = 0, swipeOn = false;
+function swipeBlocked(el) {
+  if (!$('#sheet').hidden) return true;
+  if ($('#duaSide') && $('#duaSide').classList.contains('on')) return true;
+  return !!(el && el.closest && el.closest('input, textarea, select, .nav, .sheet, .dua-side, .dua-mask, .acc-track, .acc-head, .acc-nav, .dict-letters'));
+}
+document.addEventListener('touchstart', ev => {
+  if (ev.touches.length !== 1) { swipeOn = false; return; }
+  if (swipeBlocked(ev.target)) { swipeOn = false; return; }
+  swipeOn = true;
+  swipeX = ev.touches[0].clientX;
+  swipeY = ev.touches[0].clientY;
+}, { passive: true });
+document.addEventListener('touchcancel', () => { swipeOn = false; });
+document.addEventListener('touchend', ev => {
+  if (!swipeOn) return;
+  swipeOn = false;
+  const t = ev.changedTouches && ev.changedTouches[0];
+  if (!t) return;
+  const dx = t.clientX - swipeX, dy = t.clientY - swipeY;
+  if (Math.abs(dx) < 72 || Math.abs(dx) < Math.abs(dy) * 1.15) return;
+  const i = TABS.indexOf(S.tab);
+  if (i < 0) return;
+  if (dx < 0 && i < TABS.length - 1) showTab(TABS[i + 1]);
+  else if (dx > 0 && i > 0) showTab(TABS[i - 1]);
+}, { passive: true });
 
 /* ---------- start ---------- */
 applyLang();
@@ -1123,11 +1472,8 @@ showTab(S.tab || 'clock');
 dailyCheck(false);
 syncAndroidAlarms();
 if (S.fresh && S.loc.auto) { refreshLocation(false); }
-setInterval(() => tick(false), 250);
-requestAnimationFrame(frame);
+startLoops();
 
-if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
-}
+bindServiceWorker();
 window.__asma = { S: () => S, tick: () => tick(true), fire: id => { const it = S.routine.find(x => x.id === id); if (it) fireAlert(it, new Date()); } };
 })();

@@ -15,8 +15,8 @@ This PC does not use Android Studio. Build in GitHub Actions:
 3. Install the APK on a phone (allow unknown sources). Debug APKs are unsigned.
 
 HOW TO TEST
-1. Open Asma Clock. You should see "Exact alarm test".
-2. Tap "Notify in 1 minute". Allow notifications if Android asks. On some phones
+1. Open Asma Clock. The clock should open at once, with no test screen.
+2. In Settings, tap "Allow alerts while idle". Allow notifications if Android asks. On some phones
    you must also allow exact alarms, then tap the button again.
 3. Leave the app or lock the phone. After about one minute a notification should
    appear and the Maghrib/Isha adhan file should play through.
@@ -38,3 +38,5 @@ REBUILDING
 From the repo root: npm ci && npx cap sync android
 Then in android/: ./gradlew assembleDebug
 Do not edit android/app/src/main/assets/public by hand. It is copied from web/.
+
+When you publish a new APK, bump all three together: android/app/build.gradle versionCode and versionName, APP_BUILD and APP_NAME in web/app.js, and apkCode and apkName in web/version.json. Old installs fetch version.json from GitHub and show an update notice if apkCode is higher.

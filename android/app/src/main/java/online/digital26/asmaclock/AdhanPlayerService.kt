@@ -35,15 +35,24 @@ class AdhanPlayerService : Service() {
             ?: getString(if (test) R.string.alarm_notif_body else R.string.adhan_notif_body)
         val notifId = if (test) NOTIF_TEST else NOTIF_ADHAN
         val notif = buildNotif(title, body, test)
-        if (Build.VERSION.SDK_INT >= 29) {
-            startForeground(notifId, notif, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
-        } else {
-            startForeground(notifId, notif)
+        try {
+            if (Build.VERSION.SDK_INT >= 29) {
+                startForeground(notifId, notif, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
+            } else {
+                startForeground(notifId, notif)
+            }
+        } catch (_: Exception) {
+            try {
+                startForeground(notifId, notif)
+            } catch (_: Exception) {
+                stopSelf()
+                return START_NOT_STICKY
+            }
         }
         play(if (test) "test" else key)
         handler.removeCallbacks(stopLater)
         handler.postDelayed(stopLater, 12L * 60L * 1000L)
-        return START_NOT_STICKY
+        return START_REDELIVER_INTENT
     }
 
     private fun play(key: String) {
@@ -84,7 +93,7 @@ class AdhanPlayerService : Service() {
     }
 
     private fun buildNotif(title: String, body: String, test: Boolean): Notification {
-        val open = Intent(this, if (test) AlarmTestActivity::class.java else MainActivity::class.java)
+        val open = Intent(this, MainActivity::class.java)
         var flags = PendingIntent.FLAG_UPDATE_CURRENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             flags = flags or PendingIntent.FLAG_IMMUTABLE

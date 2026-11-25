@@ -1,0 +1,6 @@
+{
+  "apkCode": 1,
+  "apkName": "1.0",
+  "apkUrl": "https://github.com/dmaximboi/asmaulhusnal/releases",
+  "notes": "Bump apkCode and android versionCode together when a new APK is published."
+}
