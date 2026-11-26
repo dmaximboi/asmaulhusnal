@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 2;
-const APP_NAME = '1.1';
+const APP_BUILD = 3;
+const APP_NAME = '1.2';
 const SITE_URL = 'https://digital26.online';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -800,6 +800,7 @@ function renderSettings() {
 
   s += '<div class="set"><div class="st">' + esc(t('updTitle')) + '</div>' +
     '<p class="note">' + esc(t('updNow')) + ': ' + esc(APP_NAME) + '</p>' +
+    (nativeInstall() ? '<p class="note">' + esc(t('updPhoneHint')) + '</p>' : '') +
     '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="checkUpdate">' + esc(t('updCheck')) + '</button></div></div>';
 
   s += '<div class="set"><div class="st">' + esc(t('reportBug')) + '</div>' +
@@ -1238,10 +1239,8 @@ function fetchRemoteVersion() {
   );
 }
 function checkAppUpdate(force) {
-  const now = Date.now();
-  if (!force && S.updateChecked && now - S.updateChecked < 12 * 3600 * 1000) {
-    /* still look for a waiting service worker */
-  } else if (nativeInstall()) {
+  if (nativeInstall()) {
+    if (!force && S.updateChecked && Date.now() - S.updateChecked < 5 * 60 * 1000) return;
     fetchRemoteVersion().then(j => {
       S.updateChecked = Date.now();
       save();
@@ -1257,7 +1256,9 @@ function checkAppUpdate(force) {
       if (!force && S.updateDismissed === code) return;
       showUpd('apk', j.apkUrl || UPDATE_URLS[0], code, t('updApkBody') + (j.apkName ? ' (' + j.apkName + ')' : ''));
     }).catch(() => { if (force) toast(t('updFail')); });
-  } else if (force && !nativeInstall()) {
+    return;
+  }
+  if (force) {
     if ('serviceWorker' in navigator && navigator.serviceWorker.getRegistration) {
       navigator.serviceWorker.getRegistration().then(reg => {
         if (reg && reg.waiting) showUpd('web', '', 0, t('updWebBody'));
@@ -1296,7 +1297,6 @@ function dailyCheck(force) {
   invalidate(); save();
   if (S.loc.auto) refreshLocation(false);
   syncAndroidAlarms();
-  checkAppUpdate(false);
 }
 
 /* ---------- routing ---------- */
@@ -1427,7 +1427,7 @@ document.addEventListener('pointerdown', function once() { unlockAudio(); docume
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     startLoops();
-    dailyCheck(false); lastSec = -1; tick(true); syncAndroidAlarms();
+    dailyCheck(false); checkAppUpdate(false); lastSec = -1; tick(true); syncAndroidAlarms();
   } else {
     stopLoops();
   }
@@ -1470,6 +1470,7 @@ document.addEventListener('touchend', ev => {
 applyLang();
 showTab(S.tab || 'clock');
 dailyCheck(false);
+checkAppUpdate(false);
 syncAndroidAlarms();
 if (S.fresh && S.loc.auto) { refreshLocation(false); }
 startLoops();

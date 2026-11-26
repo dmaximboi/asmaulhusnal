@@ -4,5 +4,11 @@
   "webDir": "web",
   "android": {
     "path": "android"
+  },
+  "server": {
+    "allowNavigation": [
+      "github.com",
+      "*.github.com"
+    ]
   }
 }
