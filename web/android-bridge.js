@@ -2,6 +2,13 @@
 (function () {
   const n = window.AsmaBridge;
   if (!n) return;
+  try {
+    const raw = n.storeJson && n.storeJson();
+    if (raw) {
+      window.__ASMA_STORE = JSON.parse(raw);
+      try { localStorage.setItem('asma.v1', raw); } catch (e) { /* file origin */ }
+    }
+  } catch (e) { /* ignore */ }
   window.asmaDesktop = {
     ignore: function (v) { try { n.ignore(!!v); } catch (e) { /* ignore */ } },
     show: function () { try { n.show(); } catch (e) { /* ignore */ } },

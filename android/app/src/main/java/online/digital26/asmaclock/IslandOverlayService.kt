@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PixelFormat
+import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -33,8 +34,14 @@ class IslandOverlayService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        live = this
         ensureChannel()
-        startForeground(NOTIF, notice())
+        val n = notice()
+        if (Build.VERSION.SDK_INT >= 34) {
+            startForeground(NOTIF, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE)
+        } else {
+            startForeground(NOTIF, n)
+        }
         if (!Settings.canDrawOverlays(this)) {
             stopSelf()
             return
@@ -54,6 +61,7 @@ class IslandOverlayService : Service() {
     }
 
     override fun onDestroy() {
+        if (live === this) live = null
         detach()
         super.onDestroy()
     }
@@ -92,7 +100,11 @@ class IslandOverlayService : Service() {
         }
         s.cacheMode = WebSettings.LOAD_DEFAULT
         view.addJavascriptInterface(Bridge(), "AsmaBridge")
-        view.webViewClient = WebViewClient()
+        view.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(v: WebView?, url: String?) {
+                injectStore(AsmaStore.read(this@IslandOverlayService))
+            }
+        }
         view.loadUrl("file:///android_asset/public/island.html")
         web = view
         try {
@@ -244,6 +256,21 @@ class IslandOverlayService : Service() {
         fun resize(mode: String, page: Int) {
             main.post { applySize(mode, page) }
         }
+
+        @JavascriptInterface
+        fun storeJson(): String {
+            return AsmaStore.read(this@IslandOverlayService)
+        }
+    }
+
+    private fun injectStore(json: String) {
+        val view = web ?: return
+        if (json.isEmpty()) return
+        val quoted = org.json.JSONObject.quote(json)
+        view.evaluateJavascript(
+            "(function(){try{var j=$quoted;window.__ASMA_STORE=JSON.parse(j);try{localStorage.setItem('asma.v1',j);}catch(e){}if(window.__islandReload)window.__islandReload();}catch(e){}})();",
+            null
+        )
     }
 
     companion object {
@@ -252,6 +279,8 @@ class IslandOverlayService : Service() {
         const val NOTIF = 2704
         const val PREFS = "asma_island"
         const val KEY = "on"
+        const val KEY_WANT = "want"
+        private var live: IslandOverlayService? = null
 
         fun prefs(ctx: Context) = ctx.getSharedPreferences(PREFS, MODE_PRIVATE)
 
@@ -268,6 +297,10 @@ class IslandOverlayService : Service() {
         fun stop(ctx: Context) {
             ctx.stopService(Intent(ctx, IslandOverlayService::class.java))
             prefs(ctx).edit().putBoolean(KEY, false).apply()
+        }
+
+        fun pushStore(ctx: Context, json: String) {
+            live?.main?.post { live?.injectStore(json) }
         }
     }
 }

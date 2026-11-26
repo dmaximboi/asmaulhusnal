@@ -1,7 +1,7 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v23';
+const CACHE = 'asma-v26';
 const ASSETS = [
-  'app.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
+  'app.html', 'style.css', 'app.js', 'dial.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
   'content/dict.json', 'content/roots.json',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png',
@@ -31,7 +31,7 @@ self.addEventListener('fetch', e => {
   const isApp = /app\.html$/.test(path);
   if (req.mode === 'navigate') {
     e.respondWith(
-      fetch(req).then(r => {
+      fetch(req, { cache: 'no-store' }).then(r => {
         if (r && r.ok) {
           const copy = r.clone();
           const key = isApp ? 'app.html' : (path === '/' || /index\.html$/.test(path) ? 'index.html' : req);

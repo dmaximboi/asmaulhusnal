@@ -23,7 +23,12 @@ const DEF = {
   loc: { auto: true, lat: 5.36, lng: -4.0083, name: 'Abidjan' },
   sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', routine: null, fasting: {}, lastCheck: null, fresh: true
 };
-function rawStore() { try { return JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { return {}; } }
+function rawStore() {
+  try {
+    if (window.__ASMA_STORE && typeof window.__ASMA_STORE === 'object') return window.__ASMA_STORE;
+  } catch (e) { /* ignore */ }
+  try { return JSON.parse(localStorage.getItem(SKEY) || '{}') || {}; } catch (e) { return {}; }
+}
 function load() {
   const s = rawStore();
   const o = Object.assign(clone(DEF), s);
@@ -413,6 +418,7 @@ function dailyCheck(force) {
   }
 }
 function reloadStore() { S = load(); tmCache = new Map(); applyLang(); calDirty = true; lastSec = -1; }
+window.__islandReload = reloadStore;
 window.addEventListener('storage', e => { if (e.key === SKEY) reloadStore(); });
 setInterval(() => { const a = JSON.stringify(rawStore()); if (a !== reloadStore.last) { reloadStore.last = a; reloadStore(); } }, 20000);
 

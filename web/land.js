@@ -113,19 +113,13 @@
     if (box && box.scrollIntoView) box.scrollIntoView();
   }
 
-  function tickHands() {
-    const hour = document.getElementById('landHour');
-    const min = document.getElementById('landMin');
-    const sec = document.getElementById('landSec');
-    if (!hour || !min || !sec) return;
-    const n = new Date();
-    const s = n.getSeconds() + n.getMilliseconds() / 1000;
-    const m = n.getMinutes() + s / 60;
-    const h = (n.getHours() % 12) + m / 60;
-    hour.setAttribute('transform', 'rotate(' + (h * 30) + ' 50 50)');
-    min.setAttribute('transform', 'rotate(' + (m * 6) + ' 50 50)');
-    sec.setAttribute('transform', 'rotate(' + (s * 6) + ' 50 50)');
+  const dial = document.getElementById('landDial');
+  if (dial && window.AsmaDial) {
+    dial.innerHTML = window.AsmaDial.build();
+    const loop = function () {
+      window.AsmaDial.frame(dial);
+      window.requestAnimationFrame(loop);
+    };
+    window.requestAnimationFrame(loop);
   }
-  tickHands();
-  setInterval(tickHands, 80);
 })();

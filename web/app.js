@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 5;
-const APP_NAME = '1.4';
+const APP_BUILD = 6;
+const APP_NAME = '1.5';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -44,7 +44,14 @@ function load() {
   return o;
 }
 let saveT = 0;
-function save() { clearTimeout(saveT); saveT = setTimeout(() => { try { localStorage.setItem(SKEY, JSON.stringify(S)); } catch (e) { /* storage blocked */ } }, 150); }
+function save() {
+  clearTimeout(saveT);
+  saveT = setTimeout(() => {
+    try { localStorage.setItem(SKEY, JSON.stringify(S)); } catch (e) { /* storage blocked */ }
+    const pl = capPlugin('AsmaAlarms');
+    if (pl && typeof pl.pushStore === 'function') pl.pushStore({ json: JSON.stringify(S) }).catch(() => {});
+  }, 150);
+}
 
 /* ---------- helpers ---------- */
 const t = k => (D.T[S.lang] && D.T[S.lang][k]) || D.T.en[k] || k;
@@ -125,33 +132,8 @@ function isFasting(d) {
   return fi.ramadan || S.fasting[dkey(d)] === true;
 }
 
-/* ---------- SVG dial ---------- */
-const NS = 'http://www.w3.org/2000/svg';
-const GEO = NAMES.map((n, i) => {
-  const a = (i + 0.5) * 360 / 99, flip = a > 180;
-  return { tf: 'rotate(' + (flip ? a + 90 : a - 90).toFixed(3) + ')', x: flip ? -224 : 224, an: flip ? 'start' : 'end' };
-});
 function buildDial() {
-  let s = '<svg viewBox="-250 -250 500 500" role="img" aria-label="99 Names of Allah clock">';
-  s += '<circle r="249" fill="#101010"/><circle r="243" fill="#f4f4f1"/><circle r="231" fill="none" stroke="#e1e1dc" stroke-width=".6"/>';
-  for (let i = 0; i < 60; i++) {
-    const big = i % 5 === 0, a = i * 6;
-    s += '<line x1="0" y1="-' + (big ? 232 : 236) + '" x2="0" y2="-241" stroke="' + (big ? '#222' : '#9a9a96') + '" stroke-width="' + (big ? 1.4 : .7) + '" transform="rotate(' + a + ')"/>';
-  }
-  s += '<g id="names">';
-  NAMES.forEach((n, i) => {
-    const g = GEO[i];
-    s += '<text class="nm" id="n' + i + '" transform="' + g.tf + '" x="' + g.x + '" y="0" dy=".35em" text-anchor="' + g.an + '">' + esc(n[0]) + '</text>';
-  });
-  s += '</g><g id="hl"><text class="nm cur" id="hlT" dy=".35em"></text></g>';
-  s += '<circle r="66" fill="#e8e8e4"/><circle r="66" fill="none" stroke="#d4d4cf" stroke-width="1"/>';
-  s += '<text y="4" dy=".35em" text-anchor="middle" font-family="Amiri,serif" font-size="46" fill="#d3d3cd">الله</text>';
-  s += '<g id="hHand"><line y1="8" y2="-34" stroke="#141414" stroke-width="4" stroke-linecap="round"/></g>';
-  s += '<g id="mHand"><line y1="10" y2="-54" stroke="#141414" stroke-width="2.8" stroke-linecap="round"/></g>';
-  s += '<circle r="4" fill="#141414"/>';
-  s += '<g id="sHand"><circle cx="0" cy="-74" r="3.6" fill="#fff" stroke="#141414" stroke-width="1.2"/><line y1="-77.6" y2="-186" stroke="#141414" stroke-width="1.3"/><polygon points="0,-196 -3.4,-184 3.4,-184" fill="#141414"/></g>';
-  s += '</svg>';
-  return s;
+  return window.AsmaDial ? window.AsmaDial.build() : '';
 }
 
 /* ---------- views ---------- */
@@ -197,13 +179,6 @@ function renderWeek() {
   el.innerHTML = s;
 }
 
-function updateNames(idx) {
-  $$('#names .nm').forEach((n, i) => { n.setAttribute('class', i < idx ? 'nm done' : 'nm'); });
-  const hl = $('#hlT'), g = GEO[idx];
-  hl.textContent = NAMES[idx][0];
-  hl.setAttribute('transform', g.tf); hl.setAttribute('x', g.x); hl.setAttribute('y', 0); hl.setAttribute('text-anchor', g.an);
-}
-
 function setPanel(i, animate) {
   const n = NAMES[i], p = $('#panel');
   if (!p) return;
@@ -217,17 +192,10 @@ function setPanel(i, animate) {
 let loopsOn = false, tickId = 0, clockRaf = 0;
 function frameOnce() {
   const dial = $('#dial');
-  if (dial && S.tab === 'clock') {
-    const now = new Date();
-    const sf = now.getSeconds() + now.getMilliseconds() / 1000;
-    const sh = $('#sHand'), mh = $('#mHand'), hh = $('#hHand');
-    if (!sh || !mh || !hh) return;
-    sh.setAttribute('transform', 'rotate(' + (sf * 6).toFixed(2) + ')');
-    mh.setAttribute('transform', 'rotate(' + ((now.getMinutes() + sf / 60) * 6).toFixed(2) + ')');
-    hh.setAttribute('transform', 'rotate(' + (((now.getHours() % 12) + now.getMinutes() / 60) * 30).toFixed(2) + ')');
-    const idx = Math.min(98, Math.floor(sf / 60 * 99));
-    if (idx !== lastIdx) {
-      lastIdx = idx; updateNames(idx);
+  if (dial && S.tab === 'clock' && window.AsmaDial) {
+    const idx = window.AsmaDial.frame(dial);
+    if (idx >= 0 && idx !== lastIdx) {
+      lastIdx = idx;
       if (S.panel === 'hand') setPanel(idx, true);
     }
   }
@@ -804,7 +772,7 @@ function renderSettings() {
       '<p class="note">' + esc(t('androidIslandHint')) + '</p>' +
       '<p class="note">' + esc(t('androidWidgetHint')) + '</p>' +
       '<p class="note" id="androidIslandStatus"></p>' +
-      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="islandOn">' + esc(t('androidIslandOn')) + '</button><button class="btn sm" data-act="islandOff">' + esc(t('androidIslandOff')) + '</button></div></div>') : '');
+      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="islandOn">' + esc(t('androidIslandOn')) + '</button><button class="btn sm" data-act="islandOff">' + esc(t('androidIslandOff')) + '</button><button class="btn sm" data-act="pinWidget">' + esc(t('androidWidgetAdd')) + '</button></div></div>') : '');
 
   s += '<div class="set"><div class="st">' + esc(t('updTitle')) + '</div>' +
     '<p class="note">' + esc(t('updNow')) + ': ' + esc(APP_NAME) + '</p>' +
@@ -830,8 +798,16 @@ function renderSettings() {
 function capPlugin(name) {
   try {
     const cap = window.Capacitor;
-    if (!cap || typeof cap.isNativePlatform !== 'function' || !cap.isNativePlatform()) return null;
-    return (cap.Plugins && cap.Plugins[name]) || null;
+    if (!cap) return null;
+    if (typeof cap.isNativePlatform === 'function' && !cap.isNativePlatform()) return null;
+    if (typeof cap.isNativePlatform !== 'function' && !(cap.Plugins && cap.Plugins[name])) return null;
+    if (cap.Plugins && cap.Plugins[name]) return cap.Plugins[name];
+    if (typeof cap.registerPlugin === 'function') {
+      cap.Plugins = cap.Plugins || {};
+      cap.Plugins[name] = cap.registerPlugin(name);
+      return cap.Plugins[name];
+    }
+    return null;
   } catch (e) { return null; }
 }
 function prayerSlotOn(k) {
@@ -1267,36 +1243,42 @@ function refreshLocation(manual) {
       }
       resolve(true);
     };
-    const fail = () => {
+    const fail = (kind) => {
       const dk = window.asmaDesktop;
       if (dk && dk.ipLocation) {
         dk.ipLocation().then(p => {
           if (p && isFinite(p.lat) && isFinite(p.lng)) done(p.lat, p.lng);
           else { if (manual) toast(t('locFail')); resolve(false); }
         }).catch(() => { if (manual) toast(t('locFail')); resolve(false); });
-      } else { if (manual) toast(t('locFail')); resolve(false); }
+      } else {
+        if (manual) toast(kind === 'off' ? t('locGpsOff') : (kind === 'denied' ? t('locNeed') : t('locFail')));
+        resolve(false);
+      }
     };
     const tryNative = () => {
       const pl = capPlugin('AsmaAlarms');
       if (pl && typeof pl.getLocation === 'function') {
         pl.getLocation().then(p => {
           if (p && isFinite(p.lat) && isFinite(p.lng)) done(p.lat, p.lng);
-          else fail();
-        }).catch(() => {
-          if (manual) toast(t('locNeed'));
-          resolve(false);
+          else fail('fail');
+        }).catch(err => {
+          const msg = String((err && (err.message || err.errorMessage || err)) || '');
+          if (/off/i.test(msg)) fail('off');
+          else if (/denied/i.test(msg)) fail('denied');
+          else fail('fail');
         });
         return;
       }
-      fail();
+      fail('fail');
     };
     /* the desktop app has no OS location service, so it uses the network location instead */
-    if (window.asmaDesktop) return fail();
+    if (window.asmaDesktop) return fail('fail');
+    if (capPlugin('AsmaAlarms')) return tryNative();
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         pos => done(pos.coords.latitude, pos.coords.longitude),
-        tryNative,
-        { timeout: 8000, maximumAge: 6 * 3600 * 1000 }
+        () => tryNative(),
+        { timeout: 8000, maximumAge: 6 * 3600 * 1000, enableHighAccuracy: false }
       );
     } else tryNative();
   });
@@ -1501,6 +1483,13 @@ document.addEventListener('click', ev => {
       if (pl && typeof pl.stopIsland === 'function') pl.stopIsland().then(() => refreshAndroidStatus()).catch(() => {});
       break;
     }
+    case 'pinWidget': {
+      const pl = capPlugin('AsmaAlarms');
+      if (pl && typeof pl.pinWidget === 'function') {
+        pl.pinWidget().then(r => { if (!r || !r.ok) toast(t('androidPinNeed')); }).catch(() => toast(t('androidPinNeed')));
+      } else toast(t('androidPinNeed'));
+      break;
+    }
     case 'resetAll': try { localStorage.removeItem(SKEY); } catch (e) { /* ignore */ } S = load(); invalidate(); applyLang(); closeSheet(); showTab('clock'); syncAndroidAlarms(); break;
     default: break;
   }
@@ -1533,6 +1522,7 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
     startLoops();
     dailyCheck(false); checkAppUpdate(false); lastSec = -1; tick(true); syncAndroidAlarms();
+    refreshAndroidStatus();
   } else {
     stopLoops();
   }
@@ -1579,6 +1569,12 @@ checkAppUpdate(false);
 syncAndroidAlarms();
 if (S.fresh && S.loc.auto) { refreshLocation(false); }
 startLoops();
+(function bootNative() {
+  const pl = capPlugin('AsmaAlarms');
+  if (!pl) return;
+  if (typeof pl.pushStore === 'function') pl.pushStore({ json: JSON.stringify(S) }).catch(() => {});
+  if (typeof pl.getStatus === 'function') pl.getStatus().then(() => {}).catch(() => {});
+})();
 
 bindServiceWorker();
 window.__asma = { S: () => S, tick: () => tick(true), fire: id => { const it = S.routine.find(x => x.id === id); if (it) fireAlert(it, new Date()); } };

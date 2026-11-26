@@ -7,8 +7,6 @@
     if (typeof navigator !== 'undefined' && navigator.standalone) return true;
     if (typeof window.matchMedia === 'function') {
       if (window.matchMedia('(display-mode: standalone)').matches) return true;
-      if (window.matchMedia('(display-mode: fullscreen)').matches) return true;
-      if (window.matchMedia('(display-mode: minimal-ui)').matches) return true;
     }
     if (typeof navigator !== 'undefined' && /Electron/i.test(navigator.userAgent || '')) return true;
     return false;
