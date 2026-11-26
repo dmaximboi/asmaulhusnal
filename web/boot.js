@@ -1,5 +1,9 @@
 /* Send installed shells to the clock. Browser visitors stay on the landing page. */
 (function () {
+  if (/[?&]stay=1(?:&|$)/.test(location.search || '')) {
+    document.documentElement.classList.add('land-ready');
+    return;
+  }
   function isInstalledShell() {
     try {
       if (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()) return true;

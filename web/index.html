@@ -5,33 +5,257 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://raw.githubusercontent.com https://api.github.com; manifest-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Asma Clock</title>
-<meta name="description" content="Download Asma Clock for Android and Windows, or open it in the browser.">
-<meta name="theme-color" content="#0b1211">
+<meta name="description" content="Asma Clock: the 99 Names dial, prayer times, fasting, duas, island overlay and home widget. Free on Android, Windows and the web.">
+<meta name="theme-color" content="#ffffff">
 <link rel="icon" href="icons/icon-192.png" type="image/png">
 <link rel="stylesheet" href="land.css">
-<script src="boot.js"></script>
+<script src="boot.js?v=2"></script>
 </head>
 <body>
-<div class="wrap">
-  <div class="dial" id="landDial"></div>
-  <h1 id="landTitle">Asma Clock</h1>
-  <p class="lead" id="landLead">A quiet clock with the 99 Names, prayer times and a Hijri calendar.</p>
-  <div class="langs">
+<header class="nav">
+  <a class="mark" href="#top" data-t="title">Asma Clock</a>
+  <div class="nav-links">
+    <a href="#names" data-t="navNames">Names</a>
+    <a href="#prayer" data-t="navPrayer">Prayer</a>
+    <a href="#island" data-t="navIsland">Island</a>
+    <a href="#soon" data-t="navSoon">Soon</a>
+  </div>
+  <div class="langs" role="group" aria-label="Language">
     <button type="button" data-lang="en">EN</button>
     <button type="button" data-lang="fr">FR</button>
     <button type="button" data-lang="ar">ع</button>
   </div>
-  <div class="actions" id="download">
-    <a class="btn pri" id="dlApk" href="https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/asma-clock.apk">Download Android</a>
-    <a class="btn gold" id="dlWin" href="https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/Asma-Island-Setup.exe">Download Windows</a>
-    <a class="btn ghost" id="openApp" href="app.html">Open in this browser</a>
+  <a class="btn pri sm" href="#download" data-t="get">Get the app</a>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-copy reveal">
+    <p class="kicker" data-t="kicker">Free Islamic clock</p>
+    <h1 id="landTitle" data-t="title">Asma Clock</h1>
+    <p class="lead" id="landLead" data-t="lead">A quiet clock with the 99 Names, prayer times and a Hijri calendar.</p>
+    <div class="actions" id="download">
+      <a class="btn pri" id="dlApk" href="https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/asma-clock.apk" data-t="apk">Download Android</a>
+      <a class="btn gold" id="dlWin" href="https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/Asma-Island-Setup.exe" data-t="win">Download Windows</a>
+      <a class="btn ghost" id="openApp" href="app.html" data-t="open">Open in this browser</a>
+    </div>
+    <p class="note" id="landHint" data-t="hint">The phone and Windows files are one tap. After you open the clock in the browser, use the browser menu to install the web app on the home screen.</p>
+    <p class="ver" id="landVer"></p>
   </div>
-  <p class="note" id="landHint">The phone and Windows files are one tap. After you open the clock in the browser, use the browser menu to install the web app on the home screen.</p>
-  <p class="ver" id="landVer"></p>
-</div>
+  <div class="hero-stage reveal">
+    <div class="phone">
+      <div class="phone-bar"></div>
+      <div class="phone-screen">
+        <div class="dial" data-dial></div>
+        <p class="phone-time" data-clock>00:00:00</p>
+        <p class="phone-ar" data-t="heroAr">أسماء الله الحسنى</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="names">
+  <div class="split">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secNamesK">The dial</p>
+      <h2 data-t="secNamesH">Ninety-nine Names, one sweep of the second hand</h2>
+      <p data-t="secNamesP">The analog face is the same clock as in the app. Each second lights the next Name. Allah sits at the centre. Grey names have already passed this minute.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="dial wide" data-dial></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="prayer">
+  <div class="split rev">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secPrayK">Prayer times</p>
+      <h2 data-t="secPrayH">Five times, next prayer, Qibla</h2>
+      <p data-t="secPrayP">Muslim World League by default. Location on the phone. Adhan can fire at Fajr, Dhuhr, Asr, Maghrib and Isha when you allow notifications.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="mock-card dark">
+        <p class="mock-label" data-t="next">Next</p>
+        <div class="mock-next">
+          <b data-t="dhuhr">Dhuhr</b>
+          <span>12:18</span>
+        </div>
+        <div class="tiles">
+          <div><small data-t="fajr">Fajr</small><b>05:12</b></div>
+          <div class="on"><small data-t="dhuhr">Dhuhr</small><b>12:18</b></div>
+          <div><small data-t="asr">Asr</small><b>15:41</b></div>
+          <div><small data-t="maghrib">Maghrib</small><b>18:09</b></div>
+          <div><small data-t="isha">Isha</small><b>19:24</b></div>
+          <div><small data-t="qibla">Qibla</small><b>58°</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="fast">
+  <div class="split">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secFastK">Fasting</p>
+      <h2 data-t="secFastH">Suhoor, iftar, and a Maghrib notice</h2>
+      <p data-t="secFastP">Mark Fasting today. The phone keeps a stay notification, then at Maghrib sends “May Allah accept your fasting” with the iftar dua. Source: Abu Dawud.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="notif rise">
+        <p class="notif-app" data-t="title">Asma Clock</p>
+        <p class="notif-h" data-t="fastTitle">May Allah accept your fasting</p>
+        <p class="notif-ar">ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ</p>
+        <p class="notif-src" data-t="iftarSrc">Abu Dawud</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="dua">
+  <div class="split rev">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secDuaK">Duas</p>
+      <h2 data-t="secDuaH">Sourced duas, on a schedule</h2>
+      <p data-t="secDuaP">Twenty minutes after Fajr a dua from the list is sent as a notice. On Friday at Dhuhr the app reminds you to read Surat al-Kahf. Routine items can be duas you pick. Nothing is invented. Each card cites its source.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="dua-card rise">
+        <p class="mock-label" data-t="wake">Upon waking</p>
+        <p class="dua-ar">الحمد لله الذي أحيانا بعد ما أماتنا وإليه النشور</p>
+        <p class="dua-en" data-t="wakeEn">All praise is for Allah who gave us life after causing us to die, and to Him is the resurrection.</p>
+        <p class="notif-src">Al-Bukhari</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="island">
+  <div class="split">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secIslK">Island</p>
+      <h2 data-t="secIslH">A light pill over other apps</h2>
+      <p data-t="secIslP">On Android, allow display over other apps. The island stays a small pill until you touch it. If you do not, it waits three seconds, then folds back. Windows has the same island window.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="phone tall">
+        <div class="phone-bar"></div>
+        <div class="phone-screen dim">
+          <div class="isl" id="islDemo">
+            <div class="isl-c" id="islColl">
+              <span class="moon"></span>
+              <span data-clock>00:00</span>
+            </div>
+            <div class="isl-e" id="islExp">
+              <p class="isl-big" data-clock>00:00:00</p>
+              <p class="isl-mut" data-t="nextPrayerLine">Next Dhuhr in 42 min</p>
+              <p class="isl-name">Ar-Rahman</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="widget">
+  <div class="split rev">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secWidK">Home widget</p>
+      <h2 data-t="secWidH">The same dial on the home screen</h2>
+      <p data-t="secWidP">A compact 2 by 2 tile. Live 99 Names face, digital time, Arabic day and date underneath. Add it from Settings, then pin widget.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="home-grid">
+        <div class="widget">
+          <div class="dial mini" data-dial></div>
+          <p class="w-time" data-clock>00:00</p>
+          <p class="w-date" data-t="arDate">الجمعة ٢٦ نوفمبر</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="cal">
+  <div class="split">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secCalK">Calendar</p>
+      <h2 data-t="secCalH">Hijri day that turns at Maghrib</h2>
+      <p data-t="secCalP">Gregorian and Hijri sit together. You can shift the Hijri day by one if your local moon sighting differs. Events stay on the month view.</p>
+    </div>
+    <div class="stage reveal">
+      <div class="week rise">
+        <div><span data-t="d0">Sat</span><b>21</b></div>
+        <div><span data-t="d1">Sun</span><b>22</b></div>
+        <div><span data-t="d2">Mon</span><b>23</b></div>
+        <div><span data-t="d3">Tue</span><b>24</b></div>
+        <div><span data-t="d4">Wed</span><b>25</b></div>
+        <div class="today"><span data-t="d5">Thu</span><b>26</b></div>
+        <div><span data-t="d6">Fri</span><b>27</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="routine">
+  <div class="split rev">
+    <div class="copy reveal">
+      <p class="kicker" data-t="secRtK">Routine</p>
+      <h2 data-t="secRtH">Pray, dua, or a reminder you write</h2>
+      <p data-t="secRtP">Build a day around the five prayers. Attach a sourced dua. The Android alarms keep the time even when the app is closed.</p>
+    </div>
+    <div class="stage reveal">
+      <ul class="rt rise">
+        <li><b data-t="fajr">Fajr</b><span>05:12</span></li>
+        <li class="gold"><b data-t="rtDua">Dua after Fajr</b><span>+20 min</span></li>
+        <li><b data-t="dhuhr">Dhuhr</b><span>12:18</span></li>
+        <li><b data-t="kahf">Read al-Kahf</b><span data-t="fri">Friday</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="learn">
+  <div class="copy center reveal">
+    <p class="kicker" data-t="secLearnK">Learn</p>
+    <h2 data-t="secLearnH">How to pray, roots, a letter dictionary</h2>
+    <p data-t="secLearnP">Faceless diagrams for salah. Lessons on fasting and adhkar. A dictionary by Arabic letter. Roots start small and grow. Games and extra audio come later, still free at the core.</p>
+  </div>
+  <div class="pills reveal">
+    <span data-t="pill1">Salah steps</span>
+    <span data-t="pill2">Adhkar</span>
+    <span data-t="pill3">Dictionary</span>
+    <span data-t="pill4">Roots</span>
+    <span data-t="pill5">EN FR AR</span>
+  </div>
+</section>
+
+<section class="band soon" id="soon">
+  <div class="copy center reveal">
+    <p class="kicker" data-t="secSoonK">More to come</p>
+    <h2 data-t="secSoonH">The clock is the start</h2>
+    <p data-t="secSoonP">Next in line: a fuller Roots library, free games that never turn Names into scores, adhan voices, and optional packs. The clock, prayer times, adhan, fasting, calendar, basic duas, routine and basic Learn stay free.</p>
+  </div>
+  <div class="soon-grid">
+    <article class="reveal"><h3 data-t="soon1H">Roots</h3><p data-t="soon1P">More Arabic roots, quiz and review.</p></article>
+    <article class="reveal"><h3 data-t="soon2H">Games</h3><p data-t="soon2P">Practice without gambling or pictures of people.</p></article>
+    <article class="reveal"><h3 data-t="soon3H">Audio</h3><p data-t="soon3P">Adhan voices and recitation packs.</p></article>
+    <article class="reveal"><h3 data-t="soon4H">Ramadan kit</h3><p data-t="soon4P">A seasonal layer on the same quiet clock.</p></article>
+  </div>
+</section>
+
+<footer class="foot">
+  <h2 data-t="footH">Take it with you</h2>
+  <div class="actions row">
+    <a class="btn pri" href="#download" data-t="apk">Download Android</a>
+    <a class="btn gold" href="#download" data-t="win">Download Windows</a>
+    <a class="btn ghost" href="app.html" data-t="open">Open in this browser</a>
+  </div>
+  <p class="note" data-t="owner">Asma Clock. Maxim, Digital26. Open source.</p>
+</footer>
+<noscript><p class="note">JavaScript is required.</p></noscript>
 <script src="names.js"></script>
 <script src="dial.js"></script>
 <script src="land.js"></script>
-<noscript><p class="note">JavaScript is required.</p></noscript>
 </body>
 </html>
