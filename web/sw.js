@@ -1,14 +1,18 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v17';
+const CACHE = 'asma-v18';
 const ASSETS = [
   './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
-  'content/dict.json',
+  'content/dict.json', 'content/roots.json',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE).then(c =>
+      Promise.all(ASSETS.map(u => c.add(u).catch(() => undefined)))
+    ).then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -25,9 +29,12 @@ self.addEventListener('fetch', e => {
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req).then(r => {
-        const copy = r.clone();
-        caches.open(CACHE).then(c => c.put('index.html', copy));
-        return r;
+        if (r && r.ok) {
+          const copy = r.clone();
+          caches.open(CACHE).then(c => c.put('index.html', copy));
+          return r;
+        }
+        return caches.match('index.html').then(hit => hit || r);
       }).catch(() => caches.match('index.html'))
     );
     return;

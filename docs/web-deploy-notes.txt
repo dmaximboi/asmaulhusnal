@@ -1,8 +1,9 @@
 ASMA CLOCK - deploy notes (for you only)
 
 DEPLOY ON NETLIFY
-1. Go to app.netlify.com/drop
-2. Drag the whole "asma" folder (the one containing index.html) onto the page.
+Git: connect the GitHub repo. Publish directory must be "web" (netlify.toml sets this).
+If Site configuration still has Publish directory empty or ".", set it to web and trigger a redeploy.
+Drop: drag the "web" folder (the one containing index.html), not the whole repo.
 3. Open the site link on your phone in Chrome (Android) or Safari (iPhone).
    Android: menu > Install app / Add to Home screen.
    iPhone: Share > Add to Home Screen.

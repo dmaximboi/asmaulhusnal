@@ -1,0 +1,4 @@
+# Git deploys must publish web/, not the repo root.
+# Root has no app index; that is why GET / and GET /sw.js were 404.
+[build]
+  publish = "web"
