@@ -1,6 +1,8 @@
 {
   "apkCode": 4,
   "apkName": "1.3",
-  "apkUrl": "https://github.com/dmaximboi/asmaulhusnal/actions/workflows/build-android.yml",
+  "apkUrl": "https://asmaulhusnal.netlify.app/#download",
+  "apkFile": "https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/asma-clock.apk",
+  "winFile": "https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/Asma-Island-Setup.exe",
   "notes": "Bump apkCode and android versionCode together when a new APK is published."
 }

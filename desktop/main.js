@@ -61,7 +61,7 @@ function openFullApp() {
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, backgroundThrottling: false }
   });
   appWin.setMenuBarVisibility(false);
-  appWin.loadFile(path.join(__dirname, 'app', 'index.html'));
+  appWin.loadFile(path.join(__dirname, 'app', 'app.html'));
   appWin.on('closed', () => { appWin = null; });
 }
 

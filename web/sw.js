@@ -1,10 +1,11 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v21';
+const CACHE = 'asma-v22';
 const ASSETS = [
-  './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
+  'app.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
   'content/dict.json', 'content/roots.json',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',
-  'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png'
+  'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png',
+  'index.html', 'land.css', 'land.js', 'boot.js'
 ];
 
 self.addEventListener('install', e => {
@@ -26,20 +27,22 @@ self.addEventListener('activate', e => {
 self.addEventListener('fetch', e => {
   const req = e.request;
   if (req.method !== 'GET' || new URL(req.url).origin !== location.origin) return;
+  const path = new URL(req.url).pathname;
+  const isApp = /app\.html$/.test(path);
   if (req.mode === 'navigate') {
     e.respondWith(
       fetch(req).then(r => {
         if (r && r.ok) {
           const copy = r.clone();
-          caches.open(CACHE).then(c => c.put('index.html', copy));
+          const key = isApp ? 'app.html' : (path === '/' || /index\.html$/.test(path) ? 'index.html' : req);
+          caches.open(CACHE).then(c => c.put(key, copy));
           return r;
         }
-        return caches.match('index.html').then(hit => hit || r);
-      }).catch(() => caches.match('index.html'))
+        return caches.match(isApp ? 'app.html' : 'index.html').then(hit => hit || r);
+      }).catch(() => caches.match(isApp ? 'app.html' : 'index.html'))
     );
     return;
   }
-  /* stale-while-revalidate for static files */
   e.respondWith(
     caches.match(req).then(hit => {
       const net = fetch(req).then(r => {
@@ -56,7 +59,7 @@ self.addEventListener('notificationclick', e => {
   e.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
       for (const c of list) { if ('focus' in c) return c.focus(); }
-      return self.clients.openWindow('./');
+      return self.clients.openWindow('app.html');
     })
   );
 });

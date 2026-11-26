@@ -18,7 +18,7 @@
   "build": {
     "appId": "online.digital26.asmaisland",
     "productName": "Asma Island",
-    "artifactName": "Asma-Island-Setup-${version}-${arch}.${ext}",
+    "artifactName": "Asma-Island-Setup.${ext}",
     "directories": {
       "output": "dist"
     },

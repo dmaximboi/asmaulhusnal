@@ -11,6 +11,9 @@ on:
       - "capacitor.config.json"
       - ".github/workflows/build-android.yml"
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -46,3 +49,16 @@ jobs:
         with:
           name: asma-clock-debug
           path: android/app/build/outputs/apk/debug/*.apk
+      - name: Name the APK
+        run: |
+          mkdir -p dist
+          cp android/app/build/outputs/apk/debug/*.apk dist/asma-clock.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: app
+          name: Asma Clock
+          body: Tap Download Android on the website. This file installs over the previous signed build.
+          files: dist/asma-clock.apk
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

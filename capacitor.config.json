@@ -8,7 +8,10 @@
   "server": {
     "allowNavigation": [
       "github.com",
-      "*.github.com"
+      "*.github.com",
+      "*.netlify.app",
+      "digital26.online",
+      "www.digital26.online"
     ]
   }
 }

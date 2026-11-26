@@ -2,7 +2,7 @@
   "name": "Asma Clock",
   "short_name": "Asma Clock",
   "description": "Analog clock with the 99 Names of Allah, prayer times, Hijri calendar and daily routine.",
-  "start_url": "./",
+  "start_url": "app.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
