@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 1;
-const APP_NAME = '1.0';
+const APP_BUILD = 2;
+const APP_NAME = '1.1';
 const SITE_URL = 'https://digital26.online';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',

@@ -1,5 +1,5 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v18';
+const CACHE = 'asma-v19';
 const ASSETS = [
   './', 'index.html', 'style.css', 'app.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
   'content/dict.json', 'content/roots.json',
