@@ -39,6 +39,9 @@ object ExactAlarmScheduler {
             "isha" -> 105
             "fast-eve" -> 110
             "fast-morn" -> 111
+            "fajr-dua" -> 112
+            "jumuah-kahf" -> 113
+            "fast-iftar" -> 114
             else -> (id.hashCode() and 0x7fffffff) % 9000 + 200
         }
     }
@@ -111,7 +114,7 @@ object ExactAlarmScheduler {
         } catch (_: Exception) {
             /* ignore */
         }
-        listOf("fajr", "dhuhr", "asr", "maghrib", "isha", "fast-eve", "fast-morn").forEach { cancelCode(context, requestCodeFor(it)) }
+        listOf("fajr", "dhuhr", "asr", "maghrib", "isha", "fast-eve", "fast-morn", "fajr-dua", "jumuah-kahf", "fast-iftar").forEach { cancelCode(context, requestCodeFor(it)) }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(KEY_ITEMS).apply()
     }
 
@@ -143,7 +146,8 @@ object ExactAlarmScheduler {
 
     fun bumpNextDay(context: Context, intent: Intent) {
         if (intent.getBooleanExtra(EXTRA_TEST, false)) return
-        if ((intent.getStringExtra(EXTRA_KEY) ?: "") == "notice") return
+        val bumpKey = intent.getStringExtra(EXTRA_KEY) ?: ""
+        if (bumpKey == "notice" || bumpKey == "dua") return
         val id = intent.getStringExtra(EXTRA_ID) ?: return
         val whenAt = intent.getLongExtra(EXTRA_WHEN, 0L)
         if (id.isEmpty() || whenAt <= 0L) return

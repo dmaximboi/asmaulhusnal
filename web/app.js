@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 6;
-const APP_NAME = '1.5';
+const APP_BUILD = 8;
+const APP_NAME = '1.7';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -418,6 +418,49 @@ function itemTime(it, date) {
   if (!tm) return null;
   return new Date(tm.getTime() + (it.off || 0) * 60000);
 }
+function pickDailyDua(day) {
+  const list = D.DUAS || [];
+  if (!list.length) return null;
+  const n = day.getFullYear() * 400 + day.getMonth() * 40 + day.getDate();
+  return list[Math.abs(n) % list.length];
+}
+function duaNotifText(d) {
+  if (!d) return '';
+  const mean = S.lang === 'fr' ? d.fr : d.en;
+  const bits = [d.ar];
+  if (S.lang !== 'ar' && mean) bits.push(mean);
+  if (d.src) bits.push(t('source') + ': ' + d.src);
+  return bits.join('\n');
+}
+function nextFastingMaghrib(now) {
+  for (let i = 0; i < 2; i++) {
+    const day = addDays(now, i);
+    if (!isFasting(day)) continue;
+    const mag = timesFor(day).maghrib;
+    if (mag && mag.getTime() > now.getTime() + 15000) return { at: mag, day: day };
+  }
+  return null;
+}
+function nextFridayDhuhr(now) {
+  let day = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const wait = (5 - day.getDay() + 7) % 7;
+  day = addDays(day, wait);
+  let at = timesFor(day).dhuhr;
+  if (!at || at.getTime() <= now.getTime() + 15000) {
+    day = addDays(day, 7);
+    at = timesFor(day).dhuhr;
+  }
+  return at || null;
+}
+function nextRoutineAt(it, now) {
+  for (let i = 0; i < 2; i++) {
+    const day = addDays(now, i);
+    if (it.fast && !isFasting(day)) continue;
+    const at = itemTime(it, day);
+    if (at && at.getTime() > now.getTime() + 15000) return { at: at, day: day };
+  }
+  return null;
+}
 function itemSub(it) {
   const bits = [];
   if (it.fixed) bits.push(nA(it.fixed));
@@ -440,7 +483,7 @@ function renderRoutine() {
 }
 function openRoutineEditor(id) {
   const isNew = !id;
-  const it = isNew ? { id: 'c' + Date.now(), name: '', fixed: '06:00', on: true, adhan: true } : S.routine.find(x => x.id === id);
+  const it = isNew ? { id: 'c' + Date.now(), name: '', fixed: '06:00', on: true } : S.routine.find(x => x.id === id);
   if (!it) return;
   const fixedMode = !!it.fixed;
   const pr = ['imsak', 'fajr', 'sunrise', 'duha', 'dhuhr', 'asr', 'maghrib', 'isha', 'midnight', 'tahajjud'];
@@ -453,6 +496,7 @@ function openRoutineEditor(id) {
   s += '<label class="field" data-m="prayer"><span>' + esc(t('anchorRef')) + '</span><select name="ref">' + pr.map(k => '<option value="' + k + '"' + (it.ref === k ? ' selected' : '') + '>' + esc(t(k)) + '</option>').join('') + '</select></label>';
   s += '<label class="field" data-m="prayer"><span>' + esc(t('offsetMin')) + '</span><input type="number" name="off" value="' + (it.off || 0) + '" step="1" min="-600" max="600"></label>';
   s += '<label class="field"><span>' + esc(t('dua')) + '</span><select name="dua">' + duaOpts + '</select></label>';
+  s += '<p class="note">' + esc(t('rtNotifHint')) + '</p>';
   s += '<div class="set"><div class="r"><span>' + esc(t('fastOnly')) + '</span><label class="sw"><input type="checkbox" name="fast"' + (it.fast ? ' checked' : '') + '><i></i></label></div><div class="r"><span>' + esc(t('alertLbl')) + '</span><label class="sw"><input type="checkbox" name="on"' + (it.on ? ' checked' : '') + '><i></i></label></div></div>';
   s += '<div class="btns"><button type="submit" class="btn pri">' + esc(t('save')) + '</button><button type="button" class="btn" data-act="closeSheet">' + esc(t('cancel')) + '</button>' + (isNew ? '' : '<button type="button" class="btn danger" data-act="rtDel" data-id="' + esc(it.id) + '">' + esc(t('del')) + '</button>') + '</div></form>';
   openSheet(s);
@@ -467,9 +511,10 @@ function openRoutineEditor(id) {
     if (f.mode.value === 'fixed') { target.fixed = f.fixed.value || '06:00'; delete target.ref; delete target.off; }
     else { target.ref = f.ref.value; target.off = parseInt(f.off.value, 10) || 0; delete target.fixed; }
     target.dua = f.dua.value || undefined; target.fast = f.fast.checked || undefined; target.on = f.on.checked;
-    if (target.on) target.adhan = true;
+    if (!target.key) delete target.adhan;
     if (isNew) S.routine.push(target);
     save(); firedKeys.clear(); closeSheet(); renderRoutine();
+    syncAndroidAlarms();
   });
 }
 
@@ -654,7 +699,7 @@ function renderDictLearn() {
     s += '<div class="dict-letters">';
     s += '<button type="button" class="' + (!dictLetter ? 'on' : '') + '" data-act="dictLetter" data-l="">' + esc(t('learnDictAll')) + '</button>';
     letters.forEach(ch => {
-      s += '<button type="button" class="' + (dictLetter === ch ? 'on' : '') + '" data-act="dictLetter" data-l="' + ch + '">' + ch + '</button>';
+      s += '<button type="button" class="' + (dictLetter === ch ? 'on' : '') + '" data-act="dictLetter" data-l="' + esc(ch) + '">' + esc(ch) + '</button>';
     });
     s += '</div>';
   }
@@ -868,6 +913,65 @@ function syncAndroidAlarms() {
       stay: true
     });
   }
+  let fajrDuaAt = today.fajr, fajrDuaDay = now;
+  if (!fajrDuaAt || fajrDuaAt.getTime() + 20 * 60000 <= now.getTime() + 15000) {
+    fajrDuaAt = tom.fajr;
+    fajrDuaDay = addDays(now, 1);
+  }
+  const fajrDua = fajrDuaAt ? pickDailyDua(fajrDuaDay) : null;
+  if (fajrDua && fajrDuaAt) {
+    items.push({
+      id: 'fajr-dua',
+      at: fajrDuaAt.getTime() + 20 * 60000,
+      key: 'dua',
+      title: t('fajrDuaTitle'),
+      body: duaNotifText(fajrDua),
+      lang: S.lang,
+      stay: false
+    });
+  }
+  const iftarMark = nextFastingMaghrib(now);
+  if (iftarMark) {
+    const d = D.DUAS.find(x => x.id === 'iftar');
+    items.push({
+      id: 'fast-iftar',
+      at: iftarMark.at.getTime(),
+      key: 'dua',
+      title: t('fastAcceptNotif'),
+      body: (d ? duaNotifText(d) : '') || t('fastDone'),
+      lang: S.lang,
+      stay: false
+    });
+  }
+  const kahfAt = nextFridayDhuhr(now);
+  if (kahfAt) {
+    items.push({
+      id: 'jumuah-kahf',
+      at: kahfAt.getTime(),
+      key: 'dua',
+      title: t('jumuahKahfTitle'),
+      body: t('jumuahKahfBody'),
+      lang: S.lang,
+      stay: false
+    });
+  }
+  S.routine.forEach(it => {
+    if (!it.on) return;
+    if (it.adhan && it.key && ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'].indexOf(it.key) >= 0) return;
+    if (it.id === 'iftar' && iftarMark) return;
+    const nx = nextRoutineAt(it, now);
+    if (!nx) return;
+    const d = it.dua ? D.DUAS.find(x => x.id === it.dua) : null;
+    items.push({
+      id: 'rt-' + it.id,
+      at: nx.at.getTime(),
+      key: 'dua',
+      title: d ? L(d.title) : itemLabel(it),
+      body: d ? duaNotifText(d) : itemLabel(it) + ' · ' + fmtHM(nx.at),
+      lang: S.lang,
+      stay: false
+    });
+  });
   if (!items.length) pl.cancelAll().catch(() => {});
   else pl.schedule({ items: items }).catch(() => {});
   postTodayFastNotice();
@@ -1068,6 +1172,46 @@ function checkAlerts(now) {
     }
   });
   checkDayNotices(now);
+  checkFajrDua(now);
+  checkJumuahKahf(now);
+  checkFastIftar(now);
+}
+function checkFajrDua(now) {
+  if (capPlugin('AsmaAlarms')) return;
+  const tm = timesFor(now);
+  if (!tm.fajr) return;
+  const at = tm.fajr.getTime() + 20 * 60000;
+  if (now.getTime() < at || now.getTime() - at > 90000) return;
+  const k = dkey(now) + '|fajr-dua';
+  if (firedKeys.has(k)) return;
+  firedKeys.add(k);
+  const d = pickDailyDua(now);
+  if (d) emitNotice(t('fajrDuaTitle'), duaNotifText(d), 'asma-fajr-dua');
+}
+function checkJumuahKahf(now) {
+  if (capPlugin('AsmaAlarms')) return;
+  if (now.getDay() !== 5) return;
+  const tm = timesFor(now);
+  if (!tm.dhuhr) return;
+  const at = tm.dhuhr.getTime();
+  if (now.getTime() < at || now.getTime() - at > 90000) return;
+  const k = dkey(now) + '|jumuah-kahf';
+  if (firedKeys.has(k)) return;
+  firedKeys.add(k);
+  emitNotice(t('jumuahKahfTitle'), t('jumuahKahfBody'), 'asma-jumuah-kahf');
+}
+function checkFastIftar(now) {
+  if (capPlugin('AsmaAlarms')) return;
+  if (!isFasting(now)) return;
+  const tm = timesFor(now);
+  if (!tm.maghrib) return;
+  const at = tm.maghrib.getTime();
+  if (now.getTime() < at || now.getTime() - at > 90000) return;
+  const k = dkey(now) + '|fast-iftar';
+  if (firedKeys.has(k)) return;
+  firedKeys.add(k);
+  const d = D.DUAS.find(x => x.id === 'iftar');
+  emitNotice(t('fastAcceptNotif'), d ? duaNotifText(d) : t('fastDone'), 'asma-fast-iftar');
 }
 function pickQuote(kinds, day) {
   const all = D.FAST_QUOTES || [];
@@ -1176,7 +1320,7 @@ function fireAlert(it, at) {
   const title = t('timeFor') + ' ' + label;
   const dua = it.dua ? D.DUAS.find(d => d.id === it.dua) : null;
   const body = dua ? dua.ar : (it.fast ? t('fastAlertBody') : fmtHM(at));
-  const useAdhan = it.adhan || !it.key;
+  const useAdhan = !!it.adhan;
   playSound(useAdhan ? 'adhan' : 'chime', it);
   const hold = 12 * 60 * 1000;
   const bar = toast(title, { big: true, ms: hold, action: t('stop'), onAction: stopSound });
@@ -1409,7 +1553,7 @@ document.addEventListener('click', ev => {
     case 'tab': showTab(b.dataset.tab); break;
     case 'settings': renderSettings(); break;
     case 'closeSheet': closeSheet(); break;
-    case 'toggleFast': { const k = dkey(new Date()); if (S.fasting[k]) delete S.fasting[k]; else S.fasting[k] = true; save(); tick(true); renderWeek(); break; }
+    case 'toggleFast': { const k = dkey(new Date()); if (S.fasting[k]) delete S.fasting[k]; else S.fasting[k] = true; save(); tick(true); renderWeek(); syncAndroidAlarms(); break; }
     case 'gotoDay': { ensureCal(); const p = b.dataset.date.split('-'); cal.sel = new Date(+p[0], +p[1] - 1, +p[2], 12); const h = hijriOf(cal.sel); cal.hy = h.y; cal.hm = h.m; cal.gy = cal.sel.getFullYear(); cal.gm = cal.sel.getMonth(); showTab('calendar'); break; }
     case 'calMode': S.calMode = b.dataset.mode; ensureCal(); { const h = hijriOf(cal.sel); cal.hy = h.y; cal.hm = h.m; cal.gy = cal.sel.getFullYear(); cal.gm = cal.sel.getMonth(); } save(); renderCalendar(); break;
     case 'calPrev': calShift(-1); renderCalendar(); break;

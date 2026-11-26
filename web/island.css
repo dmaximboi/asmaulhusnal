@@ -1,7 +1,5 @@
-@font-face{font-family:"Amiri";src:url("fonts/amiri-arabic-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Amiri";src:url("fonts/amiri-arabic-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
 :root{--acc:#d6df8c;--mut:#8f8f8a;--fg:#f4f4f1;--line:#2a2a28;
-  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Noto Sans",Arial,sans-serif;--ar:"Amiri","Traditional Arabic","Segoe UI",serif;
+  --sans:"Segoe UI",system-ui,-apple-system,Roboto,"Noto Sans","Noto Naskh Arabic",Arial,sans-serif;--ar:"Noto Naskh Arabic","Traditional Arabic","Segoe UI",serif;
   --mono:Consolas,ui-monospace,Menlo,monospace}
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;height:100%;background:transparent;overflow:hidden;font-family:var(--sans);color:var(--fg);user-select:none;-webkit-user-select:none;cursor:default}

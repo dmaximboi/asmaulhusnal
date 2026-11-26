@@ -18,7 +18,7 @@ class WidgetTickService : Service() {
     private val tick = object : Runnable {
         override fun run() {
             ClockWidgetProvider.refreshAll(this@WidgetTickService)
-            handler.postDelayed(this, 500)
+            handler.postDelayed(this, 1000)
         }
     }
 

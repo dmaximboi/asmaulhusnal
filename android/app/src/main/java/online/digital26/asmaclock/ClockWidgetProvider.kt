@@ -39,10 +39,21 @@ class ClockWidgetProvider : AppWidgetProvider() {
         }
 
         fun paint(ctx: Context, manager: AppWidgetManager, ids: IntArray) {
-            val bmp = NamesDialBitmap.draw(sizePx = 800)
+            val bmp = NamesDialBitmap.draw(sizePx = 360)
+            val now = java.util.Calendar.getInstance()
+            val h24 = try {
+                val raw = AsmaStore.read(ctx)
+                raw.isNotEmpty() && org.json.JSONObject(raw).optBoolean("h24", false)
+            } catch (_: Exception) {
+                false
+            }
+            val date = WidgetCopy.dateLine(now)
+            val time = WidgetCopy.timeLine(now, h24)
             ids.forEach { id ->
                 val views = RemoteViews(ctx.packageName, R.layout.widget_clock)
                 views.setImageViewBitmap(R.id.widget_dial, bmp)
+                views.setTextViewText(R.id.widget_date, date)
+                views.setTextViewText(R.id.widget_digital, time)
                 val open = Intent(ctx, MainActivity::class.java)
                 var flags = PendingIntent.FLAG_UPDATE_CURRENT
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

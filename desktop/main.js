@@ -36,7 +36,7 @@ function createIsland() {
     fullscreenable: false, hasShadow: false, skipTaskbar: true, focusable: false, show: false,
     backgroundColor: '#00000000', title: 'Asma Island',
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false,
+      preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true,
       backgroundThrottling: false, autoplayPolicy: 'no-user-gesture-required', spellcheck: false
     }
   });
@@ -58,7 +58,7 @@ function openFullApp() {
   appWin = new BrowserWindow({
     width: 440, height: 860, minWidth: 360, minHeight: 560, backgroundColor: '#141414', autoHideMenuBar: true, title: 'Asma Clock',
     icon: path.join(__dirname, 'build', 'tray.png'),
-    webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, backgroundThrottling: false }
+    webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false }
   });
   appWin.setMenuBarVisibility(false);
   appWin.loadFile(path.join(__dirname, 'app', 'app.html'));

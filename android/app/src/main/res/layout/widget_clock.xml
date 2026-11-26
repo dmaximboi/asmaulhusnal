@@ -2,44 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/widget_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/widget_dial"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/widget_name"
+        android:maxHeight="132dp"
+        android:minHeight="96dp"
         android:scaleType="fitCenter" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="2dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
-        <TextClock
+        <TextView
             android:id="@+id/widget_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:format12Hour="EEE d MMM"
-            android:format24Hour="EEE d MMM"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:maxLines="2"
             android:textColor="@color/alarm_muted"
-            android:textSize="12sp" />
+            android:textDirection="rtl"
+            android:textSize="11sp" />
 
-        <TextClock
+        <TextView
             android:id="@+id/widget_digital"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:format12Hour="h:mm a"
-            android:format24Hour="HH:mm"
+            android:layout_marginStart="4dp"
             android:textColor="@color/alarm_text"
-            android:textSize="16sp"
+            android:textDirection="ltr"
+            android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

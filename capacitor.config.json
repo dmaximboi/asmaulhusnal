@@ -7,9 +7,6 @@
   },
   "server": {
     "allowNavigation": [
-      "github.com",
-      "*.github.com",
-      "*.netlify.app",
       "asmaulhusnal.netlify.app"
     ]
   }

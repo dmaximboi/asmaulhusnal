@@ -15,6 +15,7 @@
     openApp: function () { try { n.openApp(); } catch (e) { /* ignore */ } },
     holdAwake: function (on) { try { n.holdAwake(!!on); } catch (e) { /* ignore */ } },
     resize: function (mode, page) { try { n.resize(String(mode || ''), page | 0); } catch (e) { /* ignore */ } },
+    noCursor: true,
     cursor: function () { return Promise.resolve({ x: -999, y: -999 }); },
     ipLocation: function () { return Promise.resolve(null); }
   };

@@ -9,8 +9,10 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 
 class ExactAlarmReceiver : BroadcastReceiver() {
-    override fun onReceive(context: Context, intent: Intent) {
+    override fun onReceive(context: Context, raw: Intent) {
+        val intent = clipExtras(raw)
         val key = intent.getStringExtra(ExactAlarmScheduler.EXTRA_KEY) ?: ""
+        val prayers = setOf("fajr", "dhuhr", "asr", "maghrib", "isha", "test")
         if (key == "notice") {
             val notice = Intent(context, FastNoticeService::class.java)
             notice.putExtras(intent)
@@ -23,6 +25,10 @@ class ExactAlarmReceiver : BroadcastReceiver() {
             } catch (_: Exception) {
                 showNotice(context, intent)
             }
+            return
+        }
+        if (key == "dua" || !prayers.contains(key)) {
+            showNotice(context, intent)
             return
         }
         val svc = Intent(context, AdhanPlayerService::class.java)
@@ -54,9 +60,12 @@ class ExactAlarmReceiver : BroadcastReceiver() {
 
         fun showNotice(context: Context, intent: Intent) {
             ensureChannel(context)
-            val title = intent.getStringExtra(ExactAlarmScheduler.EXTRA_TITLE)
-                ?: context.getString(R.string.alarm_notif_title)
-            val body = intent.getStringExtra(ExactAlarmScheduler.EXTRA_BODY) ?: ""
+            val title = clip(
+                intent.getStringExtra(ExactAlarmScheduler.EXTRA_TITLE)
+                    ?: context.getString(R.string.alarm_notif_title),
+                180
+            )
+            val body = clip(intent.getStringExtra(ExactAlarmScheduler.EXTRA_BODY) ?: "", 4000)
             val open = Intent(context, MainActivity::class.java)
             var flags = PendingIntent.FLAG_UPDATE_CURRENT
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -74,7 +83,25 @@ class ExactAlarmReceiver : BroadcastReceiver() {
                 .setContentIntent(tap)
                 .build()
             val nm = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            nm.notify(NOTIF_NOTICE, notif)
+            val nid = (intent.getStringExtra(ExactAlarmScheduler.EXTRA_ID) ?: "dua").hashCode()
+            nm.notify(if (nid == 0) NOTIF_NOTICE else nid, notif)
+        }
+
+        fun clip(s: String, max: Int): String {
+            return if (s.length <= max) s else s.substring(0, max)
+        }
+
+        fun clipExtras(src: Intent): Intent {
+            val i = Intent(src)
+            fun cut(key: String, max: Int) {
+                val v = i.getStringExtra(key) ?: return
+                if (v.length > max) i.putExtra(key, v.substring(0, max))
+            }
+            cut(ExactAlarmScheduler.EXTRA_TITLE, 180)
+            cut(ExactAlarmScheduler.EXTRA_BODY, 4000)
+            cut(ExactAlarmScheduler.EXTRA_SPEAK, 2000)
+            cut(ExactAlarmScheduler.EXTRA_SHARE, 2500)
+            return i
         }
     }
 }

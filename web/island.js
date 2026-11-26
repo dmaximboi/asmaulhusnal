@@ -212,20 +212,36 @@ function apply() {
   renderActive();
   if (desk && desk.resize) desk.resize(mode, cur);
 }
-function expand(p) { mode = 'e'; cur = p || 0; apply(); }
+function expand(p) { mode = 'e'; cur = p || 0; apply(); noteTouch(); }
 function collapse() {
   if (wantPlay) return;
-  mode = 'c'; alertItem = null; clearTimeout(alertT); cur = 0; resetCal(); apply();
+  mode = 'c'; alertItem = null; clearTimeout(alertT); clearTimeout(collapseT); collapseT = 0; cur = 0; resetCal(); apply();
 }
 function go(d) {
   if (mode !== 'e') return;
   const n = Math.max(0, Math.min(3, cur + d));
   if (n === cur) return;
   cur = n; if (cur === 1) { resetCal(); } apply();
+  noteTouch();
 }
 
 /* ---------- hover detection ---------- */
 function setIgnore(v) { if (ignoring === v) return; ignoring = v; if (desk) desk.ignore(v); }
+function scheduleCollapse() {
+  clearTimeout(collapseT);
+  collapseT = setTimeout(() => {
+    collapseT = 0;
+    if (hover) return;
+    if (mode === 'c') return;
+    if (mode === 'al' && (playing || wantPlay)) return;
+    collapse();
+  }, 3000);
+}
+function noteTouch() {
+  if (mode === 'c') return;
+  hover = false;
+  scheduleCollapse();
+}
 function setHover(inside) {
   if (inside) {
     setIgnore(false); hover = true; clearTimeout(collapseT); collapseT = 0;
@@ -233,13 +249,10 @@ function setHover(inside) {
   } else {
     hover = false; clearTimeout(dwellT); dwellT = 0;
     setIgnore(true);
-    if ((mode === 'e' || mode === 'al') && !collapseT) collapseT = setTimeout(() => {
-      collapseT = 0;
-      if (!hover && !(mode === 'al' && (playing || wantPlay))) collapse();
-    }, 500);
+    if (mode === 'e' || mode === 'al') scheduleCollapse();
   }
 }
-if (desk) {
+if (desk && typeof desk.cursor === 'function' && !desk.noCursor) {
   setInterval(async () => {
     try {
       const p = await desk.cursor();
@@ -247,7 +260,7 @@ if (desk) {
       setHover(p.x >= r.left - pad4 && p.x <= r.right + pad4 && p.y >= r.top - pad4 && p.y <= r.bottom + pad4);
     } catch (e) { /* ignore */ }
   }, 90);
-} else {
+} else if (!desk || !desk.noCursor) {
   isl.addEventListener('mouseenter', () => setHover(true));
   isl.addEventListener('mouseleave', () => setHover(false));
 }
@@ -262,7 +275,7 @@ isl.addEventListener('wheel', e => {
 }, { passive: false });
 /* drag up/down (mouse or touch) */
 let dragY = null;
-isl.addEventListener('pointerdown', e => { if (e.target.closest('button')) return; dragY = e.clientY; });
+isl.addEventListener('pointerdown', e => { noteTouch(); if (e.target.closest('button')) return; dragY = e.clientY; });
 window.addEventListener('pointerup', e => {
   if (dragY == null) return;
   const dy = dragY - e.clientY; dragY = null;
@@ -275,7 +288,7 @@ window.addEventListener('keydown', e => { if (e.key === 'ArrowDown') go(1); else
 isl.addEventListener('click', e => {
   if (mode === 'c') { expand(0); return; }
   const dot = e.target.closest('#dots i');
-  if (dot) { cur = +dot.dataset.d; if (cur === 1) resetCal(); apply(); return; }
+  if (dot) { cur = +dot.dataset.d; if (cur === 1) resetCal(); apply(); noteTouch(); return; }
   const b = e.target.closest('[data-act]'); if (!b) return;
   const a = b.dataset.act;
   if (a === 'calPrev' || a === 'calNext') {
@@ -389,12 +402,36 @@ function checkAlerts(now) {
       firedKeys.add(k); showAlert(it, at);
     }
   });
+  const tm = timesFor(now);
+  if (tm.fajr) {
+    const at = tm.fajr.getTime() + 20 * 60000;
+    if (now.getTime() >= at && now.getTime() - at <= 90000) {
+      const k = dkey(now) + '|fajr-dua';
+      if (!firedKeys.has(k)) {
+        firedKeys.add(k);
+        const list = D.DUAS || [];
+        const n = now.getFullYear() * 400 + now.getMonth() * 40 + now.getDate();
+        const d = list.length ? list[Math.abs(n) % list.length] : null;
+        if (d) showAlert({ id: 'fajr-dua', name: t('fajrDuaTitle'), dua: d.id, on: true }, new Date(at));
+      }
+    }
+  }
+  if (now.getDay() === 5 && tm.dhuhr) {
+    const at = tm.dhuhr.getTime();
+    if (now.getTime() >= at && now.getTime() - at <= 90000) {
+      const k = dkey(now) + '|jumuah-kahf';
+      if (!firedKeys.has(k)) {
+        firedKeys.add(k);
+        showAlert({ id: 'jumuah-kahf', name: t('jumuahKahfTitle'), on: true }, new Date(at));
+      }
+    }
+  }
 }
 function showAlert(it, at) {
   alertItem = { it, at }; mode = 'al'; playing = true; wantPlay = true;
   if (desk) desk.show();
   apply();
-  playSound((it.adhan || !it.key) ? 'adhan' : 'chime', it);
+  playSound(it.adhan ? 'adhan' : 'chime', it);
   clearTimeout(alertT);
 }
 
@@ -441,7 +478,7 @@ dailyCheck(false);
 if (S.fresh && desk) dailyCheck(true);
 apply();
 tick(true);
-setInterval(() => tick(false), 250);
+setInterval(() => tick(false), 1000);
 if (desk) desk.ignore(true);
 
 /* test hooks */

@@ -6,9 +6,9 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ServiceInfo
 import android.graphics.Color
 import android.graphics.PixelFormat
-import android.content.pm.ServiceInfo
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -16,19 +16,32 @@ import android.os.Looper
 import android.os.PowerManager
 import android.provider.Settings
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
 import android.webkit.JavascriptInterface
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.core.app.NotificationCompat
 import kotlin.math.min
 
 class IslandOverlayService : Service() {
+    private var host: FrameLayout? = null
+    private var pill: View? = null
+    private var pillTime: TextView? = null
     private var web: WebView? = null
     private var params: WindowManager.LayoutParams? = null
     private var wake: PowerManager.WakeLock? = null
     private val main = Handler(Looper.getMainLooper())
+    private val pillTick = object : Runnable {
+        override fun run() {
+            paintPill()
+            main.postDelayed(this, 1000)
+        }
+    }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -46,7 +59,7 @@ class IslandOverlayService : Service() {
             stopSelf()
             return
         }
-        attach()
+        attachPill()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -56,17 +69,18 @@ class IslandOverlayService : Service() {
             return START_NOT_STICKY
         }
         prefs(this).edit().putBoolean(KEY, true).apply()
-        if (web == null && Settings.canDrawOverlays(this)) attach()
+        if (host == null && Settings.canDrawOverlays(this)) attachPill()
         return START_STICKY
     }
 
     override fun onDestroy() {
         if (live === this) live = null
+        main.removeCallbacks(pillTick)
         detach()
         super.onDestroy()
     }
 
-    private fun attach() {
+    private fun attachPill() {
         val wm = getSystemService(WINDOW_SERVICE) as WindowManager
         val type = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
@@ -86,58 +100,145 @@ class IslandOverlayService : Service() {
         p.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
         p.y = dp(8)
         params = p
-        val view = WebView(this)
-        view.setBackgroundColor(Color.TRANSPARENT)
-        view.setLayerType(android.view.View.LAYER_TYPE_HARDWARE, null)
-        val s = view.settings
-        s.javaScriptEnabled = true
-        s.domStorageEnabled = true
-        s.allowFileAccess = true
-        s.mediaPlaybackRequiresUserGesture = false
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            @Suppress("DEPRECATION")
-            s.allowFileAccessFromFileURLs = true
-        }
-        s.cacheMode = WebSettings.LOAD_DEFAULT
-        view.addJavascriptInterface(Bridge(), "AsmaBridge")
-        view.webViewClient = object : WebViewClient() {
-            override fun onPageFinished(v: WebView?, url: String?) {
-                injectStore(AsmaStore.read(this@IslandOverlayService))
-            }
-        }
-        view.loadUrl("file:///android_asset/public/island.html")
-        web = view
+        val box = FrameLayout(this)
+        box.setBackgroundColor(Color.TRANSPARENT)
+        val pillView = LayoutInflater.from(this).inflate(R.layout.island_pill, box, false)
+        pillView.setOnClickListener { openExpanded() }
+        box.addView(pillView)
+        host = box
+        pill = pillView
+        pillTime = pillView.findViewById(R.id.island_pill_time)
         try {
-            wm.addView(view, p)
+            wm.addView(box, p)
+            paintPill()
+            main.removeCallbacks(pillTick)
+            main.post(pillTick)
         } catch (_: Exception) {
-            web = null
+            host = null
             stopSelf()
         }
     }
 
+    private fun paintPill() {
+        val tv = pillTime ?: return
+        val now = java.util.Calendar.getInstance()
+        val h24 = try {
+            val raw = AsmaStore.read(this)
+            raw.isNotEmpty() && org.json.JSONObject(raw).optBoolean("h24", false)
+        } catch (_: Exception) {
+            false
+        }
+        tv.text = WidgetCopy.timeLine(now, h24)
+    }
+
+    private fun openExpanded() {
+        if (web != null) {
+            showWeb()
+            return
+        }
+        val box = host ?: return
+        val view = WebView(this)
+        view.setBackgroundColor(Color.TRANSPARENT)
+        view.setLayerType(View.LAYER_TYPE_NONE, null)
+        val s = view.settings
+        s.javaScriptEnabled = true
+        s.domStorageEnabled = true
+        s.allowFileAccess = true
+        s.mediaPlaybackRequiresUserGesture = true
+        s.cacheMode = WebSettings.LOAD_NO_CACHE
+        s.blockNetworkImage = true
+        s.blockNetworkLoads = true
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            @Suppress("DEPRECATION")
+            s.allowFileAccessFromFileURLs = false
+            @Suppress("DEPRECATION")
+            s.allowUniversalAccessFromFileURLs = false
+        }
+        view.addJavascriptInterface(Bridge(), "AsmaBridge")
+        view.webViewClient = object : WebViewClient() {
+            private fun assetOk(url: String?): Boolean {
+                return url != null && url.startsWith("file:///android_asset/")
+            }
+
+            override fun shouldOverrideUrlLoading(v: WebView?, url: String?): Boolean {
+                return !assetOk(url)
+            }
+
+            override fun shouldOverrideUrlLoading(v: WebView?, req: android.webkit.WebResourceRequest?): Boolean {
+                return !assetOk(req?.url?.toString())
+            }
+
+            override fun onPageFinished(v: WebView?, url: String?) {
+                if (!assetOk(url)) return
+                injectStore(AsmaStore.read(this@IslandOverlayService))
+                v?.evaluateJavascript(
+                    "if(window.__island&&window.__island.expand)window.__island.expand(0);",
+                    null
+                )
+                showWeb()
+            }
+        }
+        view.visibility = View.GONE
+        box.addView(
+            view,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        )
+        web = view
+        view.loadUrl("file:///android_asset/public/island.html")
+    }
+
+    private fun showWeb() {
+        pill?.visibility = View.GONE
+        web?.visibility = View.VISIBLE
+        applySize("e", 0)
+    }
+
+    private fun closeWeb() {
+        val box = host
+        val view = web
+        web = null
+        if (view != null && box != null) {
+            try {
+                box.removeView(view)
+            } catch (_: Exception) { }
+            view.destroy()
+        }
+        pill?.visibility = View.VISIBLE
+        applySize("c", 0)
+        paintPill()
+    }
+
     private fun detach() {
+        main.removeCallbacks(pillTick)
         val wm = getSystemService(WINDOW_SERVICE) as WindowManager
+        val box = host
+        host = null
+        pill = null
+        pillTime = null
         val view = web
         web = null
         if (view != null) {
             try {
-                wm.removeView(view)
-            } catch (_: Exception) {
-                /* already gone */
-            }
-            view.destroy()
+                view.destroy()
+            } catch (_: Exception) { }
+        }
+        if (box != null) {
+            try {
+                wm.removeView(box)
+            } catch (_: Exception) { }
         }
         try {
             wake?.release()
-        } catch (_: Exception) {
-            /* ignore */
-        }
+        } catch (_: Exception) { }
         wake = null
     }
 
     private fun applySize(mode: String, page: Int) {
         val p = params ?: return
-        val view = web ?: return
+        val box = host ?: return
         val maxW = resources.displayMetrics.widthPixels - dp(16)
         when (mode) {
             "c" -> {
@@ -159,10 +260,8 @@ class IslandOverlayService : Service() {
             }
         }
         try {
-            (getSystemService(WINDOW_SERVICE) as WindowManager).updateViewLayout(view, p)
-        } catch (_: Exception) {
-            /* overlay gone */
-        }
+            (getSystemService(WINDOW_SERVICE) as WindowManager).updateViewLayout(box, p)
+        } catch (_: Exception) { }
     }
 
     private fun dp(v: Int): Int {
@@ -216,13 +315,11 @@ class IslandOverlayService : Service() {
 
     inner class Bridge {
         @JavascriptInterface
-        fun ignore(v: Boolean) {
-            /* Window is sized to the pill, so click-through is not used. */
-        }
+        fun ignore(v: Boolean) { }
 
         @JavascriptInterface
         fun show() {
-            main.post { web?.bringToFront() }
+            main.post { showWeb() }
         }
 
         @JavascriptInterface
@@ -244,9 +341,7 @@ class IslandOverlayService : Service() {
                 } else {
                     try {
                         wake?.release()
-                    } catch (_: Exception) {
-                        /* ignore */
-                    }
+                    } catch (_: Exception) { }
                     wake = null
                 }
             }
@@ -254,7 +349,10 @@ class IslandOverlayService : Service() {
 
         @JavascriptInterface
         fun resize(mode: String, page: Int) {
-            main.post { applySize(mode, page) }
+            main.post {
+                if (mode == "c") closeWeb()
+                else applySize(mode, page)
+            }
         }
 
         @JavascriptInterface
