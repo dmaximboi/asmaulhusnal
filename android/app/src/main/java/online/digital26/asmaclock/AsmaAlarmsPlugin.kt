@@ -119,6 +119,39 @@ class AsmaAlarmsPlugin : Plugin() {
     }
 
     @PluginMethod
+    fun requestOverlay(call: PluginCall) {
+        val granted = Settings.canDrawOverlays(context)
+        if (!granted) {
+            try {
+                activity?.startActivity(
+                    Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION).setData(
+                        Uri.parse("package:" + context.packageName)
+                    )
+                )
+            } catch (_: Exception) {
+                /* no settings screen */
+            }
+        }
+        call.resolve(JSObject().put("granted", granted))
+    }
+
+    @PluginMethod
+    fun startIsland(call: PluginCall) {
+        if (!Settings.canDrawOverlays(context)) {
+            call.reject("overlay")
+            return
+        }
+        IslandOverlayService.start(context)
+        call.resolve(statusObject())
+    }
+
+    @PluginMethod
+    fun stopIsland(call: PluginCall) {
+        IslandOverlayService.stop(context)
+        call.resolve(statusObject())
+    }
+
+    @PluginMethod
     fun requestReady(call: PluginCall) {
         val act = activity
         if (act != null && Build.VERSION.SDK_INT >= 33) {
@@ -256,6 +289,8 @@ class AsmaAlarmsPlugin : Plugin() {
             ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED
         o.put("location", loc)
+        o.put("overlay", Settings.canDrawOverlays(context))
+        o.put("island", IslandOverlayService.prefs(context).getBoolean(IslandOverlayService.KEY, false))
         return o
     }
 }

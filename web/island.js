@@ -205,6 +205,7 @@ function apply() {
   });
   $$('#dots i').forEach(d => d.classList.toggle('on', +d.dataset.d === cur));
   renderActive();
+  if (desk && desk.resize) desk.resize(mode, cur);
 }
 function expand(p) { mode = 'e'; cur = p || 0; apply(); }
 function collapse() {
@@ -267,6 +268,7 @@ window.addEventListener('keydown', e => { if (e.key === 'ArrowDown') go(1); else
 
 /* clicks */
 isl.addEventListener('click', e => {
+  if (mode === 'c') { expand(0); return; }
   const dot = e.target.closest('#dots i');
   if (dot) { cur = +dot.dataset.d; if (cur === 1) resetCal(); apply(); return; }
   const b = e.target.closest('[data-act]'); if (!b) return;

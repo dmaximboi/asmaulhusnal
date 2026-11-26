@@ -14,9 +14,9 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 4;
-const APP_NAME = '1.3';
-const SITE_URL = 'https://digital26.online';
+const APP_BUILD = 5;
+const APP_NAME = '1.4';
+const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/master/web/version.json'
@@ -799,7 +799,12 @@ function renderSettings() {
     (capPlugin('AsmaAlarms') ? ('<div class="set"><div class="st">' + esc(t('androidAlarms')) + '</div>' +
       '<p class="note">' + esc(t('androidAlarmsHint')) + '</p>' +
       '<p class="note" id="androidAlarmStatus">' + esc(t('androidAlarmsWait')) + '</p>' +
-      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="androidReady">' + esc(t('androidAlarmsAllow')) + '</button></div></div>') : '');
+      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="androidReady">' + esc(t('androidAlarmsAllow')) + '</button></div></div>' +
+      '<div class="set"><div class="st">' + esc(t('androidIsland')) + '</div>' +
+      '<p class="note">' + esc(t('androidIslandHint')) + '</p>' +
+      '<p class="note">' + esc(t('androidWidgetHint')) + '</p>' +
+      '<p class="note" id="androidIslandStatus"></p>' +
+      '<div class="btns" style="margin-top:10px"><button class="btn sm" data-act="islandOn">' + esc(t('androidIslandOn')) + '</button><button class="btn sm" data-act="islandOff">' + esc(t('androidIslandOff')) + '</button></div></div>') : '');
 
   s += '<div class="set"><div class="st">' + esc(t('updTitle')) + '</div>' +
     '<p class="note">' + esc(t('updNow')) + ': ' + esc(APP_NAME) + '</p>' +
@@ -923,6 +928,13 @@ function refreshAndroidStatus() {
     parts.push(st.battery ? t('androidBatteryOk') : t('androidBatteryNeed'));
     parts.push(st.notif ? t('androidNotifOk') : t('androidNotifNeed'));
     el.textContent = parts.join(' ');
+    const isl = $('#androidIslandStatus');
+    if (isl) {
+      const bits = [];
+      bits.push(st.overlay ? t('androidOverlayOk') : t('androidOverlayNeed'));
+      bits.push(st.island ? t('androidIslandOn') : t('androidIslandOff'));
+      isl.textContent = bits.join(' ');
+    }
   }).catch(() => {});
 }
 
@@ -1473,6 +1485,20 @@ document.addEventListener('click', ev => {
       if (pl && typeof pl.requestReady === 'function') {
         pl.requestReady().then(() => { refreshAndroidStatus(); syncAndroidAlarms(); }).catch(() => {});
       }
+      break;
+    }
+    case 'islandOn': {
+      const pl = capPlugin('AsmaAlarms');
+      if (!pl) break;
+      const go = () => pl.startIsland().then(() => refreshAndroidStatus()).catch(() => toast(t('androidOverlayNeed')));
+      if (typeof pl.requestOverlay === 'function') {
+        pl.requestOverlay().then(r => { if (r && r.granted) go(); else toast(t('androidOverlayNeed')); }).catch(() => toast(t('androidOverlayNeed')));
+      } else go();
+      break;
+    }
+    case 'islandOff': {
+      const pl = capPlugin('AsmaAlarms');
+      if (pl && typeof pl.stopIsland === 'function') pl.stopIsland().then(() => refreshAndroidStatus()).catch(() => {});
       break;
     }
     case 'resetAll': try { localStorage.removeItem(SKEY); } catch (e) { /* ignore */ } S = load(); invalidate(); applyLang(); closeSheet(); showTab('clock'); syncAndroidAlarms(); break;

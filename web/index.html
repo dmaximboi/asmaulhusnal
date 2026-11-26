@@ -13,7 +13,29 @@
 </head>
 <body>
 <div class="wrap">
-  <img class="logo" src="icons/icon-192.png" width="88" height="88" alt="Asma Clock">
+  <div class="face" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <circle class="ring" cx="50" cy="50" r="47"></circle>
+      <g class="ticks">
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(0 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(30 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(60 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(90 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(120 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(150 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(180 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(210 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(240 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(270 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(300 50 50)"></line>
+        <line x1="50" y1="7" x2="50" y2="14" transform="rotate(330 50 50)"></line>
+      </g>
+      <line id="landHour" class="hour" x1="50" y1="50" x2="50" y2="28"></line>
+      <line id="landMin" class="min" x1="50" y1="50" x2="50" y2="16"></line>
+      <line id="landSec" class="sec" x1="50" y1="50" x2="50" y2="12"></line>
+      <circle class="hub" cx="50" cy="50" r="3.2"></circle>
+    </svg>
+  </div>
   <h1 id="landTitle">Asma Clock</h1>
   <p class="lead" id="landLead">A quiet clock with the 99 Names, prayer times and a Hijri calendar.</p>
   <div class="langs">
