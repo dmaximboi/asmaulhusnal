@@ -23,7 +23,7 @@
     <string name="alarm_test_battery_ok">Battery saving is already off for this app.</string>
     <string name="alarm_test_battery_need">Turn off battery optimisation for Asma Clock, then return here.</string>
     <string name="fast_channel_name">Fasting reminders</string>
-    <string name="fast_channel_desc">Sunnah and Ramadan fasting notices after Maghrib</string>
+    <string name="fast_channel_desc">Sunnah and Ramadan fasting notices that stay in the shade until you dismiss them</string>
     <string name="share_fast">Share this fasting reminder</string>
 </resources>
 

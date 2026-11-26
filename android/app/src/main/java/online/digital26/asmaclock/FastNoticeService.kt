@@ -23,6 +23,7 @@ class FastNoticeService : Service(), TextToSpeech.OnInitListener {
     private var tts: TextToSpeech? = null
     private var speakText = ""
     private var lang = "en"
+    private var stayNotif: Notification? = null
     private val handler = Handler(Looper.getMainLooper())
     private val stopLater = Runnable { stopSelf() }
 
@@ -36,7 +37,9 @@ class FastNoticeService : Service(), TextToSpeech.OnInitListener {
         val share = intent?.getStringExtra(ExactAlarmScheduler.EXTRA_SHARE) ?: body
         speakText = intent?.getStringExtra(ExactAlarmScheduler.EXTRA_SPEAK) ?: body
         lang = intent?.getStringExtra(ExactAlarmScheduler.EXTRA_LANG) ?: "en"
-        val notif = buildNotif(title, body, share)
+        val stay = intent?.getBooleanExtra(ExactAlarmScheduler.EXTRA_STAY, true) ?: true
+        val notif = buildNotif(title, body, share, stay)
+        stayNotif = notif
         val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         nm.notify(NOTIF_ID, notif)
         try {
@@ -88,7 +91,7 @@ class FastNoticeService : Service(), TextToSpeech.OnInitListener {
         engine.speak(text, TextToSpeech.QUEUE_FLUSH, null, "asma-fast")
     }
 
-    private fun buildNotif(title: String, body: String, share: String): Notification {
+    private fun buildNotif(title: String, body: String, share: String, stay: Boolean): Notification {
         val open = Intent(this, MainActivity::class.java)
         var flags = PendingIntent.FLAG_UPDATE_CURRENT
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -109,7 +112,8 @@ class FastNoticeService : Service(), TextToSpeech.OnInitListener {
             .setStyle(NotificationCompat.BigTextStyle().bigText(body))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setCategory(NotificationCompat.CATEGORY_REMINDER)
-            .setAutoCancel(true)
+            .setOngoing(stay)
+            .setAutoCancel(!stay)
             .setContentIntent(tap)
             .addAction(0, getString(R.string.share_fast), shareTap)
             .build()
@@ -124,6 +128,21 @@ class FastNoticeService : Service(), TextToSpeech.OnInitListener {
             /* already gone */
         }
         tts = null
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                stopForeground(STOP_FOREGROUND_DETACH)
+            }
+        } catch (_: Exception) {
+            /* shade notice 2801 stays */
+        }
+        val keep = stayNotif
+        if (keep != null) {
+            try {
+                (getSystemService(NOTIFICATION_SERVICE) as NotificationManager).notify(NOTIF_ID, keep)
+            } catch (_: Exception) {
+                /* already posted */
+            }
+        }
         super.onDestroy()
     }
 

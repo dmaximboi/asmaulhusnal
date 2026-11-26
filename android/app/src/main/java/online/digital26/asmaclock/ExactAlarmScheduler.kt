@@ -18,6 +18,7 @@ object ExactAlarmScheduler {
     const val EXTRA_SPEAK = "speak"
     const val EXTRA_SHARE = "share"
     const val EXTRA_LANG = "lang"
+    const val EXTRA_STAY = "stay"
     const val EXTRA_TEST = "test"
 
     private const val PREFS = "asma_alarms"
@@ -37,6 +38,7 @@ object ExactAlarmScheduler {
             "maghrib" -> 104
             "isha" -> 105
             "fast-eve" -> 110
+            "fast-morn" -> 111
             else -> (id.hashCode() and 0x7fffffff) % 9000 + 200
         }
     }
@@ -69,6 +71,7 @@ object ExactAlarmScheduler {
             val speak = o.optString("speak")
             val share = o.optString("share")
             val lang = o.optString("lang")
+            val stay = o.optBoolean("stay", key == "notice")
             val stored = JSONObject()
             stored.put("id", id)
             stored.put("at", at)
@@ -78,8 +81,9 @@ object ExactAlarmScheduler {
             stored.put("speak", speak)
             stored.put("share", share)
             stored.put("lang", lang)
+            stored.put("stay", stay)
             keep.put(stored)
-            schedulePrayer(context, id, at, key, title, body, speak, share, lang)
+            schedulePrayer(context, id, at, key, title, body, speak, share, lang, stay)
         }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .edit()
@@ -107,7 +111,7 @@ object ExactAlarmScheduler {
         } catch (_: Exception) {
             /* ignore */
         }
-        listOf("fajr", "dhuhr", "asr", "maghrib", "isha", "fast-eve").forEach { cancelCode(context, requestCodeFor(it)) }
+        listOf("fajr", "dhuhr", "asr", "maghrib", "isha", "fast-eve", "fast-morn").forEach { cancelCode(context, requestCodeFor(it)) }
         context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().remove(KEY_ITEMS).apply()
     }
 
@@ -120,7 +124,8 @@ object ExactAlarmScheduler {
         body: String,
         speak: String = "",
         share: String = "",
-        lang: String = "en"
+        lang: String = "en",
+        stay: Boolean = false
     ) {
         val intent = Intent(context, ExactAlarmReceiver::class.java)
             .putExtra(EXTRA_WHEN, whenAt)
@@ -131,6 +136,7 @@ object ExactAlarmScheduler {
             .putExtra(EXTRA_SPEAK, speak)
             .putExtra(EXTRA_SHARE, share)
             .putExtra(EXTRA_LANG, lang)
+            .putExtra(EXTRA_STAY, stay)
             .putExtra(EXTRA_TEST, false)
         setExact(context, requestCodeFor(id), whenAt, intent)
     }

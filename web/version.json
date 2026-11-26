@@ -1,6 +1,6 @@
 {
-  "apkCode": 3,
-  "apkName": "1.2",
+  "apkCode": 4,
+  "apkName": "1.3",
   "apkUrl": "https://github.com/dmaximboi/asmaulhusnal/actions/workflows/build-android.yml",
   "notes": "Bump apkCode and android versionCode together when a new APK is published."
 }

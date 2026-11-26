@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 3;
-const APP_NAME = '1.2';
+const APP_BUILD = 4;
+const APP_NAME = '1.3';
 const SITE_URL = 'https://digital26.online';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -749,8 +749,11 @@ function select(path, val, opts) { return '<select data-set="' + path + '">' + o
 
 function renderSettings() {
   const prev = $('#sheet').scrollTop;
-  const notifSupported = 'Notification' in window;
-  const perm = notifSupported ? Notification.permission : 'denied';
+  const nativeAlarms = !!capPlugin('AsmaAlarms');
+  const notifSupported = nativeAlarms || 'Notification' in window;
+  const perm = nativeAlarms ? (S.notif ? 'granted' : 'default') : (notifSupported ? Notification.permission : 'denied');
+  const notifOn = nativeAlarms ? !!S.notif : !!(S.notif && perm === 'granted');
+  const notifDis = nativeAlarms ? false : (!notifSupported || perm === 'denied');
   const listed = D.CITIES.some(c => c[0] === S.loc.name);
   const cityOpts = [['__auto', t('locAuto')]];
   if (!S.loc.auto && !listed) cityOpts.push(['__custom', S.loc.name || t('locCustom')]);
@@ -783,7 +786,7 @@ function renderSettings() {
     '<div class="r"><span>' + esc(t('setHijriMaghrib')) + '</span>' + toggle('hijriMaghrib', S.hijriMaghrib) + '</div></div>';
 
   s += '<div class="set"><div class="st">' + esc(t('setNotif')) + '</div>' +
-    '<div class="r"><span>' + esc(S.notif && perm === 'granted' ? t('notifOn') : t('notifEnable')) + (perm === 'denied' ? '<small>' + esc(t('notifBlocked')) + '</small>' : '') + '</span>' + toggle('notif', !!(S.notif && perm === 'granted'), !notifSupported || perm === 'denied') + '</div>' +
+    '<div class="r"><span>' + esc(notifOn ? t('notifOn') : t('notifEnable')) + (!nativeAlarms && perm === 'denied' ? '<small>' + esc(t('notifBlocked')) + '</small>' : '') + '</span>' + toggle('notif', notifOn, notifDis) + '</div>' +
     '<div class="r"><span>' + esc(t('setSound')) + '</span>' + select('sound', S.sound, [['bundled', t('soundBundled')], ['chime', t('soundChime')], ['file', t('soundFile')], ['off', t('soundOff')]]) + '</div>' +
     (S.sound === 'bundled' ? (function () {
       const opts = [['1', t('soundAdhan1')], ['2', t('soundAdhan2')], ['3', t('soundAdhan3')]];
@@ -861,11 +864,54 @@ function syncAndroidAlarms() {
       body: msg.body,
       speak: msg.speak || msg.body,
       share: msg.share || (msg.body + '\n' + SITE_URL),
-      lang: S.lang
+      lang: S.lang,
+      stay: true
+    });
+  }
+  let fajrAt = today.fajr, mornDay = now;
+  if (!fajrAt || fajrAt.getTime() <= now.getTime() + 15000) {
+    fajrAt = tom.fajr;
+    mornDay = addDays(now, 1);
+  }
+  const morn = fajrAt ? dayNoticeFor(mornDay, 'morn') : null;
+  if (morn && fajrAt) {
+    items.push({
+      id: 'fast-morn',
+      at: fajrAt.getTime() + 120000,
+      key: 'notice',
+      title: morn.title,
+      body: morn.body,
+      speak: morn.speak || morn.body,
+      share: morn.share || (morn.body + '\n' + SITE_URL),
+      lang: S.lang,
+      stay: true
     });
   }
   if (!items.length) pl.cancelAll().catch(() => {});
   else pl.schedule({ items: items }).catch(() => {});
+  postTodayFastNotice();
+}
+function postTodayFastNotice() {
+  const pl = capPlugin('AsmaAlarms');
+  if (!pl || typeof pl.showFastNotice !== 'function' || !S.notif) return;
+  const now = new Date();
+  const tm = timesFor(now);
+  if (!tm.fajr || now < tm.fajr) return;
+  if (tm.maghrib && now >= tm.maghrib) return;
+  const msg = dayNoticeFor(now, 'morn');
+  if (!msg) return;
+  const k = dkey(now);
+  if (S.fastPosted === k) return;
+  S.fastPosted = k;
+  save();
+  pl.showFastNotice({
+    title: msg.title,
+    body: msg.body,
+    speak: msg.speak || msg.body,
+    share: msg.share || (msg.body + '\n' + SITE_URL),
+    lang: S.lang,
+    stay: true
+  }).catch(() => {});
 }
 function refreshAndroidStatus() {
   const el = $('#androidAlarmStatus');
@@ -1108,8 +1154,10 @@ function dayNoticeFor(day, when) {
     else if (when === 'eve' && fi.tags.indexOf('fastThu') >= 0) speak = t('fastSpeakThu');
     bits.push(t('fastEncourage'));
   }
+  bits.push(t('fastAccept'));
   bits.push(quoteLine(q));
   bits.push(shareLine);
+  if (when === 'morn' && !speak) speak = t('fastSpeakToday');
   const title = fi.ramadan ? t('ramadan') : (when === 'eve' ? t('fastEveTitle') : t('fastMornTitle'));
   const body = bits.filter(Boolean).join('\n');
   return { title: title, body: body, speak: speak || body, share: body };
@@ -1120,7 +1168,7 @@ function checkDayNotices(now) {
     const k = dkey(now) + '|dayMorn';
     if (!firedKeys.has(k)) {
       const msg = dayNoticeFor(now, 'morn');
-      if (msg) { firedKeys.add(k); emitNotice(msg.title, msg.body, 'asma-day-morn'); }
+      if (msg) { firedKeys.add(k); if (!capPlugin('AsmaAlarms')) emitNotice(msg.title, msg.body, 'asma-day-morn'); else postTodayFastNotice(); }
       else firedKeys.add(k);
     }
   }
@@ -1154,6 +1202,18 @@ function fireAlert(it, at) {
   }
 }
 async function enableNotif() {
+  const pl = capPlugin('AsmaAlarms');
+  if (pl && typeof pl.requestNotifications === 'function') {
+    try {
+      const r = await pl.requestNotifications();
+      S.notif = !!(r && r.granted);
+      save();
+      if (S.notif) { toast(t('notifOn')); audioCtx(); syncAndroidAlarms(); }
+      else toast(t('androidNotifNeed'));
+    } catch (e) { toast(t('androidNotifNeed')); }
+    renderSettings();
+    return;
+  }
   if (!('Notification' in window)) return;
   try {
     const p = await Notification.requestPermission();
@@ -1204,10 +1264,29 @@ function refreshLocation(manual) {
         }).catch(() => { if (manual) toast(t('locFail')); resolve(false); });
       } else { if (manual) toast(t('locFail')); resolve(false); }
     };
+    const tryNative = () => {
+      const pl = capPlugin('AsmaAlarms');
+      if (pl && typeof pl.getLocation === 'function') {
+        pl.getLocation().then(p => {
+          if (p && isFinite(p.lat) && isFinite(p.lng)) done(p.lat, p.lng);
+          else fail();
+        }).catch(() => {
+          if (manual) toast(t('locNeed'));
+          resolve(false);
+        });
+        return;
+      }
+      fail();
+    };
     /* the desktop app has no OS location service, so it uses the network location instead */
     if (window.asmaDesktop) return fail();
-    if (!navigator.geolocation) return fail();
-    navigator.geolocation.getCurrentPosition(pos => done(pos.coords.latitude, pos.coords.longitude), fail, { timeout: 12000, maximumAge: 6 * 3600 * 1000 });
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => done(pos.coords.latitude, pos.coords.longitude),
+        tryNative,
+        { timeout: 8000, maximumAge: 6 * 3600 * 1000 }
+      );
+    } else tryNative();
   });
 }
 let updKind = '', updUrl = '', updCode = 0;
