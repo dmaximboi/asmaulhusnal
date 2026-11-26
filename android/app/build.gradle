@@ -20,10 +20,35 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    def ksFile = System.getenv('ANDROID_KEYSTORE_FILE')
+    def ksPass = System.getenv('ANDROID_KEYSTORE_PASSWORD')
+    def ksAlias = System.getenv('ANDROID_KEY_ALIAS')
+    def keyPass = System.getenv('ANDROID_KEY_PASSWORD')
+    if (ksFile && file(ksFile).exists() && ksPass && ksAlias && keyPass) {
+        signingConfigs {
+            upload {
+                storeFile file(ksFile)
+                storePassword ksPass
+                keyAlias ksAlias
+                keyPassword keyPass
+            }
+        }
+        buildTypes {
+            debug {
+                signingConfig signingConfigs.upload
+            }
+            release {
+                signingConfig signingConfigs.upload
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
+        }
+    } else {
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            }
         }
     }
 }
