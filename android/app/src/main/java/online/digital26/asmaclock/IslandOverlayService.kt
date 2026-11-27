@@ -9,6 +9,7 @@ import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.graphics.Color
 import android.graphics.PixelFormat
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -17,6 +18,7 @@ import android.os.PowerManager
 import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.webkit.JavascriptInterface
@@ -35,11 +37,28 @@ class IslandOverlayService : Service() {
     private var web: WebView? = null
     private var params: WindowManager.LayoutParams? = null
     private var wake: PowerManager.WakeLock? = null
+    private var expanded = false
     private val main = Handler(Looper.getMainLooper())
     private val pillTick = object : Runnable {
         override fun run() {
             paintPill()
             main.postDelayed(this, 1000)
+        }
+    }
+    private val holdRun = Runnable {
+        web?.evaluateJavascript(
+            "if(window.__island&&window.__island.collapse)window.__island.collapse();",
+            null
+        )
+        closeWeb()
+    }
+    private val loadWait = Runnable {
+        if (web != null && !expanded) {
+            showWeb()
+            web?.evaluateJavascript(
+                "if(window.__island&&window.__island.expand)window.__island.expand(0);",
+                null
+            )
         }
     }
 
@@ -92,25 +111,39 @@ class IslandOverlayService : Service() {
             dp(176),
             dp(48),
             type,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            collapsedFlags(),
             PixelFormat.TRANSLUCENT
         )
         p.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
         p.y = dp(8)
+        p.x = 0
         params = p
-        val box = FrameLayout(this)
+        val box = object : FrameLayout(this) {
+            override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+                if (ev.actionMasked == MotionEvent.ACTION_DOWN && expanded) armHold()
+                return super.dispatchTouchEvent(ev)
+            }
+        }
         box.setBackgroundColor(Color.TRANSPARENT)
+        box.isClickable = true
+        box.setOnClickListener { if (!expanded) openExpanded() }
         val pillView = LayoutInflater.from(this).inflate(R.layout.island_pill, box, false)
+        pillView.isClickable = true
         pillView.setOnClickListener { openExpanded() }
-        box.addView(pillView)
+        box.addView(
+            pillView,
+            FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+        )
         host = box
         pill = pillView
         pillTime = pillView.findViewById(R.id.island_pill_time)
         try {
             wm.addView(box, p)
             paintPill()
+            applySize("c", 0)
             main.removeCallbacks(pillTick)
             main.post(pillTick)
         } catch (_: Exception) {
@@ -119,21 +152,42 @@ class IslandOverlayService : Service() {
         }
     }
 
+    private fun storeObj(): org.json.JSONObject? {
+        return try {
+            val raw = AsmaStore.read(this)
+            if (raw.isEmpty()) null else org.json.JSONObject(raw)
+        } catch (_: Exception) {
+            null
+        }
+    }
+
+    private fun shiftAmt(): Float {
+        val n = storeObj()?.optInt("islandShift", 0) ?: 0
+        return (n / 100f).coerceIn(-1f, 1f)
+    }
+
     private fun paintPill() {
         val tv = pillTime ?: return
         val now = java.util.Calendar.getInstance()
-        val h24 = try {
-            val raw = AsmaStore.read(this)
-            raw.isNotEmpty() && org.json.JSONObject(raw).optBoolean("h24", false)
-        } catch (_: Exception) {
-            false
-        }
+        val j = storeObj()
+        val h24 = j?.optBoolean("h24", false) ?: false
         tv.text = WidgetCopy.timeLine(now, h24)
+        val th = themeOf(j?.optString("islandTheme", "black") ?: "black")
+        tv.setTextColor(th.fg)
+        val g = GradientDrawable()
+        g.cornerRadius = dp(19).toFloat()
+        g.setColor(th.bg)
+        g.setStroke(dp(1), th.line)
+        pill?.background = g
     }
 
     private fun openExpanded() {
         if (web != null) {
             showWeb()
+            web?.evaluateJavascript(
+                "if(window.__island&&window.__island.expand)window.__island.expand(0);",
+                null
+            )
             return
         }
         val box = host ?: return
@@ -170,6 +224,7 @@ class IslandOverlayService : Service() {
 
             override fun onPageFinished(v: WebView?, url: String?) {
                 if (!assetOk(url)) return
+                main.removeCallbacks(loadWait)
                 injectStore(AsmaStore.read(this@IslandOverlayService))
                 v?.evaluateJavascript(
                     "if(window.__island&&window.__island.expand)window.__island.expand(0);",
@@ -188,15 +243,44 @@ class IslandOverlayService : Service() {
         )
         web = view
         view.loadUrl("file:///android_asset/public/island.html")
+        main.removeCallbacks(loadWait)
+        main.postDelayed(loadWait, 1600)
+    }
+
+    private fun armHold() {
+        main.removeCallbacks(holdRun)
+        main.postDelayed(holdRun, 3500)
+    }
+
+    private fun collapsedFlags(): Int {
+        return WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+            WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+    }
+
+    private fun expandedFlags(): Int {
+        return WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL or
+            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
     }
 
     private fun showWeb() {
+        expanded = true
         pill?.visibility = View.GONE
         web?.visibility = View.VISIBLE
         applySize("e", 0)
+        armHold()
     }
 
     private fun closeWeb() {
+        main.removeCallbacks(holdRun)
+        main.removeCallbacks(loadWait)
+        if (!expanded && (web == null || web?.visibility != View.VISIBLE)) {
+            applySize("c", 0)
+            return
+        }
+        expanded = false
         val box = host
         val view = web
         web = null
@@ -225,6 +309,9 @@ class IslandOverlayService : Service() {
                 view.destroy()
             } catch (_: Exception) { }
         }
+        expanded = false
+        main.removeCallbacks(holdRun)
+        main.removeCallbacks(loadWait)
         if (box != null) {
             try {
                 wm.removeView(box)
@@ -244,10 +331,12 @@ class IslandOverlayService : Service() {
             "c" -> {
                 p.width = dp(176)
                 p.height = dp(48)
+                p.flags = collapsedFlags()
             }
             "al" -> {
                 p.width = min(maxW, dp(448))
                 p.height = dp(158)
+                p.flags = expandedFlags()
             }
             else -> {
                 p.width = min(maxW, dp(428))
@@ -257,8 +346,12 @@ class IslandOverlayService : Service() {
                     3 -> dp(216)
                     else -> dp(180)
                 }
+                p.flags = expandedFlags()
             }
         }
+        val max = (resources.displayMetrics.widthPixels - p.width) / 2
+        p.x = (shiftAmt() * max).toInt()
+        p.gravity = Gravity.TOP or Gravity.CENTER_HORIZONTAL
         try {
             (getSystemService(WINDOW_SERVICE) as WindowManager).updateViewLayout(box, p)
         } catch (_: Exception) { }
@@ -351,7 +444,10 @@ class IslandOverlayService : Service() {
         fun resize(mode: String, page: Int) {
             main.post {
                 if (mode == "c") closeWeb()
-                else applySize(mode, page)
+                else {
+                    if (!expanded) showWeb()
+                    applySize(mode, page)
+                }
             }
         }
 
@@ -398,7 +494,29 @@ class IslandOverlayService : Service() {
         }
 
         fun pushStore(ctx: Context, json: String) {
-            live?.main?.post { live?.injectStore(json) }
+            live?.main?.post {
+                val svc = live ?: return@post
+                svc.injectStore(json)
+                svc.paintPill()
+                svc.applySize(if (svc.expanded) "e" else "c", 0)
+            }
+        }
+
+        data class Theme(val bg: Int, val line: Int, val fg: Int)
+
+        fun themeOf(id: String): Theme {
+            return when (id) {
+                "navy" -> Theme(Color.parseColor("#061428"), Color.parseColor("#1a3355"), Color.parseColor("#e8f0ff"))
+                "gold" -> Theme(Color.parseColor("#1a1404"), Color.parseColor("#5c4a12"), Color.parseColor("#f8efd0"))
+                "orange" -> Theme(Color.parseColor("#1a0c04"), Color.parseColor("#5c2e12"), Color.parseColor("#fde8d8"))
+                "teal" -> Theme(Color.parseColor("#041614"), Color.parseColor("#14524a"), Color.parseColor("#dff7f3"))
+                "coffee" -> Theme(Color.parseColor("#1a100c"), Color.parseColor("#4a3228"), Color.parseColor("#f3e6d8"))
+                "chocolate" -> Theme(Color.parseColor("#140a08"), Color.parseColor("#3d2218"), Color.parseColor("#f0ddd0"))
+                "forest" -> Theme(Color.parseColor("#08140c"), Color.parseColor("#1e3d28"), Color.parseColor("#e4f5e8"))
+                "plum" -> Theme(Color.parseColor("#140814"), Color.parseColor("#3d1e3d"), Color.parseColor("#f6e8f8"))
+                "wine" -> Theme(Color.parseColor("#14060a"), Color.parseColor("#4a1824"), Color.parseColor("#fde8ee"))
+                else -> Theme(Color.parseColor("#070707"), Color.parseColor("#2a2a28"), Color.parseColor("#f4f4f1"))
+            }
         }
     }
 }

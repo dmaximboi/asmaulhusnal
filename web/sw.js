@@ -1,11 +1,11 @@
 /* Service worker: offline cache + notification display */
-const CACHE = 'asma-v29';
+const CACHE = 'asma-v31';
 const ASSETS = [
   'app.html', 'style.css', 'app.js', 'dial.js', 'core.js', 'content.js', 'learn-salah.js', 'names.js',
   'content/dict.json', 'content/roots.json',
   'manifest.webmanifest', 'fonts/amiri-arabic-400-normal.woff2', 'fonts/amiri-arabic-700-normal.woff2',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png',
-  'index.html', 'land.css', 'land.js', 'boot.js'
+  'index.html', 'land.css', 'land.js', 'boot.js', 'island-themes.js'
 ];
 
 self.addEventListener('install', e => {

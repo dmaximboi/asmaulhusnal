@@ -238,6 +238,11 @@ select{min-width:140px}
 .set .r:first-of-type{border-top:0}
 .set .r>span{font-size:15px}
 .set .r small{display:block;color:var(--mut);font-size:12px;margin-top:2px}
+.theme-row{display:flex;flex-wrap:wrap;gap:10px;padding:12px 0}
+.theme-dot{width:36px;height:36px;border-radius:12px;padding:0;display:grid;place-items:center;border:1px solid var(--line);background:var(--card)}
+.theme-dot i{display:block;width:22px;height:22px;border-radius:8px}
+.theme-dot.on{border-color:var(--acc)}
+.isl-range{width:100%;margin:4px 0 10px;accent-color:var(--acc)}
 .step{display:inline-flex;align-items:center;gap:8px}
 .step button{width:34px;height:34px;border-radius:10px;background:var(--card2);border:1px solid #3a3a36;font-size:18px;line-height:1}
 .step b{min-width:30px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}

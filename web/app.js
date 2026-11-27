@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 8;
-const APP_NAME = '1.7';
+const APP_BUILD = 10;
+const APP_NAME = '1.8';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -27,7 +27,8 @@ const DEF = {
   imsakMin: 10, hijriAdj: 0, hijriMaghrib: true, weekStart: 1,
   loc: { auto: true, lat: 5.36, lng: -4.0083, name: 'Abidjan' },
   notif: false, sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', wake: false, panel: 'minute',
-  routine: null, fasting: {}, tab: 'clock', calMode: 'hijri', lastCheck: null, checkedAt: null, fresh: true
+  routine: null, fasting: {}, tab: 'clock', calMode: 'hijri', lastCheck: null, checkedAt: null, fresh: true,
+  islandTheme: 'black', islandShift: 0
 };
 let S = load();
 function clone(o) { return JSON.parse(JSON.stringify(o)); }
@@ -757,6 +758,14 @@ function renderLearn() {
 function stepper(path, val, min, max) {
   return '<span class="step"><button data-step="' + path + '" data-d="-1" data-min="' + min + '" data-max="' + max + '" aria-label="-">−</button><b>' + nA(val) + '</b><button data-step="' + path + '" data-d="1" data-min="' + min + '" data-max="' + max + '" aria-label="+">+</button></span>';
 }
+function islandThemeRow() {
+  const list = (window.AsmaIslandThemes && window.AsmaIslandThemes.list) || [];
+  const cur = S.islandTheme || 'black';
+  return '<div class="theme-row">' + list.map(th => {
+    const label = (th.name && (th.name[S.lang] || th.name.en)) || th.id;
+    return '<button type="button" class="theme-dot' + (th.id === cur ? ' on' : '') + '" data-act="islandTheme" data-id="' + esc(th.id) + '" aria-label="' + esc(label) + '" title="' + esc(label) + '"><i style="background:' + esc(th.bg) + ';box-shadow:inset 0 0 0 2px ' + esc(th.acc) + '"></i></button>';
+  }).join('') + '</div>';
+}
 function toggle(path, on, dis) { return '<label class="sw"><input type="checkbox" data-set="' + path + '"' + (on ? ' checked' : '') + (dis ? ' disabled' : '') + '><i></i></label>'; }
 function select(path, val, opts) { return '<select data-set="' + path + '">' + opts.map(o => '<option value="' + esc(o[0]) + '"' + (String(o[0]) === String(val) ? ' selected' : '') + '>' + esc(o[1]) + '</option>').join('') + '</select>'; }
 
@@ -809,6 +818,11 @@ function renderSettings() {
         '<p class="note">' + esc(t('soundCredits')) + '</p>';
     })() : '') +
     '<div class="r"><span>' + esc(t('soundFile')) + '</span><span class="btns" style="margin:0"><label class="btn sm" style="cursor:pointer">' + esc(t('soundChoose')) + '<input type="file" accept="audio/*" id="adhanFile" hidden></label><button class="btn sm" data-act="soundTest">' + esc(t('soundTest')) + '</button></span></div></div>' +
+    '<div class="set"><div class="st">' + esc(t('islandLook')) + '</div>' +
+    '<p class="note">' + esc(t('islandThemeHint')) + '</p>' +
+    islandThemeRow() +
+    '<div class="r"><span>' + esc(t('islandPlace')) + '<small>' + esc(t('islandPlaceHint')) + '</small></span></div>' +
+    '<input class="isl-range" type="range" min="-100" max="100" step="1" data-set="islandShift" value="' + (+S.islandShift || 0) + '"></div>' +
     (capPlugin('AsmaAlarms') ? ('<div class="set"><div class="st">' + esc(t('androidAlarms')) + '</div>' +
       '<p class="note">' + esc(t('androidAlarmsHint')) + '</p>' +
       '<p class="note" id="androidAlarmStatus">' + esc(t('androidAlarmsWait')) + '</p>' +
@@ -1028,6 +1042,7 @@ function afterSetting(path) {
   save();
   if (/^(method|asr|imsakMin|adj\.|hijriAdj|hijriMaghrib|loc)/.test(path)) invalidate();
   if (path === 'lang') { S.arAll = S.lang === 'ar' ? true : S.arAll; applyLang(); }
+  if (path === 'islandTheme' || path === 'islandShift') pushIslandLook();
   renderAll(true);
   if (!$('#sheet').hidden && !$('#rtForm')) renderSettings();
   if (/^(method|asr|imsakMin|adj\.|loc|sound|lang|notif)/.test(path)) syncAndroidAlarms();
@@ -1059,6 +1074,11 @@ function applyLang() {
   document.documentElement.lang = S.lang;
   document.documentElement.dir = S.lang === 'ar' ? 'rtl' : 'ltr';
   document.title = t('appName');
+}
+function pushIslandLook() {
+  if (window.asmaDesktop && typeof window.asmaDesktop.setIsland === 'function') {
+    window.asmaDesktop.setIsland({ theme: S.islandTheme || 'black', shift: (+S.islandShift || 0) / 100 });
+  }
 }
 /* ---------- audio ---------- */
 let actx = null, aud = null, adhanUrl = null;
@@ -1613,6 +1633,11 @@ document.addEventListener('click', ev => {
       }
       break;
     }
+    case 'islandTheme': {
+      S.islandTheme = b.dataset.id || 'black';
+      afterSetting('islandTheme');
+      break;
+    }
     case 'islandOn': {
       const pl = capPlugin('AsmaAlarms');
       if (!pl) break;
@@ -1657,7 +1682,7 @@ document.addEventListener('change', ev => {
     return;
   }
   let v = el.type === 'checkbox' ? el.checked : el.value;
-  if (['asr', 'weekStart'].includes(path)) v = parseInt(v, 10);
+  if (['asr', 'weekStart', 'islandShift'].includes(path)) v = parseInt(v, 10);
   setPath(path, v); afterSetting(path);
 });
 

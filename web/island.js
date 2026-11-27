@@ -21,7 +21,8 @@ const DEF = {
   adj: { fajr: 0, sunrise: 0, dhuhr: 0, asr: 0, maghrib: 0, isha: 0 },
   imsakMin: 10, hijriAdj: 0, hijriMaghrib: true, weekStart: 1,
   loc: { auto: true, lat: 5.36, lng: -4.0083, name: 'Abidjan' },
-  sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', routine: null, fasting: {}, lastCheck: null, fresh: true
+  sound: 'bundled', adhanFajr: '2', adhanDhuhr: '3', adhanMaghrib: '1', routine: null, fasting: {}, lastCheck: null, fresh: true,
+  islandTheme: 'black', islandShift: 0
 };
 function rawStore() {
   try {
@@ -47,6 +48,9 @@ function patchStore(obj) {
 }
 let S = load();
 function applyLang() { document.documentElement.lang = S.lang; document.documentElement.dir = S.lang === 'ar' ? 'rtl' : 'ltr'; }
+function applyIslandLook() {
+  if (window.AsmaIslandThemes) window.AsmaIslandThemes.apply(S.islandTheme || 'black');
+}
 
 /* ---------- helpers ---------- */
 const t = k => (D.T[S.lang] && D.T[S.lang][k]) || D.T.en[k] || k;
@@ -210,7 +214,10 @@ function apply() {
   });
   $$('#dots i').forEach(d => d.classList.toggle('on', +d.dataset.d === cur));
   renderActive();
-  if (desk && desk.resize) desk.resize(mode, cur);
+  if (desk && desk.resize) {
+    if (mode !== 'c') window.__islandDidExpand = true;
+    if (mode !== 'c' || window.__islandDidExpand) desk.resize(mode, cur);
+  }
 }
 function expand(p) { mode = 'e'; cur = p || 0; apply(); noteTouch(); }
 function collapse() {
@@ -227,6 +234,9 @@ function go(d) {
 
 /* ---------- hover detection ---------- */
 function setIgnore(v) { if (ignoring === v) return; ignoring = v; if (desk) desk.ignore(v); }
+function collapseWait() {
+  return (desk && desk.noCursor) ? 3000 : 280;
+}
 function scheduleCollapse() {
   clearTimeout(collapseT);
   collapseT = setTimeout(() => {
@@ -235,7 +245,7 @@ function scheduleCollapse() {
     if (mode === 'c') return;
     if (mode === 'al' && (playing || wantPlay)) return;
     collapse();
-  }, 3000);
+  }, collapseWait());
 }
 function noteTouch() {
   if (mode === 'c') return;
@@ -260,7 +270,8 @@ if (desk && typeof desk.cursor === 'function' && !desk.noCursor) {
       setHover(p.x >= r.left - pad4 && p.x <= r.right + pad4 && p.y >= r.top - pad4 && p.y <= r.bottom + pad4);
     } catch (e) { /* ignore */ }
   }, 90);
-} else if (!desk || !desk.noCursor) {
+}
+if (!desk || !desk.noCursor) {
   isl.addEventListener('mouseenter', () => setHover(true));
   isl.addEventListener('mouseleave', () => setHover(false));
 }
@@ -274,11 +285,30 @@ isl.addEventListener('wheel', e => {
   if (Math.abs(wAcc) >= 30 && !wLock) { go(wAcc > 0 ? 1 : -1); wAcc = 0; wLock = true; setTimeout(() => { wLock = false; }, 380); }
 }, { passive: false });
 /* drag up/down (mouse or touch) */
-let dragY = null;
-isl.addEventListener('pointerdown', e => { noteTouch(); if (e.target.closest('button')) return; dragY = e.clientY; });
+let dragY = null, slide = null;
+isl.addEventListener('pointerdown', e => {
+  if (desk && desk.noCursor) noteTouch();
+  if (e.target.closest('button')) return;
+  dragY = e.clientY;
+  if (desk && !desk.noCursor && mode === 'c' && desk.setIsland) {
+    slide = { x: e.screenX, s: +S.islandShift || 0 };
+  }
+});
+window.addEventListener('pointermove', e => {
+  if (!slide || !desk || !desk.setIsland) return;
+  const next = Math.max(-100, Math.min(100, slide.s + (e.screenX - slide.x) / 3.2));
+  S.islandShift = Math.round(next);
+  desk.setIsland({ theme: S.islandTheme || 'black', shift: S.islandShift / 100 });
+});
 window.addEventListener('pointerup', e => {
+  const wasSlide = !!slide;
+  if (slide) {
+    patchStore({ islandShift: S.islandShift });
+    slide = null;
+  }
   if (dragY == null) return;
   const dy = dragY - e.clientY; dragY = null;
+  if (wasSlide) return;
   if (dy > 40) go(1); else if (dy < -40) go(-1);
 });
 /* keyboard (only used when focus is on the window, e.g. in a browser) */
@@ -454,7 +484,7 @@ function dailyCheck(force) {
     }).catch(() => {});
   }
 }
-function reloadStore() { S = load(); tmCache = new Map(); applyLang(); calDirty = true; lastSec = -1; }
+function reloadStore() { S = load(); tmCache = new Map(); applyLang(); applyIslandLook(); calDirty = true; lastSec = -1; }
 window.__islandReload = reloadStore;
 window.addEventListener('storage', e => { if (e.key === SKEY) reloadStore(); });
 setInterval(() => { const a = JSON.stringify(rawStore()); if (a !== reloadStore.last) { reloadStore.last = a; reloadStore(); } }, 20000);
@@ -473,6 +503,16 @@ function tick(force) {
 }
 
 applyLang();
+applyIslandLook();
+function fromDeskCfg(c) {
+  if (!c) return;
+  if (c.theme) { S.islandTheme = c.theme; applyIslandLook(); }
+  if (isFinite(c.shift)) S.islandShift = Math.round((+c.shift) * 100);
+}
+if (desk && desk.getIslandCfg) {
+  desk.getIslandCfg().then(fromDeskCfg).catch(() => {});
+}
+if (desk && desk.onIslandCfg) desk.onIslandCfg(fromDeskCfg);
 reloadStore.last = JSON.stringify(rawStore());
 dailyCheck(false);
 if (S.fresh && desk) dailyCheck(true);

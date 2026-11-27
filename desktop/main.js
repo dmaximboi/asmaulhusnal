@@ -23,10 +23,19 @@ function readCfg() { try { return JSON.parse(fs.readFileSync(cfgPath(), 'utf8'))
 function writeCfg(o) { try { fs.writeFileSync(cfgPath(), JSON.stringify(Object.assign(readCfg(), o))); } catch (e) { /* ignore */ } }
 
 /* ---------- windows ---------- */
+function iconPath() {
+  return path.join(__dirname, 'build', 'icon.png');
+}
+
 function placeIsland() {
   if (!island) return;
   const b = screen.getPrimaryDisplay().bounds;
-  island.setBounds({ x: Math.round(b.x + (b.width - W) / 2), y: b.y, width: W, height: H });
+  let shift = +readCfg().shift || 0;
+  if (Math.abs(shift) > 1) shift = shift / 100;
+  shift = Math.max(-1, Math.min(1, shift));
+  const max = Math.max(0, (b.width - W) / 2);
+  const x = Math.round(b.x + (b.width - W) / 2 + shift * max);
+  island.setBounds({ x: x, y: b.y, width: W, height: H });
 }
 
 function createIsland() {
@@ -35,8 +44,9 @@ function createIsland() {
     frame: false, transparent: true, resizable: false, movable: false, minimizable: false, maximizable: false,
     fullscreenable: false, hasShadow: false, skipTaskbar: true, focusable: false, show: false,
     backgroundColor: '#00000000', title: 'Asma Island',
+    icon: iconPath(),
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true,
+      preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false,
       backgroundThrottling: false, autoplayPolicy: 'no-user-gesture-required', spellcheck: false
     }
   });
@@ -57,7 +67,7 @@ function openFullApp() {
   if (appWin) { if (appWin.isMinimized()) appWin.restore(); appWin.show(); appWin.focus(); return; }
   appWin = new BrowserWindow({
     width: 440, height: 860, minWidth: 360, minHeight: 560, backgroundColor: '#141414', autoHideMenuBar: true, title: 'Asma Clock',
-    icon: path.join(__dirname, 'build', 'tray.png'),
+    icon: iconPath(),
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false }
   });
   appWin.setMenuBarVisibility(false);
@@ -78,6 +88,14 @@ function buildMenu() {
   tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'Open Asma Clock', click: openFullApp },
     { label: userHidden ? 'Show island' : 'Hide island', accelerator: 'Ctrl+Alt+I', click: toggleIsland },
+    {
+      label: 'Island place',
+      submenu: [
+        { label: 'Top left', click: () => setIslandCfg({ shift: -1 }) },
+        { label: 'Top center', click: () => setIslandCfg({ shift: 0 }) },
+        { label: 'Top right', click: () => setIslandCfg({ shift: 1 }) }
+      ]
+    },
     { type: 'separator' },
     {
       label: 'Start with Windows', type: 'checkbox', checked: app.getLoginItemSettings().openAtLogin,
@@ -88,7 +106,7 @@ function buildMenu() {
   ]));
 }
 function createTray() {
-  const img = nativeImage.createFromPath(path.join(__dirname, 'build', 'tray.png'));
+  const img = nativeImage.createFromPath(iconPath());
   tray = new Tray(img);
   tray.setToolTip('Asma Island');
   tray.on('double-click', openFullApp);
@@ -102,6 +120,20 @@ ipcMain.handle('cursor', () => {
   const b = island.getBounds();
   return { x: p.x - b.x, y: p.y - b.y };
 });
+function setIslandCfg(o) {
+  writeCfg(o);
+  placeIsland();
+  if (island && !island.isDestroyed()) {
+    try { island.webContents.send('islandCfg', readCfg()); } catch (e) { /* ignore */ }
+  }
+}
+ipcMain.on('setIsland', (e, o) => {
+  const next = {};
+  if (o && o.theme) next.theme = String(o.theme);
+  if (o && isFinite(o.shift)) next.shift = Math.max(-1, Math.min(1, +o.shift));
+  setIslandCfg(next);
+});
+ipcMain.handle('getIslandCfg', () => readCfg());
 ipcMain.on('ignore', (e, v) => { if (island) island.setIgnoreMouseEvents(!!v, { forward: true }); });
 ipcMain.on('show', () => { if (island && !island.isVisible()) island.showInactive(); });
 ipcMain.on('openApp', openFullApp);

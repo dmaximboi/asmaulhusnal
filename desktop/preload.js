@@ -6,5 +6,8 @@ contextBridge.exposeInMainWorld('asmaDesktop', {
   show: () => ipcRenderer.send('show'),
   openApp: () => ipcRenderer.send('openApp'),
   holdAwake: on => ipcRenderer.send('holdAwake', !!on),
-  ipLocation: () => ipcRenderer.invoke('ipLocation')
+  ipLocation: () => ipcRenderer.invoke('ipLocation'),
+  setIsland: o => ipcRenderer.send('setIsland', o || {}),
+  getIslandCfg: () => ipcRenderer.invoke('getIslandCfg'),
+  onIslandCfg: cb => { ipcRenderer.on('islandCfg', (e, o) => { try { cb(o); } catch (err) { /* ignore */ } }); }
 });
