@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 11;
-const APP_NAME = '1.8.1';
+const APP_BUILD = 12;
+const APP_NAME = '1.8.2';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -1453,8 +1453,8 @@ function nativeInstall() {
 }
 function openHttp(url) {
   if (!url) return;
-  if (window.asmaDesktop && typeof window.asmaDesktop.openUrl === 'function') {
-    window.asmaDesktop.openUrl(url);
+  if (window.asmaDesktop) {
+    if (typeof window.asmaDesktop.openUrl === 'function') window.asmaDesktop.openUrl(url);
     return;
   }
   window.open(url, '_blank');
@@ -1470,7 +1470,11 @@ function showUpd(kind, url, code, body) {
   updUrl = url || '';
   updCode = code || 0;
   const go = kind === 'web' ? t('updReload') : t('updGet');
-  el.innerHTML = '<p>' + esc(t('updTitle') + '. ' + body) + '</p><div class="btns"><button class="btn sm" data-act="updGo">' + esc(go) + '</button><button class="btn sm" data-act="updLater">' + esc(t('updLater')) + '</button></div>';
+  const href = kind === 'web' ? '' : esc(url || '');
+  const goBtn = kind === 'web'
+    ? '<button class="btn sm" data-act="updGo">' + esc(go) + '</button>'
+    : '<a class="btn sm" href="' + href + '" target="_blank" rel="noopener noreferrer" data-act="updGo">' + esc(go) + '</a>';
+  el.innerHTML = '<p>' + esc(t('updTitle') + '. ' + body) + '</p><div class="btns">' + goBtn + '<button class="btn sm" data-act="updLater">' + esc(t('updLater')) + '</button></div>';
   el.hidden = false;
   if (S.notif && 'Notification' in window && Notification.permission === 'granted') {
     const opts = { body: body, tag: 'asma-update', renotify: true, icon: 'icons/icon-192.png' };
@@ -1499,9 +1503,9 @@ function checkAppUpdate(force) {
         return;
       }
       if (!force && S.updateDismissed === code) return;
-      let url = j.apkUrl || (SITE_URL + '#download');
-      if (window.asmaDesktop && j.winFile) url = j.winFile;
-      else if (capPlugin('AsmaAlarms') && j.apkFile) url = j.apkFile;
+      let url = j.apkFile || j.apkUrl || (SITE_URL + '#download');
+      if (window.asmaDesktop) url = j.winFile || 'https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/Asma-Island-Setup.exe';
+      else if (capPlugin('AsmaAlarms')) url = j.apkFile || j.apkUrl || url;
       showUpd('apk', url, code, t('updApkBody') + (j.apkName ? ' (' + j.apkName + ')' : ''));
     }).catch(() => { if (force) toast(t('updFail')); });
     return;
@@ -1618,6 +1622,7 @@ document.addEventListener('click', ev => {
       hideUpd();
       break;
     case 'updGo':
+      ev.preventDefault();
       if (updKind === 'web') { hideUpd(); location.reload(); break; }
       if (updUrl) openHttp(updUrl);
       break;

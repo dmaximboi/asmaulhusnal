@@ -3,6 +3,9 @@ const { app, BrowserWindow, Tray, Menu, ipcMain, screen, globalShortcut, dialog,
 const path = require('path');
 const https = require('https');
 const fs = require('fs');
+const { execFile } = require('child_process');
+
+const WIN_SETUP = 'https://github.com/dmaximboi/asmaulhusnal/releases/latest/download/Asma-Island-Setup.exe';
 
 const W = 520, H = 340;
 let island = null, appWin = null, tray = null, userHidden = false, quitting = false;
@@ -14,6 +17,18 @@ if (!gotLock) {
   app.on('second-instance', () => openFullApp());
   app.on('window-all-closed', () => { /* keep running in the tray */ });
   app.on('before-quit', () => { quitting = true; });
+  app.on('web-contents-created', (e, wc) => {
+    if (!wc) return;
+    wc.setWindowOpenHandler(function (details) {
+      openExternal(details && details.url);
+      return { action: 'deny' };
+    });
+    wc.on('will-navigate', function (ev, url) {
+      if (String(url).indexOf('file:') === 0) return;
+      ev.preventDefault();
+      openExternal(url);
+    });
+  });
   app.whenReady().then(start);
 }
 
@@ -68,7 +83,7 @@ function openFullApp() {
   appWin = new BrowserWindow({
     width: 440, height: 860, minWidth: 360, minHeight: 560, backgroundColor: '#141414', autoHideMenuBar: true, title: 'Asma Clock',
     icon: iconPath(),
-    webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false }
+    webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: false, nativeWindowOpen: true, backgroundThrottling: false }
   });
   appWin.setMenuBarVisibility(false);
   wireExternal(appWin);
@@ -88,6 +103,7 @@ function buildMenu() {
   if (!tray) return;
   tray.setContextMenu(Menu.buildFromTemplate([
     { label: 'Open Asma Clock', click: openFullApp },
+    { label: 'Download update', click: () => openExternal(WIN_SETUP) },
     { label: userHidden ? 'Show island' : 'Hide island', accelerator: 'Ctrl+Alt+I', click: toggleIsland },
     {
       label: 'Island place',
@@ -141,10 +157,23 @@ ipcMain.on('openApp', openFullApp);
 ipcMain.on('openUrl', (e, url) => openExternal(url));
 
 function openExternal(url) {
+  let href = '';
   try {
     const u = new URL(String(url || ''));
     if (u.protocol !== 'https:') return;
-    shell.openExternal(u.toString());
+    href = u.toString();
+  } catch (err) {
+    return;
+  }
+  const go = shell.openExternal(href);
+  if (go && typeof go.then === 'function') {
+    go.catch(function () { startBrowser(href); });
+  }
+}
+
+function startBrowser(href) {
+  try {
+    execFile('cmd.exe', ['/c', 'start', '', href], { windowsHide: true });
   } catch (err) { /* ignore */ }
 }
 
@@ -153,11 +182,6 @@ function wireExternal(win) {
   win.webContents.setWindowOpenHandler(function (details) {
     openExternal(details.url);
     return { action: 'deny' };
-  });
-  win.webContents.on('will-navigate', function (e, url) {
-    if (String(url).indexOf('file:') === 0) return;
-    e.preventDefault();
-    openExternal(url);
   });
 }
 let awakeId = 0;
