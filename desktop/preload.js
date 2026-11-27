@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('asmaDesktop', {
   ignore: v => ipcRenderer.send('ignore', !!v),
   show: () => ipcRenderer.send('show'),
   openApp: () => ipcRenderer.send('openApp'),
+  openUrl: u => ipcRenderer.send('openUrl', String(u || '')),
   holdAwake: on => ipcRenderer.send('holdAwake', !!on),
   ipLocation: () => ipcRenderer.invoke('ipLocation'),
   setIsland: o => ipcRenderer.send('setIsland', o || {}),

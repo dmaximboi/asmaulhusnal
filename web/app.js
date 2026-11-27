@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 10;
-const APP_NAME = '1.8';
+const APP_BUILD = 11;
+const APP_NAME = '1.8.1';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -1451,6 +1451,14 @@ let updKind = '', updUrl = '', updCode = 0;
 function nativeInstall() {
   return !!(capPlugin('AsmaAlarms') || window.asmaDesktop);
 }
+function openHttp(url) {
+  if (!url) return;
+  if (window.asmaDesktop && typeof window.asmaDesktop.openUrl === 'function') {
+    window.asmaDesktop.openUrl(url);
+    return;
+  }
+  window.open(url, '_blank');
+}
 function hideUpd() {
   const el = $('#upd');
   if (el) el.hidden = true;
@@ -1491,7 +1499,10 @@ function checkAppUpdate(force) {
         return;
       }
       if (!force && S.updateDismissed === code) return;
-      showUpd('apk', j.apkUrl || UPDATE_URLS[0], code, t('updApkBody') + (j.apkName ? ' (' + j.apkName + ')' : ''));
+      let url = j.apkUrl || (SITE_URL + '#download');
+      if (window.asmaDesktop && j.winFile) url = j.winFile;
+      else if (capPlugin('AsmaAlarms') && j.apkFile) url = j.apkFile;
+      showUpd('apk', url, code, t('updApkBody') + (j.apkName ? ' (' + j.apkName + ')' : ''));
     }).catch(() => { if (force) toast(t('updFail')); });
     return;
   }
@@ -1590,7 +1601,7 @@ document.addEventListener('click', ev => {
     case 'learnTab': learnTab = b.dataset.v; renderLearn(); window.scrollTo(0, 0); break;
     case 'dictLetter': dictLetter = b.dataset.l || ''; renderLearn(); break;
     case 'reportDict': {
-      window.open(issueUrl('Dictionary report', 'Word: ' + (b.dataset.ar || '') + '\n(describe the error in the meaning or the source)'), '_blank');
+      openHttp(issueUrl('Dictionary report', 'Word: ' + (b.dataset.ar || '') + '\n(describe the error in the meaning or the source)'));
       break;
     }
     case 'accToggle': {
@@ -1608,11 +1619,11 @@ document.addEventListener('click', ev => {
       break;
     case 'updGo':
       if (updKind === 'web') { hideUpd(); location.reload(); break; }
-      if (updUrl) window.open(updUrl, '_blank');
+      if (updUrl) openHttp(updUrl);
       break;
     case 'reportBug': {
       const body = ($('#bugBody') && $('#bugBody').value.trim()) || '';
-      window.open(issueUrl('Bug or content report', body || '(describe the problem or the dua that needs a correction)'), '_blank');
+      openHttp(issueUrl('Bug or content report', body || '(describe the problem or the dua that needs a correction)'));
       break;
     }
     case 'locUpdate': refreshLocation(true).then(() => { if (!$('#sheet').hidden) renderSettings(); }); break;

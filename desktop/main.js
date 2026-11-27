@@ -1,5 +1,5 @@
 /* Asma Island: Electron shell. Built on Electron 22 so it still runs on Windows 8, 8.1, 10 and 11. */
-const { app, BrowserWindow, Tray, Menu, ipcMain, screen, globalShortcut, dialog, nativeImage, powerSaveBlocker } = require('electron');
+const { app, BrowserWindow, Tray, Menu, ipcMain, screen, globalShortcut, dialog, nativeImage, powerSaveBlocker, shell } = require('electron');
 const path = require('path');
 const https = require('https');
 const fs = require('fs');
@@ -71,6 +71,7 @@ function openFullApp() {
     webPreferences: { preload: path.join(__dirname, 'preload.js'), contextIsolation: true, nodeIntegration: false, sandbox: true, backgroundThrottling: false }
   });
   appWin.setMenuBarVisibility(false);
+  wireExternal(appWin);
   appWin.loadFile(path.join(__dirname, 'app', 'app.html'));
   appWin.on('closed', () => { appWin = null; });
 }
@@ -137,6 +138,28 @@ ipcMain.handle('getIslandCfg', () => readCfg());
 ipcMain.on('ignore', (e, v) => { if (island) island.setIgnoreMouseEvents(!!v, { forward: true }); });
 ipcMain.on('show', () => { if (island && !island.isVisible()) island.showInactive(); });
 ipcMain.on('openApp', openFullApp);
+ipcMain.on('openUrl', (e, url) => openExternal(url));
+
+function openExternal(url) {
+  try {
+    const u = new URL(String(url || ''));
+    if (u.protocol !== 'https:') return;
+    shell.openExternal(u.toString());
+  } catch (err) { /* ignore */ }
+}
+
+function wireExternal(win) {
+  if (!win || !win.webContents) return;
+  win.webContents.setWindowOpenHandler(function (details) {
+    openExternal(details.url);
+    return { action: 'deny' };
+  });
+  win.webContents.on('will-navigate', function (e, url) {
+    if (String(url).indexOf('file:') === 0) return;
+    e.preventDefault();
+    openExternal(url);
+  });
+}
 let awakeId = 0;
 ipcMain.on('holdAwake', (e, on) => {
   if (on) {
