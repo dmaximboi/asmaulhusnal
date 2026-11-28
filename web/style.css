@@ -204,7 +204,7 @@ input,select{font:inherit;color:var(--fg)}
 
 /* nav */
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:20;display:flex;flex-wrap:nowrap;justify-content:center;overflow:hidden;background:rgba(20,20,20,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-.nav .in{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));width:100%;max-width:560px;min-width:0}
+.nav .in{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));width:100%;max-width:560px;min-width:0}
 .nav button{height:var(--nav);min-width:0;width:100%;padding:0 1px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mut);font-size:10px;overflow:hidden;flex-shrink:0}
 .nav button span{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.15}
 .nav button.on{color:var(--acc)}
@@ -254,6 +254,20 @@ select{min-width:140px}
 #upd{position:fixed;left:12px;right:12px;top:calc(env(safe-area-inset-top) + 8px);z-index:40;max-width:536px;margin:0 auto;background:var(--acc);color:#141414;border-radius:14px;padding:12px 14px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
 #upd p{margin:0 0 10px;font-size:14px;font-weight:600;line-height:1.35}
 #upd .btns{margin:0}
+
+.game-bar{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 0 12px;font-size:14px}
+.game-path{min-height:44px;border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center;font-size:22px;font-family:var(--ar);direction:rtl}
+.game-ring,.game-bank{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0}
+.game-ch,.game-cell{min-width:44px;min-height:44px;border-radius:12px;border:1px solid var(--line);background:var(--card2);font-size:20px;font-family:var(--ar)}
+.game-ch.on,.game-cell.pick{border-color:var(--acc);color:var(--acc)}
+.game-cell.ok{background:var(--acc);color:#141414;border-color:var(--acc)}
+.game-grid{display:grid;gap:4px;margin:12px 0;direction:ltr}
+.game-grid i.off{min-height:44px}
+.game-found{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.game-found span{border:1px dashed var(--line);border-radius:999px;padding:6px 10px;font-family:var(--ar)}
+.game-found span.ok{border-style:solid;border-color:var(--acc)}
+.game-clue{margin-top:8px;color:var(--mut);line-height:1.5}
+.game-win{margin-top:16px}
 .toast{pointer-events:auto;background:#f1f1ee;color:#141414;border-radius:14px;padding:11px 16px;font-size:14px;max-width:420px;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:fade .2s ease;display:flex;gap:12px;align-items:center}
 .toast.big{background:var(--acc);font-size:16px;font-weight:600}
 .toast button{background:#141414;color:#f1f1ee;border-radius:9px;padding:6px 12px;font-size:13px}

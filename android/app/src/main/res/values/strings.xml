@@ -26,7 +26,8 @@
     <string name="fast_channel_desc">Sunnah and Ramadan fasting notices that stay in the shade until you dismiss them</string>
     <string name="share_fast">Share this fasting reminder</string>
     <string name="widget_name">Asma Clock</string>
-    <string name="widget_desc">Live analog clock, digital time and date</string>
+    <string name="widget_desc">Live analog clock, digital time, date, and a daily dua</string>
+    <string name="widget_daily_label">Daily prayer</string>
     <string name="island_channel">Island</string>
     <string name="island_notif_title">Asma Island is on</string>
     <string name="island_notif_body">The island stays on top of other apps.</string>

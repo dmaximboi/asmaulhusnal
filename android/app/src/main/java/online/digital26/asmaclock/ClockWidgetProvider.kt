@@ -41,19 +41,28 @@ class ClockWidgetProvider : AppWidgetProvider() {
         fun paint(ctx: Context, manager: AppWidgetManager, ids: IntArray) {
             val bmp = NamesDialBitmap.draw(sizePx = 360)
             val now = java.util.Calendar.getInstance()
-            val h24 = try {
+            var h24 = false
+            var lang = "en"
+            try {
                 val raw = AsmaStore.read(ctx)
-                raw.isNotEmpty() && org.json.JSONObject(raw).optBoolean("h24", false)
-            } catch (_: Exception) {
-                false
-            }
+                if (raw.isNotEmpty()) {
+                    val o = org.json.JSONObject(raw)
+                    h24 = o.optBoolean("h24", false)
+                    lang = o.optString("lang", "en")
+                    if (lang.isEmpty()) lang = "en"
+                }
+            } catch (_: Exception) { /* keep defaults */ }
             val date = WidgetCopy.dateLine(now)
             val time = WidgetCopy.timeLine(now, h24)
+            val dua = WidgetDuas.pick(now)
             ids.forEach { id ->
                 val views = RemoteViews(ctx.packageName, R.layout.widget_clock)
                 views.setImageViewBitmap(R.id.widget_dial, bmp)
                 views.setTextViewText(R.id.widget_date, date)
                 views.setTextViewText(R.id.widget_digital, time)
+                views.setTextViewText(R.id.widget_daily_label, WidgetDuas.label(lang))
+                views.setTextViewText(R.id.widget_daily_ar, dua.ar)
+                views.setTextViewText(R.id.widget_daily_src, dua.src)
                 val open = Intent(ctx, MainActivity::class.java)
                 var flags = PendingIntent.FLAG_UPDATE_CURRENT
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

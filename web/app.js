@@ -14,8 +14,8 @@ Object.assign(D.T.ar, { secLbl: '(الثواني)', secUp: 'الثواني', min
 
 /* ---------- state ---------- */
 const SKEY = 'asma.v1';
-const APP_BUILD = 12;
-const APP_NAME = '1.8.2';
+const APP_BUILD = 13;
+const APP_NAME = '1.9';
 const SITE_URL = 'https://asmaulhusnal.netlify.app/';
 const UPDATE_URLS = [
   'https://raw.githubusercontent.com/dmaximboi/asmaulhusnal/main/web/version.json',
@@ -143,7 +143,7 @@ let lastIdx = -1, lastSec = -1, lastMinKey = '', lastDay = dkey(new Date());
 let cal = null;
 
 function renderNavLabels() {
-  const keys = ['tabClock', 'tabPrayer', 'tabCalendar', 'tabRoutine', 'tabDuas', 'tabLearn'];
+  const keys = ['tabClock', 'tabPrayer', 'tabCalendar', 'tabRoutine', 'tabDuas', 'tabLearn', 'tabGames'];
   $$('#nav button').forEach((b, i) => { $('span', b).textContent = t(keys[i]); b.classList.toggle('on', b.dataset.tab === S.tab); });
   $('#brand').textContent = t('appName');
   $('#btnSettings').setAttribute('aria-label', t('settings'));
@@ -247,6 +247,10 @@ function tick(force) {
     renderLive(now);
   }
   if (S.tab === 'prayer') updatePrayerCountdown(now);
+  if (S.tab === 'games' && window.AsmaGames && window.AsmaGames.onTick) {
+    const np = nextPrayer(now);
+    window.AsmaGames.onTick(now.getTime(), np && np.at ? np.at.getTime() : 0);
+  }
 }
 
 /* live cards under the clock */
@@ -1559,6 +1563,7 @@ function renderTab(tab) {
   else if (tab === 'routine') renderRoutine();
   else if (tab === 'duas') renderDuas();
   else if (tab === 'learn') renderLearn();
+  else if (tab === 'games' && window.AsmaGames) window.AsmaGames.render();
 }
 function showTab(tab) {
   if (S.tab === 'duas') duaY[duaCat] = window.scrollY;
@@ -1584,6 +1589,7 @@ document.addEventListener('click', ev => {
     setPath(path, v); afterSetting(path); return;
   }
   const a = b.dataset.act;
+  if (window.AsmaGames && window.AsmaGames.onAct(a, b)) return;
   switch (a) {
     case 'tab': showTab(b.dataset.tab); break;
     case 'settings': renderSettings(); break;
@@ -1718,7 +1724,7 @@ document.addEventListener('keydown', ev => {
   if (!$('#sheet').hidden) closeSheet();
 });
 
-const TABS = ['clock', 'prayer', 'calendar', 'routine', 'duas', 'learn'];
+const TABS = ['clock', 'prayer', 'calendar', 'routine', 'duas', 'learn', 'games'];
 let swipeX = 0, swipeY = 0, swipeOn = false;
 function swipeBlocked(el) {
   if (!$('#sheet').hidden) return true;
